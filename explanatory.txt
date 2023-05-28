@@ -1,0 +1,49 @@
+Выбор типа БД:
+  1. Доступ должен обеспеиваться нескольким пользователям одновременно,
+  2. Должна обеспечиваться защищенность,
+  3. Для максимальной приближенности к реальности и отработки навыков
+Вывод: используем БД MySQL.
+
+План работы:
+  1. Делаем Front - на React 
+  2. Делаем Backend - на Laravel
+
+База данных:
+  Таблицы:
+    films-> "id", "name", "genre", "duration", "desc", "creators".
+      таблицу films заполняет админ по кнопке добавить фильм.
+    
+    halls_start-> "id', "name", "seating_chart", "price_vip","price_ordinary".
+      где столбец seating_chart двумерный массив статуса кресел в зале,типа:
+      [
+        hall1_status=> [
+          "1"=> ["disabled", "disabled","standard","vip",.....],
+          "2"=> ["disabled", "disabled","standard","vip",.....],
+          .........
+        ],
+        hall2_status=> [
+        "1"=> ["disabled", "disabled","standard","vip",.....],
+        "2"=> ["disabled", "disabled","standard","vip",.....],
+        .........
+        ]
+      ]
+    таблицу halls_start заполняет админ, из админ панели.
+    
+    load_halls-> "id", "date(dd.mm.yyyy)", "day", "session_grid", "scheme_purchaaed_seads".
+      где столбец session_grid заполняет админ из секции "сетка сеансов" и столбец - двумерный массив типа:
+       [
+         hall1_session=> [
+           "hh:mm"=> "film1",
+           "hh:mm"=> "film2",
+           ............
+         ],
+         hall2_session=> [
+         "hh:mm"=> "film1",
+         "hh:mm"=> "film2",
+         ............
+         ],
+         ....................
+       ],
+     а столбец "scheme_purchaaed_seads", изменяют покупатели билетов при покупке.
+     В первоначальный момент (ни одного билета не куплено), этот столбец копия столбца seating_chart,
+       таблицы halls_start.

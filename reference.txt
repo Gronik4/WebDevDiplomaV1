@@ -1,3 +1,4 @@
 Дипломный проект по профессии «Веб-разработчик»: https://github.com/netology-code/fs-2-diplom/
 Имя на гитхабе: WebDevDiplomaV1
-Discription: Дипломная работа за весь курс "Веб-разработки"
+Discription: Дипломная работа за весь курс "Веб-разработчик с нуля"
+Имя проекта в laravel: gotocinema

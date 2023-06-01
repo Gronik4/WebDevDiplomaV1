@@ -1,0 +1,18 @@
+{
+    "name": "gronw/web-dev-diploma-v1",
+    "description": "Дипломная работа за весь курс \"Веб-разработчик с нуля\"",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Gronw\\WebDevDiplomaV1\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Gronik4",
+            "email": "golegni@yandex.ru"
+        }
+    ],
+    "minimum-stability": "stable",
+    "require": {}
+}

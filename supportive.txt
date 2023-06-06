@@ -1,0 +1,13 @@
+Совпадающие имена классов в styleC.css и styleA.css:
+html - стили свопадают полностью, замена не нужна
+.page-header - замена на .page-headerA
+ И по этому в клиентских страницах в header выводим header с классом .page-header
+  в админских - ApplicationLogo компонент.
+
+Вырезано из app.blade.php
+<link rel="preconnect" href="https://fonts.bunny.net">
+        <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
+http://webdevdip/build/assets/app-eed483c4.css
+
+
+Забыли свой пароль? Нет проблем! Просто сообщите нам свой адрес электронной почты, и мы вышлем вам пароль по электронной почте.

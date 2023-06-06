@@ -2,3 +2,46 @@
 Имя на гитхабе: WebDevDiplomaV1
 Discription: Дипломная работа за весь курс "Веб-разработчик с нуля"
 Имя проекта в laravel: gotocinema
+
+СПPАВОЧНЫЕ ДАННЫЕ:
+******************************************
+Параметры БД:
+Имя БД: gotocinema
+Пользователь: humans
+Пароль: fe1W!Rb-V6Tv7F/m
+*****************************************
+Для админа:
+никнейм: Admin
+email: lyly@yandex.ru
+пароль: administrator_g2c
+******************************************
+Имена таблиц в БД: 'films', 'halls_config', 'session_grid'
+******************************************
+Имена столбцов в табдицах:
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'films'-> 'id'	'name'	'desc'	'genre'	'creators'	'realise'	'duration'	'posterMain'	'posterAd' 
+  'id'
+  'name'
+  'desc'
+  'genre'
+  'creators'
+  'realise'
+  'duration'
+  'posterMain'
+  'posterAd'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'halls_config'-> 'id'	'name'	'config'	'price_vip'	'price_ordinary'
+  'id'
+  'name'
+  'config'
+  'price_vip'
+  'price_ordinary'
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+'session_grid'-> 'id'	'hall_name'	'Data'	'allpwed'	'time'	'film'	'sold_seats'
+  'id'
+  'hall_name'
+  'Data'
+  'allpwed'
+  'time'
+  'film'
+  'sold_seats'

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 
-export default function ApplicationLogo() {
+export default function ApplicationLogo({flag}) {
   return (
     <header className="page-headerA">
       <Link href='/'>

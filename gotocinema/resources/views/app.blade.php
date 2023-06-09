@@ -7,6 +7,8 @@
         <link rel="stylesheet" href="css/styleC.css">
         <link rel="stylesheet" href="css/styleA.css">
         
+        <script src="{{ URL::asset('js/accordeon.js') }}"></script>
+        
         <title inertia>{{ config('app.name', 'Laravel') }}</title>
 
         <!-- Fonts -->
@@ -20,5 +22,6 @@
     </head>
     <body class="font-sans antialiased" font-family="Roboto" data-adrs="app.blade">
         @inertia
+        
     </body>
 </html>

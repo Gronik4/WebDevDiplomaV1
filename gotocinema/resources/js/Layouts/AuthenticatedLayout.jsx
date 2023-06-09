@@ -9,25 +9,28 @@ export default function Authenticated({ user, header, children }) {
   const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gray-100" style={{fontSize: "100%"}}>
-        <div className='login__header'>
-          <div className="items-center">
-            <ApplicationLogo flag={1} />
-          </div>  
-        </div>
-        <nav className="border-b border-gray-100">
-
-                <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                    <div className="flex justify-between h-16">
-                        <div className="flex">
-                            
-
-                            <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" style={{fontSize: "100%"}}>
-                                <NavLink href={route('dashboard')} active={route().current('dashboard')}>
-                                    Dashboard
-                                </NavLink>
-                            </div>
-                        </div>
+    <div className="min-h-screen bg-gray-100">
+      <div className='login__header' style={{padding: "0 104px"}}>
+        <ApplicationLogo flag={1} />
+      </div>
+      <nav className="border-b border-gray-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between h-16">
+            <div className="flex">
+              <div className="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex" >
+                <NavLink href={route('dashboard')} active={route().current('dashboard')} style={{fontSize: "1.5rem"}}>
+                   Панель управления
+                </NavLink>
+                <NavLink href={'/'} active={route().current('welcome')} style={{fontSize: "1.5rem"}}>
+                  Главная
+                </NavLink>
+                {user.status?
+                  <NavLink href={'panalAdmin'} active={route().current('welcome')} style={{fontSize: "1.5rem"}}>
+                    Панель администратора
+                  </NavLink>: null
+                }               
+              </div>
+            </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ml-6">
                             <div className="ml-3 relative">
@@ -37,6 +40,7 @@ export default function Authenticated({ user, header, children }) {
                                             <button
                                                 type="button"
                                                 className="inline-flex items-center px-3 py-2 border border-transparent text-sm leading-4 font-medium rounded-md text-gray-500 bg-white hover:text-gray-700 focus:outline-none transition ease-in-out duration-150"
+                                                style={{fontSize: "1.5rem"}}
                                             >
                                                 {user.name}
 
@@ -57,9 +61,9 @@ export default function Authenticated({ user, header, children }) {
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>Profile</Dropdown.Link>
+                                        <Dropdown.Link href={route('profile.edit')}>Профиль</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
-                                            Log Out
+                                            Выйти
                                         </Dropdown.Link>
                                     </Dropdown.Content>
                                 </Dropdown>

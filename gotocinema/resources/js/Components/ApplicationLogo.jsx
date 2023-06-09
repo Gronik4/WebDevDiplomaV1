@@ -7,7 +7,7 @@ export default function ApplicationLogo({flag}) {
       <Link href='/'>
        <h1 className="page-headerA__title link">Идём<span>в</span>кино</h1> 
       </Link>
-      <span className="page-headerA__subtitle">Для администратора</span>
+      {flag===1? null: <span className="page-headerA__subtitle">Для администратора</span>}
     </header>
   )
 }

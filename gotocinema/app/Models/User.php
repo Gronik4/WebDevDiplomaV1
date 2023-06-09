@@ -42,4 +42,9 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    // Проверка пользователя на статус администратора
+    public function isAdmin() {
+     $this->status ===1;   
+    }
 }

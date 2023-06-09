@@ -514,8 +514,9 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
     position: relative;
     top: -50vh;
     background-color: rgba(234, 233, 235, 0.95);
-    width: 960px;
-    margin: 0 auto; }
+    width: 500px;
+    margin: 0 auto;
+    border: #16A6AF 2px solid; }
   .popup__header {
     box-sizing: border-box;
     padding: 16px 42px;

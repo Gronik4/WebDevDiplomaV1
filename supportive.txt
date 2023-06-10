@@ -10,4 +10,27 @@ html - стили свопадают полностью, замена не ну�
 http://webdevdip/build/assets/app-eed483c4.css
 
 
-Забыли свой пароль? Нет проблем! Просто сообщите нам свой адрес электронной почты, и мы вышлем вам пароль по электронной почте.
+Из SectionAdminLayout: { flag === 1? <Popup flag={flag1}/>: null }
+из Popup
+{data.length?
+              data.length ===1?
+                <label className='conf-step__label conf-step__label-fullsize' htmlFor={data[0].name}>
+                  {data[0].nameInput}
+                  <input className='conf-step__input' name={name} placeholder={data[0].placeholder} required/>
+                </label> :
+                <InputDatas data={data}/>:
+              <p className='conf-step__paragraph'>Вы действительно хотите удалить зал <span
+                /* В span подставить название зала*/
+              ></span>?</p>
+            }
+из InputDatas
+export default function InputDatas({data}) {
+  data.map((item, index)=> {
+    return (
+      <label key={index} className='conf-step__label conf-step__label-fullsize' htmlFor={item.name}>
+        {item.nameInput}
+        <input className='conf-step__input' name={item.name} placeholder={item.placeholder} required/>
+      </label>  
+    )
+  });
+}

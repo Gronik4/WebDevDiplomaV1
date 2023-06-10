@@ -10,10 +10,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
           <h1 className="page-header__title">Идём<span>в</span>кино</h1>
           <div>
             {auth.user ? (
-              <Link
-                href={route('dashboard')}
-                  className="movie__title_a"
-              >
+              <Link href={route('dashboard')} className="movie__title_a">
                 Панель управления
               </Link>
             ) : (

@@ -41,10 +41,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 Route::resource('films', FilmsController::class)
-  ->only(['store'])
+  ->only(['index','store'])
   ->middleware(['auth', 'verified']);
 
 Route::resource('halls_config', HallsConfigController::class)
-  ->only(['store'])-> middleware(['auth', 'verified']);
+  ->only(['index', 'store'])-> middleware(['auth', 'verified']);
 
 require __DIR__.'/auth.php';

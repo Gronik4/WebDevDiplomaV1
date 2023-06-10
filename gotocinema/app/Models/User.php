@@ -4,6 +4,7 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
@@ -46,5 +47,12 @@ class User extends Authenticatable
     // Проверка пользователя на статус администратора
     public function isAdmin() {
      $this->status ===1;   
+    }
+
+    public function films(): HasMany {
+        return $this->hasMany(Films::class);
+    }
+    public function halls_config(): HasMany {
+        return $this->hasMany(HallsConfig::class);
     }
 }

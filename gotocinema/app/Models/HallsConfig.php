@@ -8,4 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class HallsConfig extends Model
 {
     use HasFactory;
+    protected $fillable = [
+        'name', 'config', 'price_vip', 'price_ordinary',
+    ];
 }

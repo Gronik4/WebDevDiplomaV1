@@ -11,6 +11,9 @@ export default function SectionAdminLayout({ children, headerName }) {
     case 'Сетка сеансов':
       flag = 2;
       break;
+    case 'Удаление зала':
+      flag = 'hd';
+      break;
     default: flag = 0; break;
   }
   return (

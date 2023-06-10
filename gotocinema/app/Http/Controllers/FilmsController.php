@@ -40,7 +40,7 @@ class FilmsController extends Controller
             'posterMain'=> 'required|string|max:255',
             'posterAd'=> 'required|string|max:255',
         ]);
-        $request->user()->films()->create();
+        $request->user()->films()->create($validate);
         return Inertia::render('panalAdmin');
     }
 

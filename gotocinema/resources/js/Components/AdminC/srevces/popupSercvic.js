@@ -25,11 +25,15 @@ export default function popupSercvic(flag) {
       break;
     case 'hd':
       Datas.popupName = 'Удаление зала';
-      Datas.formAction = 'delete_hall';
       Datas.nameButton = 'Удалить';
       datasInput = 0;
       Datas.datasInput = datasInput;
       break;
+    case 'fd':
+      Datas.popupName = 'Удаление фильма';
+      Datas.nameButton = 'Удалить';
+      datasInput = 0;
+      Datas.datasInput = datasInput;
     default: null;
   }
   return Datas;

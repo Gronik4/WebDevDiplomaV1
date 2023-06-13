@@ -1,21 +1,8 @@
 import Popup from '@/Components/AdminC/Popup';
 import React from 'react'
 
-export default function SectionAdminLayout({ children, headerName }) {
-  let flag = 0;
-  const flag1 = 'hd'
-  switch(headerName) {
-    case 'Управление залами':
-      flag = 1;
-      break;
-    case 'Сетка сеансов':
-      flag = 2;
-      break;
-    case 'Удаление зала':
-      flag = 'hd';
-      break;
-    default: flag = 0; break;
-  }
+export default function SectionAdminLayout({ children, headerName, flags }) {
+  
   return (
     <section className='conf-step'>
       <header className='conf-step__header conf-step__header_opened'>
@@ -24,8 +11,8 @@ export default function SectionAdminLayout({ children, headerName }) {
       <div className='conf-step__wrapper'>
         {children}
       </div>
-      { flag? <Popup flag={flag}/>: null }
-      { flag === 1? <Popup flag={flag1}/>: null }
+      { flags.flag? <Popup flag={flags.flag} id={flags.add}/>: null }
+      { flags.flagDel? <Popup flag={flags.flagDel} id={flags.del} />: null }
     </section>
   )
 }

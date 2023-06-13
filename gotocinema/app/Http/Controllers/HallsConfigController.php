@@ -45,7 +45,9 @@ class HallsConfigController extends Controller
             'price_ordinary'=>$request->price_ordinary
         ]);
         $hall->save($validated);
-        return Inertia::render('PanalAdmin');
+        return Inertia::render('PanalAdmin', [
+            'halls'=>HallsConfig::all()
+        ]);
     }
 
     /**

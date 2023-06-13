@@ -1,21 +1,32 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout'
 import React from 'react'
+import getFlags from './srevces/managingFlags';
 
 export default function ManagingHolls({ datas }) {
-  console.log(datas);
-  const showPopup = document.querySelector('.popup');
+  const headerName='Управление залами';
+  const flags = getFlags(headerName);
+
+  //console.log(datas);
   
   const deleteHall = (e)=> {
     e.preventDefault();
+    const popup =  document.getElementById(flags.del);
+    if(popup.style.display === '') {
+      popup.style.display = 'block';
+    } else {
+      popup.style.display = '';
+    }
+    console.log(popup);
     alert('Delete hall??');
   }
 
-  const addHall = (e)=> {
+  const showpopup = (e)=> {
     e.preventDefault();
-    if(showPopup.style.display === '') {
-      showPopup.style.display = 'block';
+    const popup = document.getElementById(flags.add);
+    if(popup.style.display === '') {
+      popup.style.display = 'block';
     } else {
-      showPopup.style.display = 'none';
+      popup.style.display = '';
     }
   }
   const ulContent = 
@@ -30,12 +41,12 @@ export default function ManagingHolls({ datas }) {
 
  
   return (
-    <SectionAdminLayout headerName='Управление залами'>
+    <SectionAdminLayout headerName={headerName} flags={flags}>
       <p className='conf-step__paragraph'>Доступные залы:</p>
       <ul className='conf-step__list'>
         {ulContent}
       </ul>
-      <button className='conf-step__button conf-step__button-accent' onClick={addHall}>Создать зал</button>
+      <button className='conf-step__button conf-step__button-accent' onClick={showpopup}>Создать зал</button>
     </SectionAdminLayout>
   )
 }

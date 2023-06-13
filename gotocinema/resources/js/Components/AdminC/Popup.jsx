@@ -5,13 +5,16 @@ import { useForm } from '@inertiajs/react';
 import InputError from '../InputError';
 import { nanoid } from 'nanoid';
 
-export default function Popup({flag}) {
-  const showPopup = document.querySelector('.popup');
+export default function Popup({flag, id}) {
+  const showPopup = document.getElementById(id);
   let inputData, styleWrapper, styleContent;
   const { popupName, nameButton, datasInput } = popupSercvic(flag);
   const { data, setData, post, processing, errors } = useForm({name: ''})
 
-  const hiddPopup = ()=> { showPopup.style.display = ''; }
+  const hiddPopup = (e)=> {
+    const del = e.target.closest('.popup');
+    del.style.display = ''; 
+  }
 
   const reset = ()=> {
     const field = document.querySelectorAll('.conf-step__input');
@@ -24,9 +27,6 @@ export default function Popup({flag}) {
   const submit = (e)=> {
     e.preventDefault();
     post(route('halls.store'));
-    //reset();
-    //hiddPopup();
-    console.log(e.target);
   }
 
   if(datasInput.length>1){
@@ -41,7 +41,7 @@ export default function Popup({flag}) {
               id={nanoid(5)}
               className='conf-step__input'
               name={item.name}
-              
+              value={data[datasInput[0].name]}
               autoComplete={item.name}
               placeholder={item.placeholder}
               onChange={(e)=> setData(item.name, e.target.value)}
@@ -56,7 +56,7 @@ export default function Popup({flag}) {
   }
   
   return (
-    <div className='popup'>
+    <div className='popup' id={id}>
      <div className='popup__container'>
       <div className='popup__content' style={styleContent}>
         <div className='popup__header'>

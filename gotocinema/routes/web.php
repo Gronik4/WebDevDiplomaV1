@@ -35,7 +35,7 @@ Route::get('/panalAdmin', function() {
     return Inertia::render('PanalAdmin');
 })->middleware(['status', 'verified'])->name('panalAdmin');
 
-//Route::get('halls', [HallsConfigController::class, 'index'])-> name('halls');
+//Route::get('halls.index', [HallsConfigController::class, 'index'])-> name('halls');
 //Route::post('halls',[HallsConfigController::class, 'store']);
 
 Route::middleware('auth')->group(function () {

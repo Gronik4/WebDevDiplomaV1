@@ -42,7 +42,9 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
 
 .page-headerA {
   color: #FFFFFF;
-  text-transform: uppercase; }
+  text-transform: uppercase;
+  
+ }
   .page-headerA .page-headerA__title {
     margin: 0;
     font-weight: 900;

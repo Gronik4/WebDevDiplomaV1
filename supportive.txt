@@ -11,26 +11,21 @@ http://webdevdip/build/assets/app-eed483c4.css
 
 
 Из SectionAdminLayout: { flag === 1? <Popup flag={flag1}/>: null }
-из Popup
-{data.length?
-              data.length ===1?
-                <label className='conf-step__label conf-step__label-fullsize' htmlFor={data[0].name}>
-                  {data[0].nameInput}
-                  <input className='conf-step__input' name={name} placeholder={data[0].placeholder} required/>
-                </label> :
-                <InputDatas data={data}/>:
-              <p className='conf-step__paragraph'>Вы действительно хотите удалить зал <span
-                /* В span подставить название зала*/
-              ></span>?</p>
-            }
-из InputDatas
-export default function InputDatas({data}) {
-  data.map((item, index)=> {
-    return (
-      <label key={index} className='conf-step__label conf-step__label-fullsize' htmlFor={item.name}>
-        {item.nameInput}
-        <input className='conf-step__input' name={item.name} placeholder={item.placeholder} required/>
-      </label>  
-    )
-  });
-}
+Из ApplicationLogo: {auth.user? <Link href='dashboard' className='movie__title_a'>Панель управления</Link>:null}
+ Из dashboard auth = user: 
+    created_at: "2023-06-06T18:48:33.000000Z"
+    email: "lyly@yandex.ru"
+    email_verified_at: null
+    id: 1
+    name: "Admin"
+    status: 1
+    updated_at: "2023-06-06T18:48:33.000000Z"
+Из ManagingHolls:
+    {halls_config?
+          halls_config.map((hall)=> {
+            <li key={hall.id}>{hall.name}
+              <button className='conf-step__button conf-step__button-trash' onClick={deleteHall}></button>
+            </li>
+          }):
+          <p className='conf-step__paragraph'>Пока нет доступных залов</p>
+        }

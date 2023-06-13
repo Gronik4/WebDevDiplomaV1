@@ -35,16 +35,16 @@ Route::get('/panalAdmin', function() {
     return Inertia::render('PanalAdmin');
 })->middleware(['status', 'verified'])->name('panalAdmin');
 
+//Route::get('halls', [HallsConfigController::class, 'index'])-> name('halls');
+//Route::post('halls',[HallsConfigController::class, 'store']);
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('films', FilmsController::class)
-  ->only(['index','store'])
-  ->middleware(['auth', 'verified']);
+Route::resource('films', FilmsController::class);
 
-Route::resource('halls_config', HallsConfigController::class)
-  ->only(['index', 'store'])-> middleware(['auth', 'verified']);
+Route::resource('halls', HallsConfigController::class);
 
 require __DIR__.'/auth.php';

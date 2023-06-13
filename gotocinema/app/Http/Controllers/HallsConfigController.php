@@ -15,7 +15,7 @@ class HallsConfigController extends Controller
     public function index()
     {
         return Inertia::render('PanalAdmin', [
-            'halls_config'=> HallsConfig::with('halls_config:id,name,config,price_vip,price_ordinary')->get(),
+            'halls'=> HallsConfig::all(),
         ]);
     }
 
@@ -34,11 +34,17 @@ class HallsConfigController extends Controller
     {
         $validated = $request-> validate([
             'name'=> 'required|string|max:255',
-            'config'=> 'json',
-            'price_vip'=> 'digits:4',
-            'price_ordinary'=> 'digits:4' 
+            'config'=> 'exclude_unless: name, null|required|json', // Поле будет проверятся, если name = null
+            'price_vip'=> 'exclude_unless: name, null|required|integer', // Поле будет проверятся, если = null 
+            'price_ordinary'=>  'exclude_unless: name, null|required|integer' // Поле будет проверятся, если = null  
         ]);
-        $request->user()->halls_config()->create($validated);
+        $hall = HallsConfig::create([
+            'name'=>$request->name,
+            'config'=>$request->config,
+            'price_vip'=>$request->price_vip,
+            'price_ordinary'=>$request->price_ordinary
+        ]);
+        $hall->save($validated);
         return Inertia::render('PanalAdmin');
     }
 

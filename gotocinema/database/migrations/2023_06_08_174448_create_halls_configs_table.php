@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('halls_configs', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->json('config');
-            $table->decimal('price_vip', 4);
-            $table->decimal('price_ordinary', 4);
+            $table->json('config')->nullable();
+            $table->decimal('price_vip', 4)->nullable();
+            $table->decimal('price_ordinary', 4)->nullable();
             $table->timestamps();
         });
     }

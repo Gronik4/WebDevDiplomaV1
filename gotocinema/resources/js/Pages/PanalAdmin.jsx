@@ -1,9 +1,9 @@
 import ManagingHolls from '@/Components/AdminC/ManagingHolls'
 import ApplicationLogo from '@/Components/ApplicationLogo'
-import { Head } from '@inertiajs/react'
+import { Head, Link } from '@inertiajs/react'
 import React from 'react'
 
-export default function PanalAdmin() {
+export default function PanalAdmin({halls}) {
   const headers = Array.from(document.querySelectorAll('.conf-step__header'));
   headers.forEach(header => header.addEventListener('click', () => {
     header.classList.toggle('conf-step__header_closed');
@@ -13,9 +13,16 @@ export default function PanalAdmin() {
     <>
       <Head title='идемВкино | админпанель'/>
       <div className='body_admin'>
-       <ApplicationLogo/>
+       <ApplicationLogo>
+        <span className="page-headerA__subtitle">Администраторская</span>
+        <div>
+          <Link href={route('dashboard')} className="movie__title_a">
+            На панель управления
+          </Link>
+        </div>
+       </ApplicationLogo>
        <main className='conf-steps'>
-        <ManagingHolls/>
+        <ManagingHolls datas={halls}/>
       </main>
       </div>
       

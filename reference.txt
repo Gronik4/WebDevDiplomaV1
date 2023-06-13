@@ -45,3 +45,11 @@ email: lyly@yandex.ru
   'time'
   'film'
   'sold_seats'
+********************        РОУТЫ         ***********************************
+  GET|HEAD        halls ............... halls.index › HallsConfigController@index
+  POST            halls ............... halls.store › HallsConfigController@store
+  GET|HEAD        halls/create ........ halls.create › HallsConfigController@create
+  GET|HEAD        halls/{hall} ........ halls.show › HallsConfigController@show
+  PUT|PATCH       halls/{hall} ........ halls.update › HallsConfigController@update
+  DELETE          halls/{hall} ........ halls.destroy › HallsConfigController@destroy
+  GET|HEAD        halls/{hall}/edit ... halls.edit › HallsConfigController@edit

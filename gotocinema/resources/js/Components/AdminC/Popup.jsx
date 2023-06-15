@@ -5,7 +5,7 @@ import { useForm } from '@inertiajs/react';
 import InputError from '../InputError';
 import { nanoid } from 'nanoid';
 
-export default function Popup({flag, id}) {
+export default function Popup({flag, id, nameHall, idHall}) {
   const showPopup = document.getElementById(id);
   let inputData, styleWrapper, styleContent;
   const { popupName, nameButton, datasInput } = popupSercvic(flag);
@@ -13,6 +13,8 @@ export default function Popup({flag, id}) {
 
   const hiddPopup = (e)=> {
     const del = e.target.closest('.popup');
+    del.removeAttribute('data-name');
+    del.removeAttribute('data-id');
     del.style.display = ''; 
   }
 
@@ -87,9 +89,7 @@ export default function Popup({flag, id}) {
               </div>
                  :
                 inputData:
-              <p className='conf-step__paragraph'>Вы действительно хотите удалить зал <span
-                /* В span подставить название зала*/
-              ></span>?</p>
+              <p className='conf-step__paragraph'>Вы действительно хотите удалить зал <span>{nameHall}</span>?</p>
             }
             <div className='conf-step__buttons text-center'>
               <input type='submit' value={nameButton} disabled={processing} className='conf-step__button conf-step__button-accent'/>

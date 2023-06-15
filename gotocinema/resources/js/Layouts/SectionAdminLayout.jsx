@@ -1,7 +1,7 @@
 import Popup from '@/Components/AdminC/Popup';
 import React from 'react'
 
-export default function SectionAdminLayout({ children, headerName, flags }) {
+export default function SectionAdminLayout({ children, headerName, flags, nameHall, idHall }) {
   
   return (
     <section className='conf-step'>
@@ -12,7 +12,7 @@ export default function SectionAdminLayout({ children, headerName, flags }) {
         {children}
       </div>
       { flags.flag? <Popup flag={flags.flag} id={flags.add}/>: null }
-      { flags.flagDel? <Popup flag={flags.flagDel} id={flags.del} />: null }
+      { flags.flagDel? <Popup flag={flags.flagDel} id={flags.del} nameHall={nameHall} idHall={idHall}/>: null }
     </section>
   )
 }

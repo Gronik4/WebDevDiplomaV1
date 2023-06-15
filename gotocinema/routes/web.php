@@ -34,9 +34,11 @@ Route::get('/dashboard', function () {
 Route::get('/panalAdmin', function() {
     return Inertia::render('PanalAdmin');
 })->middleware(['status', 'verified'])->name('panalAdmin');
+/**
+ * Этот роут показывает при входе на страницу 'panalAdmin' нужно вызвать функцию [HallsConfigController::class, 'index']
+ */
+Route::get('panalAdmin', [HallsConfigController::class, 'index']);
 
-//Route::get('halls.index', [HallsConfigController::class, 'index'])-> name('halls');
-//Route::post('halls',[HallsConfigController::class, 'store']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

@@ -11,8 +11,8 @@ export default function SectionAdminLayout({ children, headerName, flags, nameHa
       <div className='conf-step__wrapper'>
         {children}
       </div>
-      { flags.flag? <Popup flag={flags.flag} id={flags.add}/>: null }
-      { flags.flagDel? <Popup flag={flags.flagDel} id={flags.del} nameHall={nameHall} idHall={idHall}/>: null }
+      { flags.flag? <Popup flag={flags.flag} idp={flags.add}/>: null }
+      { flags.flagDel? <Popup flag={flags.flagDel} idp={flags.del} nameHall={nameHall} idHall={idHall}/>: null }
     </section>
   )
 }

@@ -75,8 +75,12 @@ class HallsConfigController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(HallsConfig $hallsConfig)
+    public function destroy($id)
     {
-        //
+        $hallDelete = HallsConfig::find($id);
+        $hallDelete->delete();
+        return Inertia::render('PanalAdmin', [
+            'halls'=>HallsConfig::all()
+        ]);
     }
 }

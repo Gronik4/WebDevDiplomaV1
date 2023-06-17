@@ -5,16 +5,13 @@ import { useForm } from '@inertiajs/react';
 import InputError from '../InputError';
 import { nanoid } from 'nanoid';
 
-export default function Popup({flag, id, nameHall, idHall}) {
-  const showPopup = document.getElementById(id);
+export default function Popup({flag, idp, nameHall, idHall}) {
   let inputData, styleWrapper, styleContent;
   const { popupName, nameButton, datasInput } = popupSercvic(flag);
-  const { data, setData, post, processing, errors } = useForm({name: ''})
+  const { data, setData, post, patch, delete:destroy, processing, errors } = useForm({name: ''});
 
   const hiddPopup = (e)=> {
     const del = e.target.closest('.popup');
-    del.removeAttribute('data-name');
-    del.removeAttribute('data-id');
     del.style.display = ''; 
   }
 
@@ -29,6 +26,11 @@ export default function Popup({flag, id, nameHall, idHall}) {
   const submit = (e)=> {
     e.preventDefault();
     post(route('halls.store'));
+  }
+  
+  const deleteHall = (e)=> {
+    e.preventDefault();
+    destroy(route('halls.destroy', {hall: idHall}));
   }
 
   if(datasInput.length>1){
@@ -51,14 +53,13 @@ export default function Popup({flag, id, nameHall, idHall}) {
             />
         </label>
         <InputError message={errors[item.name]} className="mt-2" />
-        </div>
-          
+        </div>   
       )
     })
   }
   
   return (
-    <div className='popup' id={id}>
+    <div className='popup' id={idp}>
      <div className='popup__container'>
       <div className='popup__content' style={styleContent}>
         <div className='popup__header'>
@@ -67,35 +68,43 @@ export default function Popup({flag, id, nameHall, idHall}) {
           </h2>
         </div>
         <div className='popup__wrapper' style={styleWrapper}>
-          <form onSubmit={submit}> 
-            {datasInput.length?
-              datasInput.length ===1?
-              <div>
-                <label className='conf-step__label conf-step__label-fullsize' htmlFor={datasInput[0].name}>
-                  {datasInput[0].nameInput}
-                  <input
-                    id={nanoid(5)}
-                    className='conf-step__input'
-                    name={datasInput[0].name}
-                    value={data[datasInput[0].name]}
-                    autoComplete={datasInput[0].name}
-                    isfocused='true'
-                    onChange={(e)=> setData(datasInput[0].name, e.target.value)}
-                    placeholder={datasInput[0].placeholder}
-                    required
-                  />
-                </label>
-                <InputError message={errors[datasInput[0].name]} className="mt-2" />
+          {idp === 'addHall'?
+            <form onSubmit={submit}> 
+              {datasInput.length ===1?
+                <div>
+                  <label className='conf-step__label conf-step__label-fullsize' htmlFor={datasInput[0].name}>
+                    {datasInput[0].nameInput}
+                    <input
+                      id={nanoid(5)}
+                      className='conf-step__input'
+                      name={datasInput[0].name}
+                      value={data[datasInput[0].name]}
+                      autoComplete={datasInput[0].name}
+                      isfocused='true'
+                      onChange={(e)=> setData(datasInput[0].name, e.target.value)}
+                      placeholder={datasInput[0].placeholder}
+                      required
+                    />
+                  </label>
+                  <InputError message={errors[datasInput[0].name]} className="mt-2" />
+                </div>
+                :
+                inputData
+              } 
+              <div className='conf-step__buttons text-center'>
+                <input type='submit' value={nameButton} disabled={processing} className='conf-step__button conf-step__button-accent'/>
+                <button type='reset' className='conf-step__button conf-step__button-regular' onClick={reset}>Отменить</button>
               </div>
-                 :
-                inputData:
-              <p className='conf-step__paragraph'>Вы действительно хотите удалить зал <span>{nameHall}</span>?</p>
-            }
-            <div className='conf-step__buttons text-center'>
-              <input type='submit' value={nameButton} disabled={processing} className='conf-step__button conf-step__button-accent'/>
-              <button type='reset' className='conf-step__button conf-step__button-regular' onClick={reset}>Отменить</button>
-            </div>
-          </form>
+            </form>:
+
+            <form onSubmit={deleteHall}>
+              <p className='conf-step__paragraph'>Вы действительно хотите удалить зал <span>{nameHall}</span>
+                с id=<span>{idHall}</span>?</p>
+              <div className='conf-step__buttons text-center'>
+                <input type='submit' value={nameButton} disabled={processing} className='conf-step__button conf-step__button-accent'/>
+              </div>
+            </form>
+          } 
         </div>
       </div>
      </div>

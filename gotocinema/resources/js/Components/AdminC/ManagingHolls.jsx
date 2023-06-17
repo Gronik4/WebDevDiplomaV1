@@ -5,10 +5,8 @@ import getFlags from './srevces/managingFlags';
 export default function ManagingHolls({ datas }) {
   const headerName='Управление залами';
   const flags = getFlags(headerName);
-  const [nameHall, setNameHall] = useState({nameHall: ''});
-  const [idHall, setIdHall] = useState({idHall: ''})
-
-  //console.log(datas);
+  const [nameHall, setNameHall] = useState('');
+  const [idHall, setIdHall] = useState(''); 
   
   const showPopupDelHall = (e)=> {
     e.preventDefault();
@@ -16,13 +14,11 @@ export default function ManagingHolls({ datas }) {
     const popup =  document.getElementById(flags.del);
     if(popup.style.display === '') {
       popup.style.display = 'block';
-      //popup.setAttribute('data-name', `${li.textContent}`);
-      //popup.setAttribute('data-id', `${li.id}`);
-      setIdHall({idHall: li.id});
-      setNameHall({nameHall: li.textContent});
+      setIdHall(li.id);
+      setNameHall(li.textContent) ;
     } else {
-      popup.removeAttribute('data-name');
-      popup.removeAttribute('data-id');
+      setIdHall('');
+      setNameHall('') ;
       popup.style.display = '';
     }
   }

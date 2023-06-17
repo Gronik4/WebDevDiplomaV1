@@ -1,6 +1,6 @@
 
 export default function getFlags(headerName) {
-  const flags = {};
+  let flags = {};
   switch(headerName) {
     case 'Управление залами':
       flags.flag = 1;

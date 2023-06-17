@@ -4,7 +4,6 @@ import { Head, Link } from '@inertiajs/react'
 import React from 'react'
 
 export default function PanalAdmin({halls}) {
-  console.log(halls);
   const headers = Array.from(document.querySelectorAll('.conf-step__header'));
   headers.forEach(header => header.addEventListener('click', () => {
     header.classList.toggle('conf-step__header_closed');

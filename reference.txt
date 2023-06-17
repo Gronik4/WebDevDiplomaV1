@@ -53,3 +53,10 @@ email: lyly@yandex.ru
   PUT|PATCH       halls/{hall} ........ halls.update › HallsConfigController@update
   DELETE          halls/{hall} ........ halls.destroy › HallsConfigController@destroy
   GET|HEAD        halls/{hall}/edit ... halls.edit › HallsConfigController@edit
+films ............... films.index › FilmsController@index
+  POST            films ................ films.store › FilmsController@store
+  GET|HEAD        films/create ......... films.create › FilmsController@create
+  GET|HEAD        films/{film} ......... films.show › FilmsController@show
+  PUT|PATCH       films/{film} ......... films.update › FilmsController@update  
+  DELETE          films/{film} ......... films.destroy › FilmsController@destroy  
+  GET|HEAD        films/{film}/edit .... films.edit › FilmsController@edit  

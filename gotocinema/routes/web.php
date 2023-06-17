@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\FilmsController;
+use App\Models\HallsConfig;
 use App\Http\Controllers\HallsConfigController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Foundation\Application;
@@ -32,12 +33,12 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/panalAdmin', function() {
-    return Inertia::render('PanalAdmin');
+    return Inertia::render('PanalAdmin', ['halls'=> HallsConfig::all()]);
 })->middleware(['status', 'verified'])->name('panalAdmin');
 /**
- * Этот роут показывает при входе на страницу 'panalAdmin' нужно вызвать функцию [HallsConfigController::class, 'index']
+ * Этот роут показывает при входе на страницу 'PanalAdmin' нужно вызвать функцию [HallsConfigController::class, 'index']
  */
-Route::get('panalAdmin', [HallsConfigController::class, 'index']);
+//Route::get('PanalAdmin', [HallsConfigController::class, 'index'])->name('halls');
 
 
 Route::middleware('auth')->group(function () {

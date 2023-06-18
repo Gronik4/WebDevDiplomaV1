@@ -8,14 +8,25 @@ export default function ConfigurationHalls({ datas }) {
   const [rows, setRows] = useState('');
   const [columns, setColumns] = useState('');
   const [chosenHallName, setChosenHallName] = useState('');
+  const [config, setConfig] = useState('');
+  let hallId;
 
-  const chosenHall = (e)=> { setChosenHallName(e.target.value); }
+  const chosenHall = (e)=> {
+    const chosen = e.target;
+    hallId = Number(chosen.id);
+    setChosenHallName(chosen.value);
+    const select = datas.find(item=> item.id == hallId);
+    setConfig(select.config);
+    console.log(select.config);
+  }
   const paramRow = (getRow)=> { setRows(getRow);}
   const paramColumn = (getColumn)=> { setColumns(getColumn);}
 
   const reset = ()=> {
     setRows('');
     setColumns('');
+    const places = document.querySelectorAll('.conf-step__chair');
+    places.className = 'conf-step__chair conf-step__chair_disabled';
   }
   const updating = (e)=> {
 
@@ -46,7 +57,7 @@ export default function ConfigurationHalls({ datas }) {
       />
       {chosenHallName?
         <>
-          <ConfHallContent2 rows={rows} columns={columns}/>
+          <ConfHallContent2 rows={rows} columns={columns} config={config}/>
           <fieldset className="conf-step__buttons text-center">
             <button className="conf-step__button conf-step__button-regular" onClick={reset}>Отмена</button>
             <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent" onClick={updating}/>

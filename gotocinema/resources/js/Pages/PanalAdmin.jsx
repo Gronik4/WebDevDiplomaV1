@@ -1,3 +1,4 @@
+import ConfigurationHalls from '@/Components/AdminC/ConfigurationHalls';
 import ManagingHolls from '@/Components/AdminC/ManagingHolls'
 import ApplicationLogo from '@/Components/ApplicationLogo'
 import { Head, Link } from '@inertiajs/react'
@@ -23,6 +24,7 @@ export default function PanalAdmin({halls}) {
        </ApplicationLogo>
        <main className='conf-steps'>
         <ManagingHolls datas={halls}/>
+        <ConfigurationHalls datas={halls}/>
       </main>
       </div>
       

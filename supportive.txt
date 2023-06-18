@@ -29,3 +29,11 @@ http://webdevdip/build/assets/app-eed483c4.css
           }):
           <p className='conf-step__paragraph'>Пока нет доступных залов</p>
         }
+
+{content.map((row, index)=> {
+          return (
+            <div className='conf-step__row' key={index}>
+              {row}
+            </div> 
+          )
+        })}

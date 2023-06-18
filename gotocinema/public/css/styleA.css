@@ -25,7 +25,7 @@ html {
   background-size: cover;
   background-attachment: fixed;
   counter-reset: num;
-  height: 100vh; }
+  height: max-content; }
 
 input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   cursor: pointer; }

@@ -26,11 +26,13 @@ export default function Popup({flag, idp, nameHall, idHall}) {
   const submit = (e)=> {
     e.preventDefault();
     post(route('halls.store'));
+    hiddPopup(e);
   }
   
   const deleteHall = (e)=> {
     e.preventDefault();
     destroy(route('halls.destroy', {hall: idHall}));
+    hiddPopup(e);
   }
 
   if(datasInput.length>1){

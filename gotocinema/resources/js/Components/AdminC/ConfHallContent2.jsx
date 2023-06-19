@@ -1,6 +1,9 @@
-import React from 'react'
+import React from 'react';
 
 export default function ConfHallContent2({ rows, columns, config }) {
+  const test = config? JSON.parse(config):null;
+  //const hall = JSON.parse(test);
+  //console.log(hall);
   const statusChair = (e)=> {
     let status = e.target;
     switch(status.className) {
@@ -15,15 +18,15 @@ export default function ConfHallContent2({ rows, columns, config }) {
         break;
     }
   }
-  let row = rows? rows: 10;
-  let column = columns? columns: 8;
+  let row = rows? rows: 4;
+  let column = columns? columns: 3;
   const content = [];
   
   for (let j = 1; j <= row; j++) {
     const contentRow = [];
     for (let i = 1; i <= column; i++) {
       let id = `${j}`+`${i}`;
-      let getRow = <span key={id} className="conf-step__chair conf-step__chair_disabled" id={id} onClick={statusChair}></span>
+      let getRow = <span key={id} className="conf-step__chair conf-step__chair_standart" id={id} onClick={statusChair}></span>
       contentRow.push(getRow);
     }
     content.push(contentRow);
@@ -39,6 +42,12 @@ export default function ConfHallContent2({ rows, columns, config }) {
             </div> 
           )
         })}
+        {test? 
+      <>
+        <p className='conf-step__paragraph'>Тестовый вывод из json</p>
+        <div dangerouslySetInnerHTML={{__html: test}}></div>
+      </>: null
+      }
       </div>
     </div>
   )

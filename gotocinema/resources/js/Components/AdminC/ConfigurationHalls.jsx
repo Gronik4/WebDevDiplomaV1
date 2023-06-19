@@ -9,7 +9,8 @@ export default function ConfigurationHalls({ datas }) {
   const [columns, setColumns] = useState('');
   const [chosenHallName, setChosenHallName] = useState('');
   const [config, setConfig] = useState('');
-  let hallId;
+  //const [test, setTest] = useState();
+  let hallId ;
 
   const chosenHall = (e)=> {
     const chosen = e.target;
@@ -17,7 +18,6 @@ export default function ConfigurationHalls({ datas }) {
     setChosenHallName(chosen.value);
     const select = datas.find(item=> item.id == hallId);
     setConfig(select.config);
-    console.log(select.config);
   }
   const paramRow = (getRow)=> { setRows(getRow);}
   const paramColumn = (getColumn)=> { setColumns(getColumn);}
@@ -25,11 +25,18 @@ export default function ConfigurationHalls({ datas }) {
   const reset = ()=> {
     setRows('');
     setColumns('');
-    const places = document.querySelectorAll('.conf-step__chair');
-    places.className = 'conf-step__chair conf-step__chair_disabled';
+    const wrapper = document.querySelector('.conf-step__hall-wrapper');
+    const places = wrapper.querySelectorAll('.conf-step__chair');
+    places.forEach((item)=> {
+      item.className = 'conf-step__chair conf-step__chair_standart';
+    })
   }
   const updating = (e)=> {
-
+    const hallConfig = document.querySelector('.conf-step__hall-wrapper').innerHTML;
+    //console.log(hallConfig);
+    const jsonData = JSON.stringify(hallConfig);
+    setConfig(jsonData);
+    //console.log(jsonDataTest);
   }
 
   const AvailableHalls = datas?

@@ -67,9 +67,9 @@ class HallsConfigController extends Controller
     /**
      * Update the specified resource in storage.Обновите указанный ресурс в хранилище.
      */
-    public function update(Request $request, HallsConfig $hallsConfig)
+    public function update($id)
     {
-        //
+        $hall = HallsConfig::find($id);
     }
 
     /**

@@ -4,17 +4,18 @@ import ConfHallContent1 from './ConfHallContent1';
 import ConfHallContent2 from './ConfHallContent2';
 
 export default function ConfigurationHalls({ datas }) {
+  
   const headerName='Конфигурация залов';
   const [rows, setRows] = useState('');
   const [columns, setColumns] = useState('');
   const [chosenHallName, setChosenHallName] = useState('');
   const [config, setConfig] = useState('');
-  //const [test, setTest] = useState();
-  let hallId ;
+  const [hallId, setHallId] = useState(null);
 
   const chosenHall = (e)=> {
     const chosen = e.target;
-    hallId = Number(chosen.id);
+    const selId = Number(chosen.id);
+    setHallId(selId);
     setChosenHallName(chosen.value);
     const select = datas.find(item=> item.id == hallId);
     setConfig(select.config);
@@ -32,11 +33,12 @@ export default function ConfigurationHalls({ datas }) {
     })
   }
   const updating = (e)=> {
+    e.preventDefault();
     const hallConfig = document.querySelector('.conf-step__hall-wrapper').innerHTML;
-    //console.log(hallConfig);
     const jsonData = JSON.stringify(hallConfig);
-    setConfig(jsonData);
-    //console.log(jsonDataTest);
+    const form = document.forms.update;
+    form.elements.config.value = jsonData
+    console.log(form.elements.config.id);
   }
 
   const AvailableHalls = datas?
@@ -66,8 +68,12 @@ export default function ConfigurationHalls({ datas }) {
         <>
           <ConfHallContent2 rows={rows} columns={columns} config={config}/>
           <fieldset className="conf-step__buttons text-center">
-            <button className="conf-step__button conf-step__button-regular" onClick={reset}>Отмена</button>
-            <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent" onClick={updating}/>
+            <form name='update' onSubmit={updating}>
+              <input  id={hallId} type='hidden' name='config' value=''/>
+              <button className="conf-step__button conf-step__button-regular" onClick={reset}>Отмена</button>
+              <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent"/>
+            </form>
+            
           </fieldset>
         </>
       : null} 

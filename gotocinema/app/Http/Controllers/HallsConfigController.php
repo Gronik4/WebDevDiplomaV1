@@ -67,9 +67,17 @@ class HallsConfigController extends Controller
     /**
      * Update the specified resource in storage.Обновите указанный ресурс в хранилище.
      */
-    public function update($id)
+    public function update($id, Request $request)
     {
         $hall = HallsConfig::find($id);
+        $valide = $request-> validate([
+            'config'=> 'required|json',
+            'price_vip'=> 'exclude_unless: config, null|required|integer',
+            'price_ordinary'=> 'exclude_unless: config, null|required|integer',
+        ]);
+        $hall-> config = $valide;
+        $hall-> save();
+        return redirect(route('halls.index'));
     }
 
     /**
@@ -79,8 +87,6 @@ class HallsConfigController extends Controller
     {
         $hallDelete = HallsConfig::find($id);
         $hallDelete->delete();
-        return Inertia::render('PanalAdmin', [
-            'halls'=>HallsConfig::all()
-        ]);
+        return redirect(route('halls.index'));
     }
 }

@@ -31,7 +31,6 @@ export default function ManagingHolls({ datas }) {
     } else {
       popup.style.display = '';
     }
-    console.log(popup);
   }
   const ulContent = 
     datas?

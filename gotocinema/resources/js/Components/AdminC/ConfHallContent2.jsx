@@ -1,8 +1,10 @@
 import React, { useEffect } from 'react';
 
-export default function ConfHallContent2({ rows, columns, config }) {
-  const savedConfig = config? JSON.parse(config):null;
+export default function ConfHallContent2({ rows, columns, receivedСonfig }) {
+
+  const savedConfig = receivedСonfig? JSON.parse(JSON.parse(receivedСonfig).config):null;
   const explanation = savedConfig? 'Редактирование сохранённой конфигурации': 'Создание новой конфигурации';
+
   useEffect(()=> { // Всё это делается после рендера компонента, т.к. из json-а данные приходят без 'onclick'.
     if(savedConfig) {
       document.querySelectorAll('.conf-step__chair').forEach((el)=> {
@@ -25,8 +27,8 @@ export default function ConfHallContent2({ rows, columns, config }) {
     }
   }
   const newConfig = ()=> {
-    let row = rows? rows: 4;
-    let column = columns? columns: 3;
+    let row = rows? rows: 3;
+    let column = columns? columns: 5;
     const content = [];
     
     for (let j = 1; j <= row; j++) {

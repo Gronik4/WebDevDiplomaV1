@@ -18,11 +18,11 @@ export default function ConfHallContent1({ setR, setC, name, onParamRow, onParam
   <p className='conf-step__paragraph'>Для зала {name} укажите количество рядов и максимальное количество кресел в ряду:</p>
   <div className="conf-step__legend">
       <label className="conf-step__label">Рядов, шт
-        <input type="text" className="conf-step__input" placeholder="10" value={setR} onChange={numberRows}/>
+        <input type="text" className="conf-step__input" placeholder="3" value={setR} onChange={numberRows}/>
       </label>
       <span className="multiplier">x</span>
       <label className="conf-step__label">Мест, шт
-        <input type="text" className="conf-step__input" placeholder="8" value={setC} onChange={numberColumns}/>
+        <input type="text" className="conf-step__input" placeholder="5" value={setC} onChange={numberColumns}/>
       </label>
   </div>
   <p className="conf-step__paragraph">Теперь вы можете указать типы кресел на схеме зала {name}:</p>

@@ -37,3 +37,16 @@ http://webdevdip/build/assets/app-eed483c4.css
             </div> 
           )
         })}
+
+нужно:
+<div class="conf-step__row">
+  <span class="conf-step__chair conf-step__chair_standart" id="11"></span>
+  <span class="conf-step__chair conf-step__chair_standart" id="12"></span>
+  <span class="conf-step__chair conf-step__chair_standart" id="13"></span>
+</div>
+имеем:
+"<div class=\"conf-step__row\">
+  <span class=\"conf-step__chair conf-step__chair_standart\" id=\"11\"></span>
+  <span class=\"conf-step__chair conf-step__chair_standart\" id=\"12\"></span>
+  <span class=\"conf-step__chair conf-step__chair_standart\" id=\"13\"></span>
+</div>"

@@ -8,7 +8,7 @@ import { nanoid } from 'nanoid';
 export default function Popup({flag, idp, nameHall, idHall}) {
   let inputData, styleWrapper, styleContent;
   const { popupName, nameButton, datasInput } = popupSercvic(flag);
-  const { data, setData, post, patch, delete:destroy, processing, errors } = useForm({name: ''});
+  const { data, setData, post, delete:destroy, processing, errors } = useForm({name: ''});
 
   const hiddPopup = (e)=> {
     const del = e.target.closest('.popup');

@@ -75,9 +75,12 @@ class HallsConfigController extends Controller
             'price_vip'=> 'exclude_unless: config, null|required|integer',
             'price_ordinary'=> 'exclude_unless: config, null|required|integer',
         ]);
-        $hall-> config = $valide;
+        $hall-> update($valide);
         $hall-> save();
-        return redirect(route('halls.index'));
+        $mess = '';
+        if($valide['config']) {$mess = 'Конфигурация зала обновлена';} else {$mess = 'Конфигурация цен обновлена'; }
+        return Inertia::render('PanalAdmin', ['halls'=> HallsConfig::all(), 'mess'=> $mess]);
+        //return redirect(route('halls.index'));
     }
 
     /**

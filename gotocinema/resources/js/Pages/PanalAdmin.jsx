@@ -4,7 +4,8 @@ import ApplicationLogo from '@/Components/ApplicationLogo'
 import { Head, Link } from '@inertiajs/react'
 import React from 'react'
 
-export default function PanalAdmin({halls}) {
+export default function PanalAdmin({halls, mess}) {
+  if(mess) {alert(mess);}
   const headers = Array.from(document.querySelectorAll('.conf-step__header'));
   headers.forEach(header => header.addEventListener('click', () => {
     header.classList.toggle('conf-step__header_closed');
@@ -22,12 +23,11 @@ export default function PanalAdmin({halls}) {
           </Link>
         </div>
        </ApplicationLogo>
-       <main className='conf-steps'>
-        <ManagingHolls datas={halls}/>
-        <ConfigurationHalls datas={halls}/>
-      </main>
+        <main className='conf-steps'>
+          <ManagingHolls datas={halls}/>
+          <ConfigurationHalls datas={halls}/>
+        </main>
       </div>
-      
     </>
     
   )

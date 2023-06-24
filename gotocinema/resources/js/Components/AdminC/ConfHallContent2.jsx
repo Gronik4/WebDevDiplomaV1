@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 
 export default function ConfHallContent2({ rows, columns, receivedСonfig }) {
 
-  const savedConfig = receivedСonfig? JSON.parse(JSON.parse(receivedСonfig).config):null;
+  const savedConfig = receivedСonfig? JSON.parse(receivedСonfig):null;
   const explanation = savedConfig? 'Редактирование сохранённой конфигурации': 'Создание новой конфигурации';
 
   useEffect(()=> { // Всё это делается после рендера компонента, т.к. из json-а данные приходят без 'onclick'.
@@ -49,11 +49,8 @@ export default function ConfHallContent2({ rows, columns, receivedСonfig }) {
     <p className='conf-step__paragraph'>{explanation}</p>
       <div className='conf-step__hall'>
         <div className='conf-step__hall-wrapper'>
-        
-          {savedConfig? 
-            <>
-              <div dangerouslySetInnerHTML={{__html: savedConfig}}></div>
-            </>:
+          {savedConfig && !rows && !columns? 
+              <div className='dangerous' dangerouslySetInnerHTML={{__html: savedConfig}}></div>: //
             newConfig().map((row, index)=> {
               return (
                 <div className='conf-step__row' key={index}>

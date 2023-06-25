@@ -1,4 +1,5 @@
-import ConfigurationHalls from '@/Components/AdminC/ConfigurationHalls';
+import ConfigurationHalls from '@/Components/AdminC/HallsConfig/ConfigurationHalls';
+import ConfigurationPrice from '@/Components/AdminC/PriceConfig/ConfigurationPrice';
 import ManagingHolls from '@/Components/AdminC/ManagingHolls'
 import ApplicationLogo from '@/Components/ApplicationLogo'
 import { Head, Link } from '@inertiajs/react'
@@ -26,6 +27,7 @@ export default function PanalAdmin({halls, mess}) {
         <main className='conf-steps'>
           <ManagingHolls datas={halls}/>
           <ConfigurationHalls datas={halls}/>
+          <ConfigurationPrice datas={halls}/>
         </main>
       </div>
     </>

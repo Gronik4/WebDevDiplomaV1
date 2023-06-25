@@ -3,7 +3,8 @@ import React, { useState } from 'react'
 import ConfHallContent1 from './ConfHallContent1';
 import ConfHallContent2 from './ConfHallContent2';
 import { useForm } from '@inertiajs/react';
-import InputError from '../InputError';
+import InputError from '../../InputError';
+import AvailableHalls from '../AvailableHalls';
 
 export default function ConfigurationHalls({ datas }) {
   
@@ -52,21 +53,11 @@ export default function ConfigurationHalls({ datas }) {
     patch(route('halls.update', {hall: hallId, config: jsonData}));
   }
 
-  const AvailableHalls = datas?
-    datas.map((hall)=> {
-      return (
-        <li className='li_info' key={hall.id}>
-          <input type="radio" className="conf-step__radio" name="chairs-hall" id={hall.id} value={hall.name} onChange={chosenHall}/>
-            <span className="conf-step__selector">{hall.name}</span>
-        </li>
-      )
-    }):<p className='conf-step__paragraph'>Пока нет доступных залов</p>;
-
   return (
     <SectionAdminLayout headerName={headerName} flags='' nameHall='' idHall=''>
       <p className="conf-step__paragraph">Выберите зал для конфигурации:</p>
       <ul className="conf-step__selectors-box">
-        {AvailableHalls}
+        <AvailableHalls data={datas} handlerName={chosenHall}/>
       </ul>
       <ConfHallContent1
         setR={rows}

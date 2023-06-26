@@ -18,14 +18,6 @@ class HallsConfigController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource. Отобразите форму для создания нового ресурса
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.Сохраните вновь созданный ресурс в хранилище
      */
     public function store(Request $request)
@@ -49,36 +41,23 @@ class HallsConfigController extends Controller
     }
 
     /**
-     * Display the specified resource. Отобразить указанный ресурс.
-     */
-    public function show(HallsConfig $hallsConfig)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource. Отобразите форму для редактирования указанного ресурса.
-     */
-    public function edit(HallsConfig $hallsConfig)
-    {
-        //
-    }
-
-    /**
      * Update the specified resource in storage.Обновите указанный ресурс в хранилище.
      */
     public function update($id, Request $request)
     {
         $hall = HallsConfig::find($id);
-        $valide = $request-> validate([
-            'config'=> 'required|json',
-            'price_vip'=> 'exclude_unless: config, null|required|integer',
-            'price_ordinary'=> 'exclude_unless: config, null|required|integer',
-        ]);
+        if($request->config) {
+            $parm = ['config'=> 'required|json'];
+            $mess = 'Конфигурация зала обновлена';
+        } else {
+            $parm=[
+                'price_vip'=> 'required|integer',
+                'price_ordinary'=> 'required|integer',
+            ];
+            $mess = 'Конфигурация цен обновлена';
+        }
+        $valide = $request-> validate($parm);
         $hall-> update($valide);
-        $hall-> save();
-        $mess = '';
-        if($valide['config']) {$mess = 'Конфигурация зала обновлена';} else {$mess = 'Конфигурация цен обновлена'; }
         return Inertia::render('PanalAdmin', ['halls'=> HallsConfig::all(), 'mess'=> $mess]);
         //return redirect(route('halls.index'));
     }

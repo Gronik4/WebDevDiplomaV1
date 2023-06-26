@@ -1,28 +1,31 @@
+import InputError from '@/Components/InputError';
+import { useForm } from '@inertiajs/react';
 import React, { useState } from 'react'
 
-export default function ConfPriceContent({ savePrices, onParamOrder, onParamVip, newPrices }) {
+export default function ConfPriceContent({ hallData }) {
   
-  let sizeO, sizeV;
-  const { ordinary, vip } = savePrices;
-  const order = ordinary? ordinary: 'неизвестна';
-  const Pvip = vip? vip: 'неизвестна';
-  const { newOrd, newV } = newPrices;
-  /*const [orderP, setOrderP] = useState('');
-  const [vipP, setVipP] = useState('');
-  setOrderP('');
-  setVipP('');*/
-  const sizeOrder = (e)=> {
-    sizeO = e.target.value;
-    onParamOrder(sizeO);
+  const { id, hallOrder, hallVip } = hallData;
+  const orderP = hallOrder? hallOrder: 'Пусто';
+  const vipP = hallVip? hallVip: 'Пусто'; 
+  const { data, setData, patch, clearErrors, reset, processing, errors } = useForm({price_ordinary: '', price_vip: ''});
+
+  if(errors.price_vip) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_vip}`);}
+  if(errors.price_ordinary) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_ordinary}`);}
+
+  const submit = (e)=> {
+    e.preventDefault();
+    patch(route('halls.update', id));
+    reset();
   }
 
-  const sizeVip = (e)=>{
-    sizeV = e.target.value;
-    onParamVip(sizeV);
+  const clear = (e) => {
+    e.preventDefault();
+    reset();
+    clearErrors();
   }
 
   return (
-    <>
+    <form name='changePrice' onSubmit={submit}>
       <div className="conf-step__legend">
         <label className="conf-step__label">Цена, рублей
           <input
@@ -30,11 +33,11 @@ export default function ConfPriceContent({ savePrices, onParamOrder, onParamVip,
             className="conf-step__input"
             style={{fontSize: '1.4rem'}}
             name='price_ordinary'
-            autoComplete={order}
+            autoComplete={orderP}
             autoFocus = {true}
-            value={newOrd}
-            placeholder={order}
-            onChange={sizeOrder}
+            value={data.price_ordinary}
+            placeholder={orderP}
+            onChange={e=> setData('price_ordinary', Number(e.target.value))}
             required={true}
           />
         </label>за <span className="conf-step__chair conf-step__chair_standart"></span> обычные кресла
@@ -46,14 +49,19 @@ export default function ConfPriceContent({ savePrices, onParamOrder, onParamVip,
             className="conf-step__input"
             style={{fontSize: '1.4rem'}}
             name='price_vip'
-            autoComplete={Pvip}
-            value={newV}
-            placeholder={Pvip}
-            onChange={sizeVip}
+            autoComplete={vipP}
+            value={data.price_vip}
+            placeholder={vipP}
+            onChange={e=> setData('price_vip', Number(e.target.value))}
             required={true}
           />
         </label>за <span className="conf-step__chair conf-step__chair_vip"></span> VIP кресла
       </div>
-    </>
+      <InputError message={errors.message} className="mt-2" />
+      <fieldset className="conf-step__buttons text-center">
+        <button className="conf-step__button conf-step__button-regular" onClick={clear}>Отмена</button>
+        <input type="submit" value="Сохранить" className="conf-step__button conf-step__button-accent" disabled={processing}/>
+      </fieldset> 
+    </form>
   )
 }

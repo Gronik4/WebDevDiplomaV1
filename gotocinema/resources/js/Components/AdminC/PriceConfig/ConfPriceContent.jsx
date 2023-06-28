@@ -7,14 +7,14 @@ export default function ConfPriceContent({ hallData }) {
   const { id, hallOrder, hallVip } = hallData;
   const orderP = hallOrder? hallOrder: 'Пусто';
   const vipP = hallVip? hallVip: 'Пусто'; 
-  const { data, setData, patch, clearErrors, reset, processing, errors } = useForm({price_ordinary: '', price_vip: ''});
+  const { data, setData, patch, clearErrors, reset, processing, errors, onSuc} = useForm({price_ordinary: '', price_vip: ''});
 
   if(errors.price_vip) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_vip}`);}
   if(errors.price_ordinary) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_ordinary}`);}
 
   const submit = (e)=> {
     e.preventDefault();
-    patch(route('halls.update', id));
+    patch(route('halls.update', id, {o:()=>{console.log('All right!!')}}));
     reset();
   }
 

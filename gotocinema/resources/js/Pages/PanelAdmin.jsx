@@ -1,17 +1,13 @@
 import ConfigurationHalls from '@/Components/AdminC/HallsConfig/ConfigurationHalls';
 import ConfigurationPrice from '@/Components/AdminC/PriceConfig/ConfigurationPrice';
-import ManagingHolls from '@/Components/AdminC/ManagingHolls'
-import ApplicationLogo from '@/Components/ApplicationLogo'
-import { Head, Link } from '@inertiajs/react'
-import React from 'react'
+import ManagingHolls from '@/Components/AdminC/ManagingHolls';
+import ApplicationLogo from '@/Components/ApplicationLogo';
+import { Head, Link } from '@inertiajs/react';
 
-export default function PanalAdmin({halls, mess}) {
-  if(mess) {alert(mess);}
-  const headers = Array.from(document.querySelectorAll('.conf-step__header'));
-  headers.forEach(header => header.addEventListener('click', () => {
-    header.classList.toggle('conf-step__header_closed');
-    header.classList.toggle('conf-step__header_opened');
-  }));
+export default function PanelAdmin({halls, mess}) {
+
+  if(mess) {alert(mess)};
+  
   return (
     <>
       <Head title='идемВкино | админпанель'/>

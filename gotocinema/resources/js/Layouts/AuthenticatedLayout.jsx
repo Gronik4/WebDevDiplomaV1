@@ -25,7 +25,7 @@ export default function Authenticated({ user, header, children }) {
                   Главная
                 </NavLink>
                 {user.status?
-                  <NavLink href={route('panalAdmin')} active={route().current('welcome')} style={{fontSize: "1.5rem"}}>
+                  <NavLink href={route('panelAdmin')} active={route().current('welcome')} style={{fontSize: "1.5rem"}}>
                     Панель администратора
                   </NavLink>: null
                 }               

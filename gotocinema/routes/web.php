@@ -32,9 +32,9 @@ Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
-Route::get('/panalAdmin', function() {
-    return Inertia::render('PanalAdmin', ['halls'=> HallsConfig::all()]);
-})->middleware(['status', 'verified'])->name('panalAdmin');
+Route::get('/panelAdmin', function() {
+    return Inertia::render('PanelAdmin', ['halls'=> HallsConfig::all()]);
+})->middleware(['status', 'verified'])->name('panelAdmin');
 /**
  * Этот роут показывает при входе на страницу 'PanalAdmin' нужно вызвать функцию [HallsConfigController::class, 'index']
  */

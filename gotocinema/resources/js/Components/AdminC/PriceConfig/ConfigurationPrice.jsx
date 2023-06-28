@@ -1,12 +1,11 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout';
-import { useForm } from '@inertiajs/react';
 import React, { useState } from 'react'
 import AvailableHalls from '../AvailableHalls';
 import ConfPriceContent from './ConfPriceContent';
 
 export default function ConfigurationPrice({ datas }) {
+
   const headerName='Конфигурация цен';
-  
   const [chosenHallName, setChosenHallName] = useState('');
   const [hallDatas, setHallDatas] = useState({id: '', hallOrder: '', hallVip: ''})
 

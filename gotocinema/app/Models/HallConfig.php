@@ -5,10 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Films extends Model
+class HallConfig extends Model
 {
     use HasFactory;
+    protected $table = 'halls_configs';
     protected $fillable = [
-        'id', 'name', 'desc', 'genre', 'creators', 'realise', 'duration', 'posterMain', 'posterAd' 
+        'name', 'config', 'price_vip', 'price_ordinary',
     ];
 }

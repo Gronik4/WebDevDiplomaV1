@@ -24,25 +24,25 @@ class HallsConfigController extends Controller
      */
     public function store(StoreHallRequest $request)
     {
-        $valid = $request->validate();
-        $hall = HallConfig::create([
-            'name'=>$request->name,
-            'config'=>$request->config,
-            'price_vip'=>$request->price_vip,
-            'price_ordinary'=>$request->price_ordinary
-        ]);
-        $hall->save($valid);
-        //return Inertia::render('PanelAdmin', ['halls'=>HallsConfig::all()]);
+        HallConfig::create($request->validated());
         return redirect(route('halls.index'));
     }
 
     /**
      * Update the specified resource in storage.Обновите указанный ресурс в хранилище.
      */
-    public function update($id, Request $request)
+    public function update($id, StoreHallRequest $request)
     {
         $hall = HallConfig::find($id);
-        if($request->config) {
+        $hall->fill($request->validated());
+        $hall->save();
+        /**
+         * if($hall->save()) {
+         *   $ mass = $request->has(''config')? 'Конфигурация зала обновлена':'Конфигурация цен обновлена';
+         * }
+         */
+
+        /*if($request->config) {
             $parm = ['config'=>'required|json'];
             $this->mess = 'Конфигурация зала обновлена';
         } else {
@@ -53,7 +53,7 @@ class HallsConfigController extends Controller
             $this->mess = 'Конфигурация цен обновлена';
         }
         $valide = $request->validate($parm);
-        $hall->update($valide);
+        $hall->update($valide);*/
         //return Inertia::render('PanelAdmin', ['halls'=>HallsConfig::all(), 'mess'=>$mess]);
         return( redirect(route('halls.index')));
     }

@@ -14,7 +14,7 @@ export default function ConfPriceContent({ hallData }) {
 
   const submit = (e)=> {
     e.preventDefault();
-    patch(route('halls.update', id, {o:()=>{console.log('All right!!')}}));
+    patch(route('halls.update', id));
     reset();
   }
 

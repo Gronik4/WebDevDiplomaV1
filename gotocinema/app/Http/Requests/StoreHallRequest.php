@@ -11,7 +11,7 @@ class StoreHallRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -27,5 +27,14 @@ class StoreHallRequest extends FormRequest
             'price_vip'=>['exclude_unless: name, null', 'required', 'integer'], // Поле будет проверятся, если = null 
             'price_ordinary'=>['exclude_unless: name, null', 'required', 'integer'] // Поле будет проверятся, если = null
         ];
+    }
+
+    public function messages(): array
+    {
+      return [
+        'config.required'=>'Поле config - не заполнено, а должно быть заполнено',
+        'price_vip.required'=>'Поле price_vip - не заполнено, а должно быть заполнено',
+        'price_ordinary.required'=>'Поле price_ordinary - не заполнено, а должно быть заполнено',
+      ]; 
     }
 }

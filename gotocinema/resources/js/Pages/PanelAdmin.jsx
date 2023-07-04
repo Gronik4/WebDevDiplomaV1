@@ -2,12 +2,13 @@ import ConfigurationHalls from '@/Components/AdminC/HallsConfig/ConfigurationHal
 import ConfigurationPrice from '@/Components/AdminC/PriceConfig/ConfigurationPrice';
 import ManagingHolls from '@/Components/AdminC/ManagingHolls';
 import ApplicationLogo from '@/Components/ApplicationLogo';
-import { Head, Link } from '@inertiajs/react';
+import { Head, Link, usePage } from '@inertiajs/react';
 
-export default function PanelAdmin({halls, mess}) {
+export default function PanelAdmin({halls}) {
 
-  if(mess) {alert(mess)};
-  
+  const { flash } = usePage().props;
+  if(flash.mess) { alert(flash.mess); } // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
+
   return (
     <>
       <Head title='идемВкино | админпанель'/>

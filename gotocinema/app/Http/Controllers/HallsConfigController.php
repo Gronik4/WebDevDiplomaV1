@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHallRequest;
+use App\Http\Requests\UpdateHallRequest;
 use App\Models\HallConfig;
-use Illuminate\Http\Request;
 use Inertia\Inertia;
 
 class HallsConfigController extends Controller
@@ -12,11 +12,9 @@ class HallsConfigController extends Controller
     /**
      * Display a listing of the resource. Отобразите список ресурса.
      */
-    public string $mess = '';
     public function index()
     {
-        $message = $this->mess? $this->mess: '';
-        return Inertia::render('PanelAdmin', ['halls'=>HallConfig::all(), 'mess'=>$message]);
+        return Inertia::render('PanelAdmin', ['halls'=>HallConfig::all()]);
     }
 
     /**
@@ -31,31 +29,13 @@ class HallsConfigController extends Controller
     /**
      * Update the specified resource in storage.Обновите указанный ресурс в хранилище.
      */
-    public function update($id, StoreHallRequest $request)
+    public function update($id, UpdateHallRequest $request)
     {
         $hall = HallConfig::find($id);
-        $hall->fill($request->validated());
-        $hall->save();
-        /**
-         * if($hall->save()) {
-         *   $ mass = $request->has(''config')? 'Конфигурация зала обновлена':'Конфигурация цен обновлена';
-         * }
-         */
-
-        /*if($request->config) {
-            $parm = ['config'=>'required|json'];
-            $this->mess = 'Конфигурация зала обновлена';
-        } else {
-            $parm=[
-                'price_vip'=>'required|integer',
-                'price_ordinary'=>'required|integer',
-            ];
-            $this->mess = 'Конфигурация цен обновлена';
-        }
-        $valide = $request->validate($parm);
-        $hall->update($valide);*/
-        //return Inertia::render('PanelAdmin', ['halls'=>HallsConfig::all(), 'mess'=>$mess]);
-        return( redirect(route('halls.index')));
+        $hall->update($request->validated());
+        
+        $mess = $request->has('config')? 'Конфигурация зала обновлена':'Конфигурация цен обновлена';
+        return redirect(route('halls.index'))->with('mess', $mess);
     }
 
     /**

@@ -11,7 +11,7 @@ class UpdateHallRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,9 @@ class UpdateHallRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'config'=>['sometimes', 'required', 'json'],
+            'price_vip'=>['sometimes', 'required', 'integer'],
+            'price_ordinary'=>['sometimes', 'required', 'integer'] 
         ];
     }
 }

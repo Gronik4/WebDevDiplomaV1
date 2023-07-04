@@ -11,6 +11,7 @@ export default function ConfPriceContent({ hallData }) {
 
   if(errors.price_vip) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_vip}`);}
   if(errors.price_ordinary) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_ordinary}`);}
+  
 
   const submit = (e)=> {
     e.preventDefault();

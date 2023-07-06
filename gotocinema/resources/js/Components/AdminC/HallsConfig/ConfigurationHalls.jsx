@@ -4,7 +4,7 @@ import ConfHallContent1 from './ConfHallContent1';
 import ConfHallContent2 from './ConfHallContent2';
 import { useForm } from '@inertiajs/react';
 import InputError from '../../InputError';
-import AvailableHalls from '../AvailableHalls';
+import AvailableHalls from './AvailableHalls';
 
 export default function ConfigurationHalls({ datas }) {
   

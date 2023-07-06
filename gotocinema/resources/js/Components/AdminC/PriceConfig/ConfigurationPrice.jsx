@@ -1,6 +1,6 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout';
 import React, { useState } from 'react'
-import AvailableHalls from '../AvailableHalls';
+import AvailableHalls from '../HallsConfig/AvailableHalls';
 import ConfPriceContent from './ConfPriceContent';
 
 export default function ConfigurationPrice({ datas }) {

@@ -4,6 +4,7 @@ use App\Http\Controllers\FilmsController;
 use App\Models\HallConfig;
 use App\Http\Controllers\HallsConfigController;
 use App\Http\Controllers\ProfileController;
+use App\Models\Film;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -33,7 +34,7 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/panelAdmin', function() {
-    return Inertia::render('PanelAdmin', ['halls'=> HallConfig::all()]);
+    return Inertia::render('PanelAdmin', ['halls'=> HallConfig::all(), 'films'=>Film::all()]);
 })->middleware(['status', 'verified'])->name('panelAdmin');
 
 Route::middleware('auth')->group(function () {

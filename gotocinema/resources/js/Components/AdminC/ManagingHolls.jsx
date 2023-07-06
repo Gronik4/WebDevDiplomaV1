@@ -44,7 +44,7 @@ export default function ManagingHolls({ datas }) {
 
  
   return (
-    <SectionAdminLayout headerName={headerName} flags={flags} nameHall={nameHall} idHall={idHall}>
+    <SectionAdminLayout headerName={headerName} flags={flags} nameEl={nameHall} idEl={idHall}>
       <p className='conf-step__paragraph'>Доступные залы:</p>
       <ul className='conf-step__list'>
         {ulContent}

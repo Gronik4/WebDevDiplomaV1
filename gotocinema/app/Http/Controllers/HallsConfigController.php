@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreHallRequest;
 use App\Http\Requests\UpdateHallRequest;
+use App\Models\Film;
 use App\Models\HallConfig;
 use Inertia\Inertia;
 
@@ -14,7 +15,7 @@ class HallsConfigController extends Controller
      */
     public function index()
     {
-        return Inertia::render('PanelAdmin', ['halls'=>HallConfig::all()]);
+        return Inertia::render('PanelAdmin', ['halls'=>HallConfig::all(), 'films'=>Film::all()]);
     }
 
     /**

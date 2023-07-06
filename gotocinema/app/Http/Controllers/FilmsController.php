@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Films;
+use App\Http\Requests\StoreFilmRequest;
+use App\Models\Film;
+use App\Models\HallConfig;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Inertia\Inertia;
@@ -14,56 +16,23 @@ class FilmsController extends Controller
      */
     public function index()
     {
-        //
+        return Inertia::render('PanelAdmin', ['films'=>Film::all(), 'halls'=>HallConfig::all()]);
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreFilmRequest $request)
     {
-        $validate = $request-> validate([
-            'name'=> 'required|string|max:255',
-            'desc'=> 'required|string|',
-            'genre'=> 'required|string|max:255',
-            'creators'=> 'required|string|max:255',
-            'realise'=> 'required|string|max:255',
-            'duration'=> 'required|string|max:255',
-            'posterMain'=> 'required|string|max:255',
-            'posterAd'=> 'required|string|max:255',
-        ]);
-        $request->user()->films()->create($validate);
-        return Inertia::render('panalAdmin');
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(Films $films)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Films $films)
-    {
-        //
+       Film::create($request->validated());
+       return redirect(route('films.index'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Films $films)
+    public function update(StoreFilmRequest $request, $id)
     {
         //
     }
@@ -71,8 +40,10 @@ class FilmsController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Films $films)
+    public function destroy($id)
     {
-        //
+        $filmDelet = Film::find($id);
+        $filmDelet->delete();
+        return redirect(route('films.index'));
     }
 }

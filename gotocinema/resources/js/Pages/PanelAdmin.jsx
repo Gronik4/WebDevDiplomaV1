@@ -3,12 +3,15 @@ import ConfigurationPrice from '@/Components/AdminC/PriceConfig/ConfigurationPri
 import ManagingHolls from '@/Components/AdminC/ManagingHolls';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Head, Link, usePage } from '@inertiajs/react';
+import SessionGrid from '@/Components/AdminC/SessionGrid/SessionGrid';
+import accordeon from '@/Components/AdminC/srevces/accordeon';
 
-export default function PanelAdmin({halls}) {
+export default function PanelAdmin({halls, films}) {
 
   const { flash } = usePage().props;
   if(flash.mess) { alert(flash.mess); } // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
-
+  accordeon();
+  
   return (
     <>
       <Head title='идемВкино | админпанель'/>
@@ -25,6 +28,7 @@ export default function PanelAdmin({halls}) {
           <ManagingHolls datas={halls}/>
           <ConfigurationHalls datas={halls}/>
           <ConfigurationPrice datas={halls}/>
+          <SessionGrid datas={films} halls={halls}/>
         </main>
       </div>
     </>

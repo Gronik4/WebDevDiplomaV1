@@ -39,7 +39,6 @@ export default function Popup({flag, idp, nameEl, idEl}) {
 
   if(datasInput.length>1){
     styleWrapper = {paddingLeft: '12px',  paddingRight: '12px', overflow: 'auto', height: '480px'};
-    styleContent = {top:'-90vh'};
     inputData =datasInput.map((item, index)=> {
       return (
         <div key={index}>

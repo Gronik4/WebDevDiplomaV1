@@ -6,15 +6,24 @@ import 'moment/locale/ru'; // Установка языка(русский)
 import FilmsContent from '../FilmsContent';
 import calcDates from '../srevces/calculationDates';
 
-export default function SessionGrid({ datas, halls }) {
+export default function SessionGrid({ datas, halls }) { console.log(datas);
 
   const headerName = 'Сетка сеансов';
-  const flags = getFlags(headerName);
+  const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
   const [filmName, setFilmName] = useState('');
   const [filmId, setFilmId] = useState('');
   const [dateSelect, setDateSelect] =useState(false);
   const [date, setDate] = useState('');
   const { min, max } = calcDates();
+  const [tension, setTension] = useState(setTensionStart);
+
+  function setTensionStart() { // Здесь halls изменить на данные из таблицы session_grid
+    const arrHalls = {};
+    halls.forEach((el)=> {
+      arrHalls[el.id] = [];
+    });
+    return arrHalls;
+  }
 
   const showPopupAddFilm = (e)=> {
     e.preventDefault();
@@ -62,15 +71,19 @@ export default function SessionGrid({ datas, halls }) {
       <div className='conf-step__movies'>
         <FilmsContent films={datas} onSelectFilm={(film)=>showPopupDelFilm(film)}/>
       </div>
-      <div className='conf-step__seances-hall'>
-        <label className='conf-step__paragraph'>Чтобы составить сетку сеансов выберите дату: 
-          <input type='date' min={min} max={max} onChange={dateGrid} style={{marginLeft: '0.5rem'}}/>
-        </label>
+      <div className='conf-step__wrapper' style={{padding: '5px 42px 5px 104px'}}>
+          <label className='conf-step__paragraph'>Чтобы составить сетку сеансов выберите дату: 
+            <input type='date' min={min} max={max} onChange={dateGrid} style={{marginLeft: '0.5rem'}}/>
+          </label>
       </div>
       {dateSelect?
-        <div className='conf-step__seances-hall'>
+        <div className='conf-step__legend' style={{color:'#000'}}>
           <p className='conf-step__paragraph'>Сетка сеансов на {date}</p>
-        </div>: null
+          <span className='clearing-time__span'></span> - Время уборки и проветривания зала 10 минут
+          <br></br>Для составления сетки зала, перетащите нужный фильм в нужный зал.
+          <br></br>Продолжительность работы зала с 10:00 до 23:00.
+        </div>
+        : null
       }
       <div className='conf-step__seances'>
         {grid}

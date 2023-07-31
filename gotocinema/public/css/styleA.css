@@ -305,6 +305,17 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
 .conf-step__chair_disabled {
   border-color: #C4C4C4; }
 
+  .clearing-time__span{
+    display: inline-block;
+    vertical-align: middle;
+    width: 10px;
+    height: 20px;
+    border-width: 1px ;
+    border-style: solid;
+    box-sizing: border-box;
+    background-color: blueviolet;
+  }
+
 .conf-step__selectors-box {
   font-size: 0;
   list-style: none;
@@ -386,6 +397,7 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
     border: 1px solid rgba(0, 0, 0, 0.3);
     box-sizing: border-box;
     cursor: pointer; }
+  .conf-step__movie:hover {cursor: move;}
     .conf-step__movies .conf-step__movie:nth-of-type(3n + 2) {
       margin: 0 15px; }
     .conf-step__movies .conf-step__movie:nth-of-type(n + 4) {
@@ -435,7 +447,7 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   padding: 10px 0;
   height: 40px;
   box-sizing: content-box;
-  width: calc(1440px * 0.5); }
+  width: 780px; } /* Продолжительность работы зала с 10:00 до 23:00 - 13часов * 60 минут = 780минут = 780px*/
 
 .conf-step__seances-movie {
   position: absolute;
@@ -535,5 +547,14 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
       .popup__dismiss img:hover {
         transform: scale(1.2);
         transition: .3s all ease; }
+  .fantom {
+    box-sizing: border-box;
+    height: 40px;
+    background: rgb(133, 255, 137);
+    border: rgb(3, 58, 37) dashed 3px;
+    border-radius: 8px;
+    font-size: 0.7rem;
+    cursor: grab;
+  }
 
 /*# sourceMappingURL=styles.css.map */

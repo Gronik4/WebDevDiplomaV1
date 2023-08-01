@@ -90,12 +90,12 @@ export default function SessionGrid({ datas, halls }) {
           <input type='date' min={min} max={max} onChange={dateGrid} style={{marginLeft: '0.5rem'}}/>
         </label>
       </div>
-      {dateSelect? <RenderLegend date={date}/>: null}
+      {dateSelect? <><RenderLegend date={date}/>
       <div className='conf-step__seances'>
         {halls.map((el)=> {
           return <RenderHalls key={el.id} name={el.name} id={el.id} schedule={tension} datas={filmsJson}/>
         })}
-      </div>
+      </div></>: null}
     </SectionAdminLayout>
   )
 }

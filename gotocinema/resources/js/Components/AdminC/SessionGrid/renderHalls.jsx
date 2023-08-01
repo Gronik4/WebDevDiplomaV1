@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState } from 'react';
+import changeTension from './serviceSG/changeTension';
+import testTension from './serviceSG/testTension';
+import LoadingMovies from './LoadingMovies';
 
-export default function renderHalls({ name, id, schedule, datas }) {
+export default function RenderHalls({ name, id, schedule, datas }) {
 
-  const [tension, setTension] = useState(schedule[id+'hg']);
+  const [tension, setTension] = useState(schedule[id]);
 
   function hendlerDEnd() {;
     const satellite = changeTension(0, tension, 'del');
@@ -58,9 +61,24 @@ export default function renderHalls({ name, id, schedule, datas }) {
       } else {return;} 
     } 
   }
+
   return (
-    <div>
-      
+   <div className='conf-step__seances-hall' key={id} id={id}>
+      <h3 className='conf-step__seances-title'>{name}</h3>
+      <div
+        className='conf-step__seances-timeline'
+        id={id}
+        onDragOver={(evn)=> hendlerDragOver(evn)}
+        onDrop={(e)=> hendlerDrop(e)}
+        onDragLeave={(e)=> hendlerDragLeave(e)}
+      >
+        <LoadingMovies tension={tension} datas={datas} onDelFilm={()=> hendlerDEnd()}/>
+      </div>
+      <button
+        type='reset'
+        className='conf-step__button clearing-hall' 
+        onClick={()=> cleanerHall()}
+        >Очистить сетку зала {name}</button>
     </div>
   )
 }

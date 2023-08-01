@@ -3,11 +3,13 @@ import React, { useState } from 'react'
 import getFlags from '../srevces/managingFlags';
 import moment from 'moment/moment';
 import 'moment/locale/ru'; // Установка языка(русский)
-import FilmsContent from '../FilmsContent';
 import calcDates from '../srevces/calculationDates';
+import RenderLegend from './renderLegend';
+import RenderFilm from './renderFilm';
+import RenderHalls from './RenderHalls';
 
-export default function SessionGrid({ datas, halls }) { console.log(datas);
-
+export default function SessionGrid({ datas, halls }) {
+  
   const headerName = 'Сетка сеансов';
   const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
   const [filmName, setFilmName] = useState('');
@@ -15,15 +17,16 @@ export default function SessionGrid({ datas, halls }) { console.log(datas);
   const [dateSelect, setDateSelect] =useState(false);
   const [date, setDate] = useState('');
   const { min, max } = calcDates();
-  const [tension, setTension] = useState(setTensionStart);
+  const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
 
-  function setTensionStart() { // Здесь halls изменить на данные из таблицы session_grid
+  function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
     halls.forEach((el)=> {
       arrHalls[el.id] = [];
     });
     return arrHalls;
   }
+  const [tension, setTension] = useState(setTensionStart);
 
   const showPopupAddFilm = (e)=> {
     e.preventDefault();
@@ -54,7 +57,17 @@ export default function SessionGrid({ datas, halls }) { console.log(datas);
     setDateSelect(true);
   }
 
-  const grid = dateSelect? 
+  const renderFilms =  datas.length !== 0? datas.map((el)=> { return <RenderFilm
+    key={el.id}
+    id={el.id}
+    name={el.name}
+    duration={el.duration}
+    img={el.posterAd}
+    onSelectFilm={(film)=>showPopupDelFilm(film)}
+    />
+  }): <div className='conf-step__wrapper'><p className='conf-step__paragraph'>В прокате пока нет фильмов</p></div>
+
+  /*const grid = dateSelect? 
     halls.map((hall)=> {
      return(
       <div className='conf-step__seances-hall' key={hall.id} id={hall.id}>
@@ -63,30 +76,25 @@ export default function SessionGrid({ datas, halls }) { console.log(datas);
       </div>
      ) 
     }):<div className='conf-step__wrapper'><p className='conf-step__paragraph'>Дата не выбрана</p></div>;
+  */
   return (
     <SectionAdminLayout headerName={headerName} flags={flags} nameEl={filmName} idEl={filmId}>
       <p className='conf-step__paragraph'>
         <button className='conf-step__button conf-step__button-accent' onClick={showPopupAddFilm}>Добавить фильм</button>
       </p>
       <div className='conf-step__movies'>
-        <FilmsContent films={datas} onSelectFilm={(film)=>showPopupDelFilm(film)}/>
+        {renderFilms}
       </div>
       <div className='conf-step__wrapper' style={{padding: '5px 42px 5px 104px'}}>
-          <label className='conf-step__paragraph'>Чтобы составить сетку сеансов выберите дату: 
-            <input type='date' min={min} max={max} onChange={dateGrid} style={{marginLeft: '0.5rem'}}/>
-          </label>
+        <label className='conf-step__paragraph'>Чтобы составить сетку сеансов выберите дату: 
+          <input type='date' min={min} max={max} onChange={dateGrid} style={{marginLeft: '0.5rem'}}/>
+        </label>
       </div>
-      {dateSelect?
-        <div className='conf-step__legend' style={{color:'#000'}}>
-          <p className='conf-step__paragraph'>Сетка сеансов на {date}</p>
-          <span className='clearing-time__span'></span> - Время уборки и проветривания зала 10 минут
-          <br></br>Для составления сетки зала, перетащите нужный фильм в нужный зал.
-          <br></br>Продолжительность работы зала с 10:00 до 23:00.
-        </div>
-        : null
-      }
+      {dateSelect? <RenderLegend date={date}/>: null}
       <div className='conf-step__seances'>
-        {grid}
+        {halls.map((el)=> {
+          return <RenderHalls key={el.id} name={el.name} id={el.id} schedule={tension} datas={filmsJson}/>
+        })}
       </div>
     </SectionAdminLayout>
   )

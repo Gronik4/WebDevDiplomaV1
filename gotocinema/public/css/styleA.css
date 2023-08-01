@@ -462,7 +462,6 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   .conf-step__seances-movie .conf-step__seances-movie-start {
     position: absolute;
     bottom: -33px;
-    left: -14px;
     color: #848484;
     font-size: 1.2rem; }
   .conf-step__seances-movie::before {
@@ -550,11 +549,49 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   .fantom {
     box-sizing: border-box;
     height: 40px;
+    text-align: center;
+    padding-top: 0.5rem;
     background: rgb(133, 255, 137);
     border: rgb(3, 58, 37) dashed 3px;
     border-radius: 8px;
-    font-size: 0.7rem;
+    font-size: 1rem;
     cursor: grab;
   }
-
+  .clearing-hall {
+    width: max-content;
+    margin: 20px auto 0;
+    padding: 7px 15px;
+    background-color: #fff;
+    color: #848484;
+  }
+  .clearing-hall:hover {color: #000;}
+  .conf-step__seances-movie-after {
+    position: absolute;
+    display: block;
+    width: 1px;
+    height: 5px;
+    bottom: -17px;
+    background-color: #848484; }
+.cleaner-time {
+  position: absolute;
+  width: 10px;
+  height: 40px;
+  background-color: blueviolet;
+  top: -2px;
+  border: 1px solid rgba(0, 0, 0, 0.3);
+}
+.clearing-time__span{
+display: inline-block;
+vertical-align: middle;
+width: 10px;
+height: 40px;
+border-width: 1px;
+border-style: solid;
+box-sizing: border-box;
+background-color: blueviolet;
+}
+.taken {
+border: 3px rgb(3, 58, 37) dashed;
+border-radius: 8px;
+opacity: 0.4;}
 /*# sourceMappingURL=styles.css.map */

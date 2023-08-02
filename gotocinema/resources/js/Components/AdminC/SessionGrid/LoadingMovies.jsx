@@ -33,7 +33,6 @@ export default function LoadingMovies({tension, datas, onDelFilm}) {
               'width': dur,
               'backgroundColor': 'rgb(133, 255, 137)',
               'left': posStart,
-              'padding': 0,
               'fontSize': '1.1rem',
               'padding': '2px',
               'cursor': 'move'

@@ -10,15 +10,15 @@ export default function RenderFilm({img, name, duration, id, onSelectFilm}) {
   }
 
   function hendlerStart(e) {
-    e.target.classList.add('taken');
+    e.target.closest('.conf-step__movie').classList.add('taken');
     const fantom = createFantom(name, duration, id);
     document.querySelector('.conf-step__movies').append(fantom);
-    e.dataTransfer.setDragImage(document.getElementById(`${e.target.id}fantom`), 10,10);
+    e.dataTransfer.setDragImage(document.getElementById(`${e.target.closest('.conf-step__movie').id}fantom`), 10,10);
     setTimeout(()=> fantom.remove(), 0);
   }
 
   function hendlerEnd(e) {
-    e.target.classList.remove('taken');
+    e.target.closest('.conf-step__movie').classList.remove('taken');
   }
   
   return (

@@ -28,6 +28,10 @@ export default function SessionGrid({ datas, halls }) {
   }
   const [tension, setTension] = useState(setTensionStart);
 
+  function saveGrid() {
+    alert('saveGrid');
+  }
+
   const showPopupAddFilm = (e)=> {
     e.preventDefault();
     const popup = document.getElementById(flags.add);
@@ -67,16 +71,6 @@ export default function SessionGrid({ datas, halls }) {
     />
   }): <div className='conf-step__wrapper'><p className='conf-step__paragraph'>В прокате пока нет фильмов</p></div>
 
-  /*const grid = dateSelect? 
-    halls.map((hall)=> {
-     return(
-      <div className='conf-step__seances-hall' key={hall.id} id={hall.id}>
-        <h3 className='conf-step__seances-title'>{hall.name}</h3>
-        <div className='conf-step__seances-timeline'></div>
-      </div>
-     ) 
-    }):<div className='conf-step__wrapper'><p className='conf-step__paragraph'>Дата не выбрана</p></div>;
-  */
   return (
     <SectionAdminLayout headerName={headerName} flags={flags} nameEl={filmName} idEl={filmId}>
       <p className='conf-step__paragraph'>
@@ -95,7 +89,11 @@ export default function SessionGrid({ datas, halls }) {
         {halls.map((el)=> {
           return <RenderHalls key={el.id} name={el.name} id={el.id} schedule={tension} datas={filmsJson}/>
         })}
-      </div></>: null}
+      </div>
+      <fieldset className='conf-step__buttons text-center'>
+        <input type='submit' onClick={saveGrid} value='Сохранить' className='conf-step__button conf-step__button-accent'/>
+      </fieldset>
+      </>: null}
     </SectionAdminLayout>
   )
 }

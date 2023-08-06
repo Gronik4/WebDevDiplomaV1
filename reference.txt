@@ -37,14 +37,13 @@ email: lyly@yandex.ru
   'price_vip'
   'price_ordinary'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-'session_grid'-> 'id'	'hall_name'	'Data'	'allpwed'	'time'	'film'	'sold_seats'
-  'id'
-  'hall_name'
+'session_grid'-> 	'Data'	'idHall'	'sesStart'	'idFilm'	'sold_seats'	'allpwed'
   'Data'
-  'allpwed'
-  'time'
-  'film'
+  'idHall'
+  'sesStart'
+  'idFilm'
   'sold_seats'
+  'allpwed'
 ********************        РОУТЫ         ***********************************
   GET|HEAD        halls ............... halls.index › HallsConfigController@index
   POST            halls ............... halls.store › HallsConfigController@store

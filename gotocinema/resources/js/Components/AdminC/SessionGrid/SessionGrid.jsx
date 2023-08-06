@@ -7,6 +7,7 @@ import calcDates from '../srevces/calculationDates';
 import RenderLegend from './renderLegend';
 import RenderFilm from './renderFilm';
 import RenderHalls from './RenderHalls';
+import collectGridData from './serviceSG/collectGridData';
 
 export default function SessionGrid({ datas, halls }) {
   
@@ -29,7 +30,8 @@ export default function SessionGrid({ datas, halls }) {
   const [tension, setTension] = useState(setTensionStart);
 
   function saveGrid() {
-    alert('saveGrid');
+    const gridData = collectGridData();
+    console.log(gridData);
   }
 
   const showPopupAddFilm = (e)=> {
@@ -55,7 +57,7 @@ export default function SessionGrid({ datas, halls }) {
     }
   }
 
-  function dateGrid(e) {
+  function selectDate(e) {
     const chosenDat = Date.parse(e.target.value);
     setDate(moment(chosenDat).format('LL'));
     setDateSelect(true);
@@ -81,7 +83,7 @@ export default function SessionGrid({ datas, halls }) {
       </div>
       <div className='conf-step__wrapper' style={{padding: '5px 42px 5px 104px'}}>
         <label className='conf-step__paragraph'>Чтобы составить сетку сеансов выберите дату: 
-          <input type='date' min={min} max={max} onChange={dateGrid} style={{marginLeft: '0.5rem'}}/>
+          <input id='SGDate' type='date' min={min} max={max} onChange={selectDate} style={{marginLeft: '0.5rem'}}/>
         </label>
       </div>
       {dateSelect? <><RenderLegend date={date}/>

@@ -1,7 +1,11 @@
 import React from 'react';
 import { Link, Head } from '@inertiajs/react';
+import RenderNav from '@/Components/Client/renderNav';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }) {
+  function chosenDat(dat) {
+    console.log('Выбрана= '+dat);
+  }
   return (
     <>
       <Head title="идемВкино" />
@@ -10,55 +14,25 @@ export default function Welcome({ auth, laravelVersion, phpVersion }) {
           <h1 className="page-header__title">Идём<span>в</span>кино</h1>
           <div>
             {auth.user ? (
-              <Link href={route('dashboard')} className="movie__title_a">
-                Панель управления
-              </Link>
+              <Link href={route('dashboard')} className="movie__title_a">Панель управления</Link>
             ) : (
               <>
-                <Link
-                  href={route('login')}
-                  className="movie__title_a">
-                  вход
-                </Link>
-                <Link
-                  href={route('register')}
-                  className="movie__title_a"
-                >
-                  Регистрация
-                </Link>
+                <Link href={route('login')} className="movie__title_a">вход</Link>
+                <Link href={route('register')} className="movie__title_a">Регистрация</Link>
               </>
             )}
           </div>
         </header>
-
+        
         <nav className="page-nav">
-          <a className="page-nav__day page-nav__day_today" href="#">
-            <span className="page-nav__day-week">Пн</span><span className="page-nav__day-number">31</span>
-          </a>
-          <a className="page-nav__day" href="#">
-            <span className="page-nav__day-week">Вт</span><span className="page-nav__day-number">1</span>
-          </a>
-          <a className="page-nav__day page-nav__day_chosen" href="#">
-            <span className="page-nav__day-week">Ср</span><span className="page-nav__day-number">2</span>
-          </a>
-          <a className="page-nav__day" href="#">
-            <span className="page-nav__day-week">Чт</span><span className="page-nav__day-number">3</span>
-          </a>
-          <a className="page-nav__day" href="#">
-            <span className="page-nav__day-week">Пт</span><span className="page-nav__day-number">4</span>
-          </a>
-          <a className="page-nav__day page-nav__day_weekend" href="#">
-            <span className="page-nav__day-week">Сб</span><span className="page-nav__day-number">5</span>
-          </a>
-          <a className="page-nav__day page-nav__day_next" href="#">
-          </a>
+          <RenderNav onSelectData={(dat)=> chosenDat(dat)}/>
         </nav>
 
         <main>
           <section className="movie">
             <div className="movie__info">
               <div className="movie__poster">
-                <img className="movie__poster-image" alt="Звёздные войны постер" src="i/poster1.jpg"/>
+                <img className="movie__poster-image" alt="Звёздные войны постер" src="i/poster.jpg"/>
               </div>
               <div className="movie__description">
                 <h2 className="movie__title">Звёздные войны XXIII: Атака клонированных клонов</h2>

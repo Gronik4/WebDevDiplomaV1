@@ -56,6 +56,7 @@ html {
   text-decoration: none;
   color: #000000;
 }
+.page-nav .page-nav__day:hover {cursor: pointer;}
 .page-nav .page-nav__day + .page-nav__day {
   margin-left: 1px;
 }
@@ -77,11 +78,17 @@ html {
 .page-nav .page-nav__day_weekend {
   color: #DE2121;
 }
-.page-nav .page-nav__day_next {
+.page-nav .page-nav__day_next .page-nav__day_previous{
   text-align: center;
 }
 .page-nav .page-nav__day_next::before {
   content: '>';
+  font-family: monospace;
+  font-weight: 700;
+  font-size: 2.4rem;
+}
+.page-nav .page-nav__day_previous::before {
+  content: '<';
   font-family: monospace;
   font-weight: 700;
   font-size: 2.4rem;

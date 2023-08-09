@@ -1,10 +1,13 @@
 import React from 'react';
-import { Link, Head } from '@inertiajs/react';
+import { Link, Head, useForm } from '@inertiajs/react';
 import RenderNav from '@/Components/Client/renderNav';
 
-export default function Welcome({ auth, laravelVersion, phpVersion }) {
+export default function Welcome({ auth, films }) {
+  const {get} = useForm();
   function chosenDat(dat) {
     console.log('Выбрана= '+dat);
+    //const grid = get(route('grid.index')); //Выводитс в отдельном ифрейме
+    //console.log(grid);
   }
   return (
     <>

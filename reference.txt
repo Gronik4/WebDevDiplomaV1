@@ -37,25 +37,36 @@ email: lyly@yandex.ru
   'price_vip'
   'price_ordinary'
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-'session_grid'-> 	'Data'	'idHall'	'sesStart'	'idFilm'	'sold_seats'	'allpwed'
-  'Data'
-  'idHall'
-  'sesStart'
-  'idFilm'
+'session_grid'-> 	'data'	'id_hall' 'nameHall'	'ses_start'	'id_film'	'sold_seats'	'allpwed'
+  'data'
+  'id_hall'
+  'nameHall'
+  'ses_start'
+  'id_film'
   'sold_seats'
   'allpwed'
 ********************        РОУТЫ         ***********************************
-  GET|HEAD        halls ............... halls.index › HallsConfigController@index
-  POST            halls ............... halls.store › HallsConfigController@store
-  GET|HEAD        halls/create ........ halls.create › HallsConfigController@create
-  GET|HEAD        halls/{hall} ........ halls.show › HallsConfigController@show
-  PUT|PATCH       halls/{hall} ........ halls.update › HallsConfigController@update
-  DELETE          halls/{hall} ........ halls.destroy › HallsConfigController@destroy
-  GET|HEAD        halls/{hall}/edit ... halls.edit › HallsConfigController@edit
-films ............... films.index › FilmsController@index
-  POST            films ................ films.store › FilmsController@store
-  GET|HEAD        films/create ......... films.create › FilmsController@create
-  GET|HEAD        films/{film} ......... films.show › FilmsController@show
-  PUT|PATCH       films/{film} ......... films.update › FilmsController@update  
-  DELETE          films/{film} ......... films.destroy › FilmsController@destroy  
-  GET|HEAD        films/{film}/edit .... films.edit › FilmsController@edit  
+                          films
+  GET|HEAD        films .............. films.index › FilmsController@index  
+  POST            films .............. films.store › FilmsController@store
+  GET|HEAD        films/create ....... films.create › FilmsController@create  
+  GET|HEAD        films/{film} ....... films.show › FilmsController@show  
+  PUT|PATCH       films/{film} ....... films.update › FilmsController@update  
+  DELETE          films/{film} ....... films.destroy › FilmsController@destroy  
+  GET|HEAD        films/{film}/edit .. films.edit › FilmsController@edit 
+                          grid
+  GET|HEAD        grid ............... grid.index › SessionGridController@index  
+  POST            grid ............... grid.store › SessionGridController@store  
+  GET|HEAD        grid/create ........ grid.create › SessionGridController@create
+  GET|HEAD        grid/{grid} ........ grid.show › SessionGridController@show
+  PUT|PATCH       grid/{grid} ........ grid.update › SessionGridController@update  
+  DELETE          grid/{grid} ........ grid.destroy › SessionGridController@destroy
+  GET|HEAD        grid/{grid}/edit ... grid.edit › SessionGridController@edit
+                          halls  
+  GET|HEAD        halls .............. halls.index › HallsConfigController@index  
+  POST            halls .............. halls.store › HallsConfigController@store  
+  GET|HEAD        halls/create ....... halls.create › HallsConfigController@create  
+  GET|HEAD        halls/{hall} ....... halls.show › HallsConfigController@show  
+  PUT|PATCH       halls/{hall} ....... halls.update › HallsConfigController@update
+  DELETE          halls/{hall} ....... halls.destroy › HallsConfigController@destroy  
+  GET|HEAD        halls/{hall}/edit .. halls.edit › HallsConfigController@edit  

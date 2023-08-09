@@ -24,8 +24,8 @@ class StoreHallRequest extends FormRequest
         return [
             'name'=>['required', 'unique:halls_configs,name', 'string', 'max:255'], // Проверка на отсутствие дублирующихся данных
             'config'=>['exclude_unless: name, null', 'required', 'json'], // Поле будет проверятся, если name = null
-            'price_vip'=>['exclude_unless: name, null', 'required', 'integer'], // Поле будет проверятся, если = null 
-            'price_ordinary'=>['exclude_unless: name, null', 'required', 'integer'] // Поле будет проверятся, если = null
+            'price_vip'=>['exclude_unless: name, null', 'required', 'integer'], // Поле будет проверятся, если name  = null 
+            'price_ordinary'=>['exclude_unless: name, null', 'required', 'integer'] // Поле будет проверятся, если name  = null
         ];
     }
 

@@ -4,7 +4,9 @@ use App\Http\Controllers\FilmsController;
 use App\Models\HallConfig;
 use App\Http\Controllers\HallsConfigController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\SessionGridController;
 use App\Models\Film;
+use App\Models\SessionGrid;
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
@@ -26,6 +28,7 @@ Route::get('/', function () {
         'canRegister' => Route::has('register'),
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
+        'films'=>Film::all(),
     ]);
 });
 
@@ -42,8 +45,9 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
-Route::resource('films', FilmsController::class);
 
+Route::resource('films', FilmsController::class);
 Route::resource('halls', HallsConfigController::class);
+Route::resource('grid', SessionGridController::class);
 
 require __DIR__.'/auth.php';

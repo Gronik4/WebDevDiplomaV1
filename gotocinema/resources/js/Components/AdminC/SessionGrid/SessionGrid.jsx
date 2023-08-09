@@ -8,6 +8,7 @@ import RenderLegend from './renderLegend';
 import RenderFilm from './renderFilm';
 import RenderHalls from './RenderHalls';
 import collectGridData from './serviceSG/collectGridData';
+import { useForm } from '@inertiajs/react';
 
 export default function SessionGrid({ datas, halls }) {
   
@@ -19,6 +20,7 @@ export default function SessionGrid({ datas, halls }) {
   const [date, setDate] = useState('');
   const { min, max } = calcDates();
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
+  const {data, setData, post, processing, errors} = useForm()
 
   function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
@@ -31,6 +33,8 @@ export default function SessionGrid({ datas, halls }) {
 
   function saveGrid() {
     const gridData = collectGridData();
+    setData(gridData);
+    
     console.log(gridData);
   }
 

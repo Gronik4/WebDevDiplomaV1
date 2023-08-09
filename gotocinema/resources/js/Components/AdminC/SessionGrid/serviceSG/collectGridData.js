@@ -7,9 +7,9 @@ export default function collectGridData() {
     arrFilms.forEach((item)=> { //console.log('IdHall= '+el.id + ' '+'IdFilm= '+item.id+' начало= '+item.childNodes[1].textContent);
       gridData.push({
         Data: dateSelect,
-        idHall: el.id,
+        idHall: Number(el.id),
         sesStart: item.childNodes[1].textContent,
-        idFilm: item.id
+        idFilm: Number(item.id)
       });
     }); 
   });

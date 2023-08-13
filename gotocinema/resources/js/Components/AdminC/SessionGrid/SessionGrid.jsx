@@ -20,7 +20,7 @@ export default function SessionGrid({ datas, halls }) {
   const [date, setDate] = useState('');
   const { min, max } = calcDates();
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
-  const {data, setData, post, processing, errors} = useForm()
+  const {post, processing, errors} = useForm();
 
   function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
@@ -32,11 +32,11 @@ export default function SessionGrid({ datas, halls }) {
   const [tension, setTension] = useState(setTensionStart);
 
   function saveGrid() {
-    const gridData = collectGridData();
-    setData(gridData);
+    const dsg = collectGridData();
+    post(route('grid.store', {grid: dsg}));
     
-    console.log(gridData);
   }
+  function example() {console.log(exp);}
 
   const showPopupAddFilm = (e)=> {
     e.preventDefault();
@@ -97,7 +97,7 @@ export default function SessionGrid({ datas, halls }) {
         })}
       </div>
       <fieldset className='conf-step__buttons text-center'>
-        <input type='submit' onClick={saveGrid} value='Сохранить' className='conf-step__button conf-step__button-accent'/>
+        <input type='submit' onClick={saveGrid} disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/>
       </fieldset>
       </>: null}
     </SectionAdminLayout>

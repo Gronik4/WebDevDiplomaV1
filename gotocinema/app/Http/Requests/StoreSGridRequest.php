@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use App\Models\HallConfig;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Request;
 
 class StoreSGridRequest extends FormRequest
 {
@@ -29,5 +31,23 @@ class StoreSGridRequest extends FormRequest
             'id_film'=>['required', 'integer'],
             'sold_seats'=>['required', 'json']
         ];
+    }
+    protected function prepareForValidation()
+    {
+        $getingData = request()->all()['grid'];
+        //$nameHall = HallConfig::find('1')['config'];
+        //dd($nameHall);
+        foreach($getingData as $el){
+            //dd($el['Data']);
+            $this->merge([
+                'data'=>$el['Data'],
+                'id_hall'=>$el['idHall'],
+                'nameHall'=>HallConfig::find($el['idHall'])['name'],
+                'ses_start'=>$el['sesStart'],
+                'id_film'=>$el['idFilm'],
+                'sold_seats'=>HallConfig::find($el['idHall'])['config']
+            ]);  
+        }
+        
     }
 }

@@ -32,6 +32,7 @@ class SessionGridController extends Controller
      */
     public function store(StoreSGridRequest $request)
     {
+        foreach($request as $el) { SessionGrid::create($el->validated());}
         $mess = 'Сетка сеансов на '.' успешно добавлена.';
         return Inertia::render('SessionGrid')->with('mess', $mess);
     }

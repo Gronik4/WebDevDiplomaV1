@@ -64,3 +64,8 @@ http://webdevdip/build/assets/app-eed483c4.css
 }
 
 conf-step__button conf-step__button-regular
+из sessionGrid:
+<form onClick={saveGrid}>
+          <input name='data-ses-grid' type='hidden' value={dsg}/>
+          <input type='submit' disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/>
+        </form>

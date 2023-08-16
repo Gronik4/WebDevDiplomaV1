@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('session_grids', function (Blueprint $table) {
             $table->id();
-            $table->string('data')->nullable();
+            $table->string('data');
             $table->bigInteger('id_hall')->unsigned()->index()->nullable();
             $table->foreign('id_hall')->references('id')->on('halls_configs')->onDelete('cascade');
             $table->string('nameHall')->nullable();
@@ -21,7 +21,7 @@ return new class extends Migration
             $table->bigInteger('id_film')->unsigned()->index()->nullable();
             $table->foreign('id_film')->references('id')->on('films')->onDelete('cascade');
             $table->json('sold_seats')->nullable();
-            $table->boolean('allpwed')->default(false)->nullable();
+            $table->boolean('allpwed')->default(false);
             $table->timestamps();
         });
     }

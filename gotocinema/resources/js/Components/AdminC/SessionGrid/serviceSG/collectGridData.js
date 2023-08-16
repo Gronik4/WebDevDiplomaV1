@@ -6,10 +6,10 @@ export default function collectGridData() {
     const arrFilms = el.querySelectorAll('.conf-step__seances-movie');
     arrFilms.forEach((item)=> { //console.log('IdHall= '+el.id + ' '+'IdFilm= '+item.id+' начало= '+item.childNodes[1].textContent);
       gridData.push({
-        Data: dateSelect,
-        idHall: Number(el.id),
-        sesStart: item.childNodes[1].textContent,
-        idFilm: Number(item.id)
+        data: dateSelect,
+        id_hall: Number(el.id),
+        ses_start: item.childNodes[1].textContent,
+        id_film: Number(item.id)
       });
     }); 
   });

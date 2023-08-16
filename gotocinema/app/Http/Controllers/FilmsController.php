@@ -28,14 +28,6 @@ class FilmsController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
-     */
-    public function update(StoreFilmRequest $request, $id)
-    {
-        //
-    }
-
-    /**
      * Remove the specified resource from storage.
      */
     public function destroy($id)

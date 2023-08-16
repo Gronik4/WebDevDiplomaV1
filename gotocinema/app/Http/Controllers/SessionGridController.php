@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSGridRequest;
+use App\Models\HallConfig;
 use App\Models\SessionGrid;
-use Illuminate\Http\Request;
-use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class SessionGridController extends Controller
@@ -13,10 +13,16 @@ class SessionGridController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
+    public function index()
     {
-        //
-        return response('Hellow! SessionGrid');
+        $today = date('Y-m-d');
+        $spent = DB::table('session_grids')->select('id')->where('data', '<', $today)->get();
+        if(count($spent)) {
+            foreach($spent as $el) {
+                $this->destroy($el);
+            }
+        } // До сих пор все работает.
+        return Inertia::render();
     }
 
     /**
@@ -32,9 +38,16 @@ class SessionGridController extends Controller
      */
     public function store(StoreSGridRequest $request)
     {
-        foreach($request as $el) { SessionGrid::create($el->validated());}
+        $valid = $request->validated();
+dd($valid);
+        foreach($valid as $el) {
+            $el['nameHall'] = HallConfig::find($el['id_hall'])['name'];
+            $el['sold_seats'] = HallConfig::find($el['id_hall'])['config'];
+            $el['allpwed'] = false;
+            SessionGrid::create($el);
+        }
         $mess = 'Сетка сеансов на '.' успешно добавлена.';
-        return Inertia::render('SessionGrid')->with('mess', $mess);
+        return redirect(route('grid.index'));
     }
 
     /**
@@ -56,7 +69,7 @@ class SessionGridController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, SessionGrid $sessionGrid)
+    public function update(SessionGrid $sessionGrid)
     {
         //
     }
@@ -64,7 +77,7 @@ class SessionGridController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(SessionGrid $sessionGrid)
+    public function destroy($id)
     {
         //
     }

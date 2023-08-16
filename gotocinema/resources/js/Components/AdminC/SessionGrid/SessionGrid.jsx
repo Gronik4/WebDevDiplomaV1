@@ -22,6 +22,8 @@ export default function SessionGrid({ datas, halls }) {
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
   const {post, processing, errors} = useForm();
 
+  if(errors.data) {console.log(errors);}
+
   function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
     halls.forEach((el)=> {
@@ -29,6 +31,7 @@ export default function SessionGrid({ datas, halls }) {
     });
     return arrHalls;
   }
+  
   const [tension, setTension] = useState(setTensionStart);
 
   function saveGrid() {

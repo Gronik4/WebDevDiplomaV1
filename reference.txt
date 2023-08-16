@@ -71,20 +71,3 @@ email: lyly@yandex.ru
   DELETE          halls/{hall} ....... halls.destroy › HallsConfigController@destroy  
   GET|HEAD        halls/{hall}/edit .. halls.edit › HallsConfigController@edit  
 
-
-$getingData = request()->all()['grid'];
-dd($getingData);
-Вводит следующее:
- 0 => array:4 [▶
-    "Data" => "2023-08-22"
-    "idHall" => "1"
-    "sesStart" => "10:00"
-    "idFilm" => "1"
-  ]
-  1 => array:4 [▶
-    "Data" => "2023-08-22"
-    "idHall" => "1"
-    "sesStart" => "12:20"
-    "idFilm" => "2"
-  ]
-]

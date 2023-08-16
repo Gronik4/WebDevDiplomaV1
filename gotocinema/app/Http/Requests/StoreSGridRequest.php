@@ -2,9 +2,7 @@
 
 namespace App\Http\Requests;
 
-use App\Models\HallConfig;
 use Illuminate\Foundation\Http\FormRequest;
-use Illuminate\Http\Request;
 
 class StoreSGridRequest extends FormRequest
 {
@@ -24,30 +22,12 @@ class StoreSGridRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'data'=>['required', 'string', 'max:50'],
-            'id_hall'=>['required', 'integer'],
-            'nameHall'=>['required', 'string', 'max:255'],
-            'ses_start'=>['required', 'string', 'max:50'],
-            'id_film'=>['required', 'integer'],
-            'sold_seats'=>['required', 'json']
-        ];
+            'grid'=>['require', 'array'],
+            'grid.*.data'=>['required', 'string', 'max:50'],
+            'grid.*.id_hall'=>['required', 'integer'],
+            'grid.*.ses_start'=>['required', 'string', 'max:50'],
+            'grid.*.id_film'=>['required', 'integer'],
+        ];     
     }
-    protected function prepareForValidation()
-    {
-        $getingData = request()->all()['grid'];
-        //$nameHall = HallConfig::find('1')['config'];
-        //dd($nameHall);
-        foreach($getingData as $el){
-            //dd($el['Data']);
-            $this->merge([
-                'data'=>$el['Data'],
-                'id_hall'=>$el['idHall'],
-                'nameHall'=>HallConfig::find($el['idHall'])['name'],
-                'ses_start'=>$el['sesStart'],
-                'id_film'=>$el['idFilm'],
-                'sold_seats'=>HallConfig::find($el['idHall'])['config']
-            ]);  
-        }
-        
-    }
+    
 }

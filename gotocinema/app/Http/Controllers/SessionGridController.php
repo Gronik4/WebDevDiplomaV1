@@ -10,18 +10,23 @@ use Inertia\Inertia;
 
 class SessionGridController extends Controller
 {
+    private $today;
+    public function __construct()
+    {
+        $this->today = date('Y-m-d');
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $today = date('Y-m-d');
-        $spent = DB::table('session_grids')->select('id')->where('data', '<', $today)->get();
+        $spent = SessionGrid::select('id')->where('data', '<', $this->today)->get();
         if(count($spent)) {
             foreach($spent as $el) {
-                $this->destroy($el);
+                $this->destroy($el->id);
             }
         } // До сих пор все работает.
+        $dates = SessionGrid::select('*')->where('data', '=', $this->today);
         return Inertia::render();
     }
 
@@ -39,23 +44,30 @@ class SessionGridController extends Controller
     public function store(StoreSGridRequest $request)
     {
         $valid = $request->validated();
-dd($valid);
+        $chosenDat='';
+
         foreach($valid as $el) {
             $el['nameHall'] = HallConfig::find($el['id_hall'])['name'];
             $el['sold_seats'] = HallConfig::find($el['id_hall'])['config'];
             $el['allpwed'] = false;
+            $chosenDat = $el['data'];
             SessionGrid::create($el);
         }
         $mess = 'Сетка сеансов на '.' успешно добавлена.';
-        return redirect(route('grid.index'));
+        //return redirect(route('grid.index'));
+        $this->show($chosenDat, 'admin');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(SessionGrid $sessionGrid)
+    public function show($selectDate, $page)
     {
-        //
+        $chosen = $selectDate? $selectDate: $this->today;
+        $out=[];
+        if($page === 'admin') {
+
+        }
     }
 
     /**
@@ -80,5 +92,6 @@ dd($valid);
     public function destroy($id)
     {
         //
+        dd($id.' - '.$this->today);
     }
 }

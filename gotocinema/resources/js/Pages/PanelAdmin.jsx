@@ -5,7 +5,7 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Head, Link, usePage } from '@inertiajs/react';
 import SessionGrid from '@/Components/AdminC/SessionGrid/SessionGrid';
 import accordeon from '@/Components/AdminC/srevces/accordeon';
-import SavingGrid from '@/Components/AdminC/SavingGrid';
+import AllowSales from '@/Components/AdminC/AllowSales';
 
 export default function PanelAdmin({halls, films}) {
 
@@ -30,7 +30,7 @@ export default function PanelAdmin({halls, films}) {
           <ConfigurationHalls datas={halls}/>
           <ConfigurationPrice datas={halls}/>
           <SessionGrid datas={films} halls={halls}/>
-          <SavingGrid/>
+          <AllowSales/>
         </main>
       </div>
     </>

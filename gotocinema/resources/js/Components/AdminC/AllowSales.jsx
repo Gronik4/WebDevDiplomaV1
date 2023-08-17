@@ -1,7 +1,7 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout';
 import React from 'react';
 
-export default function SavingGrid() {
+export default function AllowSales() {
   const headerName = 'Открыть продажи';
   
   function openingSale() {

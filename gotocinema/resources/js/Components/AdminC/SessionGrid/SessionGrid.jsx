@@ -22,7 +22,7 @@ export default function SessionGrid({ datas, halls }) {
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
   const {post, processing, errors} = useForm();
 
-  if(errors.data) {console.log(errors);}
+  if(errors.grid) {alert('Вы пытаетесь сохранить пустую сетку.');}
 
   function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
@@ -39,7 +39,6 @@ export default function SessionGrid({ datas, halls }) {
     post(route('grid.store', {grid: dsg}));
     
   }
-  function example() {console.log(exp);}
 
   const showPopupAddFilm = (e)=> {
     e.preventDefault();

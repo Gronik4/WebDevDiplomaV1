@@ -29,6 +29,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
         'films'=>Film::all(),
+        'grid'=>SessionGrid::select('*')->where('data', '=', date('Y-m-d'))->get()
     ]);
 });
 
@@ -37,7 +38,11 @@ Route::get('/dashboard', function () {
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::get('/panelAdmin', function() {
-    return Inertia::render('PanelAdmin', ['halls'=> HallConfig::all(), 'films'=>Film::all()]);
+    return Inertia::render('PanelAdmin', [
+        'halls'=> HallConfig::all(),
+        'films'=>Film::all(),
+        //'grid'=>SessionGrid::select('*')->where('data', '=', date('Y-m-d'))->get()
+    ]);
 })->middleware(['status', 'verified'])->name('panelAdmin');
 
 Route::middleware('auth')->group(function () {

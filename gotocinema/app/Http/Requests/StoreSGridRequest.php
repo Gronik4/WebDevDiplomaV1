@@ -22,7 +22,7 @@ class StoreSGridRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'grid'=>['require', 'array', 'min:1'],
+            'grid'=>['required', 'array', 'min:1'],
             'grid.*.data'=>['required', 'string', 'max:50'],
             'grid.*.id_hall'=>['required', 'integer'],
             'grid.*.ses_start'=>['required', 'string', 'max:50'],

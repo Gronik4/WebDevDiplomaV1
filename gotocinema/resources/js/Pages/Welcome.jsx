@@ -2,8 +2,11 @@ import React from 'react';
 import { Link, Head, useForm } from '@inertiajs/react';
 import RenderNav from '@/Components/Client/renderNav';
 
-export default function Welcome({ auth, films }) {
-  const {get} = useForm();
+export default function Welcome({ auth, films, grid }) {
+  //const {get} = useForm();
+  //const gridToday = get(route('films.index'));
+  //console.log(gridToday);
+  console.log(grid);
   function chosenDat(dat) {
     console.log('Выбрана= '+dat);
     //const grid = get(route('grid.index')); //Выводитс в отдельном ифрейме

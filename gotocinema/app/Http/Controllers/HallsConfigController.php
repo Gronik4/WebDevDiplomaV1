@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHallRequest;
 use App\Http\Requests\UpdateHallRequest;
 use App\Models\Film;
 use App\Models\HallConfig;
+use Illuminate\Routing\Route;
 use Inertia\Inertia;
 
 class HallsConfigController extends Controller

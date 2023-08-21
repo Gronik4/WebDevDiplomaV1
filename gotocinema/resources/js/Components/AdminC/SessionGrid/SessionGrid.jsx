@@ -8,9 +8,9 @@ import RenderLegend from './renderLegend';
 import RenderFilm from './renderFilm';
 import RenderHalls from './RenderHalls';
 import collectGridData from './serviceSG/collectGridData';
-import { useForm } from '@inertiajs/react';
+import { router, useForm, } from '@inertiajs/react';
 
-export default function SessionGrid({ datas, halls }) {
+export default function SessionGrid({ datas, halls, grid }) {
   
   const headerName = 'Сетка сеансов';
   const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
@@ -20,9 +20,10 @@ export default function SessionGrid({ datas, halls }) {
   const [date, setDate] = useState('');
   const { min, max } = calcDates();
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
-  const {post, processing, errors} = useForm();
+  const {post, get, processing, errors} = useForm();
 
-  if(errors.grid) {alert('Вы пытаетесь сохранить пустую сетку.');}
+  if(errors.grid) {alert('Действие не возможно. Сетка сеансов пуста.');}
+  //console.log(grid);
 
   function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
@@ -37,7 +38,7 @@ export default function SessionGrid({ datas, halls }) {
   function saveGrid() {
     const dsg = collectGridData();
     post(route('grid.store', {grid: dsg}));
-    
+    console.log(tension[0]);
   }
 
   const showPopupAddFilm = (e)=> {
@@ -66,7 +67,11 @@ export default function SessionGrid({ datas, halls }) {
   function selectDate(e) {
     const chosenDat = Date.parse(e.target.value);
     setDate(moment(chosenDat).format('LL'));
-    setDateSelect(true);
+    setDateSelect(true)
+    get(route('grid.show', {grid:[moment(chosenDat).format('YYYY-MM-DD'), 'admin']}));
+    router.reload({only: ['grid']});
+    //Inertia.visit('grid.show', { only: ['grid']});
+    //router.visit('grid.show', { only: ['grid']});
   }
 
   const renderFilms =  datas.length !== 0? datas.map((el)=> { return <RenderFilm
@@ -92,15 +97,16 @@ export default function SessionGrid({ datas, halls }) {
           <input id='SGDate' type='date' min={min} max={max} onChange={selectDate} style={{marginLeft: '0.5rem'}}/>
         </label>
       </div>
-      {dateSelect? <><RenderLegend date={date}/>
-      <div className='conf-step__seances'>
-        {halls.map((el)=> {
-          return <RenderHalls key={el.id} name={el.name} id={el.id} schedule={tension} datas={filmsJson}/>
-        })}
-      </div>
-      <fieldset className='conf-step__buttons text-center'>
-        <input type='submit' onClick={saveGrid} disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/>
-      </fieldset>
+      {dateSelect? <>
+      <RenderLegend date={date}/>
+        <div className='conf-step__seances'>
+          {halls.map((el)=> {
+            return <RenderHalls key={el.id} name={el.name} id={el.id} schedule={tension} datas={filmsJson}/>
+          })}
+        </div>
+        <fieldset className='conf-step__buttons text-center'>
+          <input type='submit' onClick={saveGrid} disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/>
+        </fieldset>
       </>: null}
     </SectionAdminLayout>
   )

@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreSGridRequest;
 use App\Models\HallConfig;
 use App\Models\SessionGrid;
-use Illuminate\Support\Facades\DB;
 use Inertia\Inertia;
 
 class SessionGridController extends Controller
@@ -21,13 +20,15 @@ class SessionGridController extends Controller
     public function index()
     {
         $spent = SessionGrid::select('id')->where('data', '<', $this->today)->get();
-        if(count($spent)) {
+        //dd(count($spent));
+        /*if(count($spent)) {
             foreach($spent as $el) {
                 $this->destroy($el->id);
             }
-        } // До сих пор все работает.
-        $dates = SessionGrid::select('*')->where('data', '=', $this->today);
-        return Inertia::render();
+        }*/// До сих пор все работает.
+        if(count($spent)) {$this->destroy($spent);}
+        $dates = SessionGrid::select('*')->where('data', '=', $this->today)->get();
+        return Inertia::render('Welcome', ['grid'=>$dates]);
     }
 
     /**
@@ -43,7 +44,7 @@ class SessionGridController extends Controller
      */
     public function store(StoreSGridRequest $request)
     {
-        $valid = $request->validated();
+        $valid = $request->validated()['grid'];
         $chosenDat='';
 
         foreach($valid as $el) {
@@ -55,27 +56,37 @@ class SessionGridController extends Controller
         }
         $mess = 'Сетка сеансов на '.' успешно добавлена.';
         //return redirect(route('grid.index'));
-        $this->show($chosenDat, 'admin');
+        $grid = $chosenDat.', '.'admin';
+        $this->show($grid);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show($selectDate, $page)
+    public function show($grid)
     {
-        $chosen = $selectDate? $selectDate: $this->today;
-        $out=[];
-        if($page === 'admin') {
-
+        [$selectDate, $flag] = explode(',', $grid);
+        if($flag === 'admin') {
+            $out = SessionGrid::select('data', 'id_hall', 'nameHall', 'ses_start', 'id_film', 'allpwed')->
+                where('data', '=', $selectDate)->get();
+//dd($out);
+        //return Inertia::render('PanelAdmin', ['grid'=>Inertia::lazy(function($out) { return $out;})]);
+        return Inertia::render('PanelAdmin', ['grid'=> function($out) {return $out;}]);
         }
+        $out = SessionGrid::select('*')->where('data', '=', $selectDate)->get();
+        return Inertia::render('Welcome', ['grid'=>$out]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(SessionGrid $sessionGrid)
+    public function edit($DATA, $seats)
     {
-        //
+        [$data, $idHall, $sStart] = $DATA;
+        $config = SessionGrid::select('sold_seats')->where('data', '=', $data)->
+            where('id_hall', '-',  $idHall)->where('ses_start', '=', $sStart)->get();
+        $config->update($seats);
+        $this->show($data, 'client');
     }
 
     /**
@@ -89,9 +100,14 @@ class SessionGridController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy($id)
+    public function destroy($ids)
     {
-        //
-        dd($id.' - '.$this->today);
+        foreach($ids as $id) {
+            $del = SessionGrid::find($id);
+            dd($del);
+            $del->delete();
+        }
+        //dd($id.' - '.$this->today);
+        return redirect(route('grid.index'));
     }
 }

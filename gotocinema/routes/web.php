@@ -42,6 +42,7 @@ Route::get('/panelAdmin', function() {
         'halls'=> HallConfig::all(),
         'films'=>Film::all(),
         //'grid'=>SessionGrid::select('*')->where('data', '=', date('Y-m-d'))->get()
+        'grid'=>SessionGrid::all()
     ]);
 })->middleware(['status', 'verified'])->name('panelAdmin');
 

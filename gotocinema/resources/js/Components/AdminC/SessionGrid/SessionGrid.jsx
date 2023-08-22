@@ -8,7 +8,8 @@ import RenderLegend from './renderLegend';
 import RenderFilm from './renderFilm';
 import RenderHalls from './RenderHalls';
 import collectGridData from './serviceSG/collectGridData';
-import { router, useForm, } from '@inertiajs/react';
+import { router, useForm } from '@inertiajs/react';
+import { Inertia } from '@inertiajs/inertia';
 
 export default function SessionGrid({ datas, halls, grid }) {
   
@@ -68,12 +69,15 @@ export default function SessionGrid({ datas, halls, grid }) {
     const chosenDat = Date.parse(e.target.value);
     setDate(moment(chosenDat).format('LL'));
     setDateSelect(true)
-    get(route('grid.show', {grid:[moment(chosenDat).format('YYYY-MM-DD'), 'admin']}));
-    router.reload({only: ['grid']});
-    //Inertia.visit('grid.show', { only: ['grid']});
-    //router.visit('grid.show', { only: ['grid']});
+    grid = get(route('grid.show', {grid:[moment(chosenDat).format('YYYY-MM-DD'), 'admin']}));
+    router.reload({only: ['grid']}); 
+    /**
+     * Inertia.reload({ only: ['grid']}); и Inertia.visit('grid.show', { only: ['grid']});
+     * Вызывают перезагрузку всей страницы!!!!! Если убрать и router.reload({only: ['grid']}) - появляется какой-то страшный 
+     * адрес в поисковой строке браузера. Что типа - /webdevdip/show/23-08-23блаблаadmin
+     */
   }
-
+console.log(grid);
   const renderFilms =  datas.length !== 0? datas.map((el)=> { return <RenderFilm
     key={el.id}
     id={el.id}

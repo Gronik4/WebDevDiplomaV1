@@ -20,6 +20,7 @@
         "vite": "^4.0.0"
     },
     "dependencies": {
+        "@inertiajs/inertia": "^0.11.1",
         "moment": "^2.29.4",
         "nanoid": "^4.0.2"
     }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSGridRequest;
+use App\Models\Film;
 use App\Models\HallConfig;
 use App\Models\SessionGrid;
 use Inertia\Inertia;
@@ -10,6 +11,7 @@ use Inertia\Inertia;
 class SessionGridController extends Controller
 {
     private $today;
+    private $grid;
     public function __construct()
     {
         $this->today = date('Y-m-d');
@@ -20,12 +22,6 @@ class SessionGridController extends Controller
     public function index()
     {
         $spent = SessionGrid::select('id')->where('data', '<', $this->today)->get();
-        //dd(count($spent));
-        /*if(count($spent)) {
-            foreach($spent as $el) {
-                $this->destroy($el->id);
-            }
-        }*/// До сих пор все работает.
         if(count($spent)) {$this->destroy($spent);}
         $dates = SessionGrid::select('*')->where('data', '=', $this->today)->get();
         return Inertia::render('Welcome', ['grid'=>$dates]);
@@ -54,10 +50,9 @@ class SessionGridController extends Controller
             $chosenDat = $el['data'];
             SessionGrid::create($el);
         }
-        $mess = 'Сетка сеансов на '.' успешно добавлена.';
-        //return redirect(route('grid.index'));
         $grid = $chosenDat.', '.'admin';
         $this->show($grid);
+        //return redirect(route('grid.show'));
     }
 
     /**
@@ -66,12 +61,16 @@ class SessionGridController extends Controller
     public function show($grid)
     {
         [$selectDate, $flag] = explode(',', $grid);
+    
         if($flag === 'admin') {
             $out = SessionGrid::select('data', 'id_hall', 'nameHall', 'ses_start', 'id_film', 'allpwed')->
                 where('data', '=', $selectDate)->get();
-//dd($out);
-        //return Inertia::render('PanelAdmin', ['grid'=>Inertia::lazy(function($out) { return $out;})]);
-        return Inertia::render('PanelAdmin', ['grid'=> function($out) {return $out;}]);
+
+        return Inertia::render('PanelAdmin', [
+            'films'=>function() {return Film::all();},
+            'halls'=>function() {return HallConfig::all();},
+            'grid'=>Inertia::lazy(function($out) {return $out;})
+        ]);
         }
         $out = SessionGrid::select('*')->where('data', '=', $selectDate)->get();
         return Inertia::render('Welcome', ['grid'=>$out]);

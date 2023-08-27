@@ -1,15 +1,15 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout';
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import getFlags from '../srevces/managingFlags';
 import moment from 'moment/moment';
 import 'moment/locale/ru'; // Установка языка(русский)
-import calcDates from '../srevces/calculationDates';
 import RenderLegend from './renderLegend';
-import RenderFilm from './renderFilm';
 import RenderHalls from './RenderHalls';
 import collectGridData from './serviceSG/collectGridData';
 import { router, useForm } from '@inertiajs/react';
 import { Inertia } from '@inertiajs/inertia';
+import AvailableFilms from './AvailableFilms';
+import axios from 'axios';
 
 export default function SessionGrid({ datas, halls, grid }) {
   
@@ -17,14 +17,11 @@ export default function SessionGrid({ datas, halls, grid }) {
   const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
   const [filmName, setFilmName] = useState('');
   const [filmId, setFilmId] = useState('');
-  const [dateSelect, setDateSelect] =useState(false);
-  const [date, setDate] = useState('');
-  const { min, max } = calcDates();
+  const [date, setDate] = useState();
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
   const {post, get, processing, errors} = useForm();
 
   if(errors.grid) {alert('Действие не возможно. Сетка сеансов пуста.');}
-  //console.log(grid);
 
   function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
@@ -42,16 +39,6 @@ export default function SessionGrid({ datas, halls, grid }) {
     console.log(tension[0]);
   }
 
-  const showPopupAddFilm = (e)=> {
-    e.preventDefault();
-    const popup = document.getElementById(flags.add);
-    if(popup.style.display === '') {
-      popup.style.display = 'block';
-    } else {
-      popup.style.display = '';
-    }
-  }
-
   const showPopupDelFilm = (film)=> {
     setFilmId(film.id);
     setFilmName(film.childNodes[1].textContent);
@@ -66,43 +53,21 @@ export default function SessionGrid({ datas, halls, grid }) {
   }
 
   function selectDate(e) {
+    console.log('chenge');
     const chosenDat = Date.parse(e.target.value);
+    axios.get(route('grid.show', e.target.value)).then((resp)=> {
+      console.log(resp.data.datas);
+      console.log(tension);
+    });
     setDate(moment(chosenDat).format('LL'));
-    setDateSelect(true)
-    grid = get(route('grid.show', {grid:[moment(chosenDat).format('YYYY-MM-DD'), 'admin']}));
-    router.reload({only: ['grid']}); 
-    /**
-     * Inertia.reload({ only: ['grid']}); и Inertia.visit('grid.show', { only: ['grid']});
-     * Вызывают перезагрузку всей страницы!!!!! Если убрать и router.reload({only: ['grid']}) - появляется какой-то страшный 
-     * адрес в поисковой строке браузера. Что типа - /webdevdip/show/23-08-23блаблаadmin
-     */
   }
-console.log(grid);
-  const renderFilms =  datas.length !== 0? datas.map((el)=> { return <RenderFilm
-    key={el.id}
-    id={el.id}
-    name={el.name}
-    duration={el.duration}
-    img={el.posterAd}
-    onSelectFilm={(film)=>showPopupDelFilm(film)}
-    />
-  }): <div className='conf-step__wrapper'><p className='conf-step__paragraph'>В прокате пока нет фильмов</p></div>
 
   return (
     <SectionAdminLayout headerName={headerName} flags={flags} nameEl={filmName} idEl={filmId}>
-      <p className='conf-step__paragraph'>
-        <button className='conf-step__button conf-step__button-accent' onClick={showPopupAddFilm}>Добавить фильм</button>
-      </p>
-      <div className='conf-step__movies'>
-        {renderFilms}
-      </div>
-      <div className='conf-step__wrapper' style={{padding: '5px 42px 5px 104px'}}>
-        <label className='conf-step__paragraph'>Чтобы составить сетку сеансов выберите дату: 
-          <input id='SGDate' type='date' min={min} max={max} onChange={selectDate} style={{marginLeft: '0.5rem'}}/>
-        </label>
-      </div>
-      {dateSelect? <>
-      <RenderLegend date={date}/>
+      <AvailableFilms datas={datas} flag={flags} onFilmDelete={(film)=>showPopupDelFilm(film)} onSelectDate={selectDate}/>
+      
+      {date? <>
+        <RenderLegend date={date}/>
         <div className='conf-step__seances'>
           {halls.map((el)=> {
             return <RenderHalls key={el.id} name={el.name} id={el.id} schedule={tension} datas={filmsJson}/>

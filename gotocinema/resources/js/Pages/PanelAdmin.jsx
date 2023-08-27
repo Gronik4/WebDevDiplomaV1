@@ -7,8 +7,7 @@ import SessionGrid from '@/Components/AdminC/SessionGrid/SessionGrid';
 import accordeon from '@/Components/AdminC/srevces/accordeon';
 import AllowSales from '@/Components/AdminC/AllowSales';
 
-export default function PanelAdmin({halls, films, grid}) { 
-
+export default function PanelAdmin({halls, films}) {
   const { flash } = usePage().props;
   if(flash.mess) { alert(flash.mess); } // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
   accordeon();
@@ -29,7 +28,7 @@ export default function PanelAdmin({halls, films, grid}) {
           <ManagingHolls datas={halls}/>
           <ConfigurationHalls datas={halls}/>
           <ConfigurationPrice datas={halls}/>
-          <SessionGrid datas={films} halls={halls} grid={grid}/>
+          <SessionGrid datas={films} halls={halls}/>
           <AllowSales/>
         </main>
       </div>

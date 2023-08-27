@@ -7,7 +7,7 @@ export default function ConfPriceContent({ hallData }) {
   const { id, hallOrder, hallVip } = hallData;
   const orderP = hallOrder? hallOrder: 'Пусто';
   const vipP = hallVip? hallVip: 'Пусто'; 
-  const { data, setData, patch, clearErrors, reset, processing, errors, onSuc} = useForm({price_ordinary: '', price_vip: ''});
+  const { data, setData, patch, clearErrors, reset, processing, errors } = useForm({price_ordinary: '', price_vip: ''});
 
   if(errors.price_vip) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_vip}`);}
   if(errors.price_ordinary) { alert(`Упс! Что-то пошло не так!\n Ошибка: ${errors.price_ordinary}`);}

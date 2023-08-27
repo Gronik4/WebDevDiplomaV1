@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ClientGridController;
 use App\Http\Controllers\FilmsController;
 use App\Models\HallConfig;
 use App\Http\Controllers\HallsConfigController;
@@ -40,9 +41,11 @@ Route::get('/dashboard', function () {
 Route::get('/panelAdmin', function() {
     return Inertia::render('PanelAdmin', [
         'halls'=> HallConfig::all(),
+        //'HallsConfigController@index',
         'films'=>Film::all(),
+        //'FilmsController@index'
         //'grid'=>SessionGrid::select('*')->where('data', '=', date('Y-m-d'))->get()
-        'grid'=>SessionGrid::all()
+        //'grid'=>SessionGrid::all()
     ]);
 })->middleware(['status', 'verified'])->name('panelAdmin');
 
@@ -55,5 +58,6 @@ Route::middleware('auth')->group(function () {
 Route::resource('films', FilmsController::class);
 Route::resource('halls', HallsConfigController::class);
 Route::resource('grid', SessionGridController::class);
+Route::resource('grid_client', ClientGridController::class);
 
 require __DIR__.'/auth.php';

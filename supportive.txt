@@ -10,15 +10,47 @@ html - стили свопадают полностью, замена не ну�
 http://webdevdip/build/assets/app-eed483c4.css
 
 
-Из SectionAdminLayout: { flag === 1? <Popup flag={flag1}/>: null }
-Из ApplicationLogo: {auth.user? <Link href='dashboard' className='movie__title_a'>Панель управления</Link>:null}
- Из dashboard auth = user: 
-    created_at: "2023-06-06T18:48:33.000000Z"
-    email: "lyly@yandex.ru"
-    email_verified_at: null
-    id: 1
-    name: "Admin"
-    status: 1
-    updated_at: "2023-06-06T18:48:33.000000Z"
-    ****************************************************************
- 
+Films:
+#items: array:5 [▶
+    0 => App\Models\Film {#1349 ▶
+      #connection: "mysql"
+      #table: "films"
+      #primaryKey: "id"
+      #keyType: "int"
+      +incrementing: true
+      #with: []
+      #withCount: []
+      +preventsLazyLoading: false
+      #perPage: 15
+      +exists: true
+      +wasRecentlyCreated: false
+      #escapeWhenCastingToString: false
+      #attributes: array:11 [▶
+        "id" => 1
+        "name" => "Звёздные войны XXIII: Атака клонированных клонов"
+        "desc" => "Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном."
+        "genre" => "Исторический боевик"
+        "creators" => "США"
+        "realise" => "2012"
+        "duration" => "130"
+        "posterMain" => "poster1.jpg"
+        "posterAd" => "poster.png"
+        "created_at" => "2023-07-06 15:51:27"
+        "updated_at" => "2023-07-06 15:51:27"
+      ]
+      #original: array:11 [▶
+        "id" => 1
+        "name" => "Звёздные войны XXIII: Атака клонированных клонов"
+        "desc" => "Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном."
+        "genre" => "Исторический боевик"
+        "creators" => "США"
+        "realise" => "2012"
+        "duration" => "130"
+        "posterMain" => "poster1.jpg"
+        "posterAd" => "poster.png"
+        "created_at" => "2023-07-06 15:51:27"
+        "updated_at" => "2023-07-06 15:51:27"
+      ]
+
+out:
+

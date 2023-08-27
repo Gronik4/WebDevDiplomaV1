@@ -69,7 +69,15 @@ email: lyly@yandex.ru
   GET|HEAD        halls/{hall} ....... halls.show › HallsConfigController@show  
   PUT|PATCH       halls/{hall} ....... halls.update › HallsConfigController@update
   DELETE          halls/{hall} ....... halls.destroy › HallsConfigController@destroy  
-  GET|HEAD        halls/{hall}/edit .. halls.edit › HallsConfigController@edit  
+  GET|HEAD        halls/{hall}/edit .. halls.edit › HallsConfigController@edit
+                           grid_client
+  GET|HEAD        grid_client ..................... grid_client.index › ClientGridController@index
+  POST            grid_client ..................... grid_client.store › ClientGridController@store
+  GET|HEAD        grid_client/create .............. grid_client.create › ClientGridController@create
+  GET|HEAD        grid_client/{grid_client} ....... grid_client.show › ClientGridController@show
+  PUT|PATCH       grid_client/{grid_client} ....... grid_client.update › ClientGridController@update
+  DELETE          grid_client/{grid_client} ....... grid_client.destroy › ClientGridController@destroy
+  GET|HEAD        grid_client/{grid_client}/edit .. grid_client.edit › ClientGridController@edit  
 
 *****************     Архитектура работы SessionGridController:    **********************************
 1. При первом входе отдаем ПОЛНЫЕ ДАННЫЕ с 'grid.index' на сегодня.

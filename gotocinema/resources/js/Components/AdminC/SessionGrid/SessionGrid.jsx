@@ -1,18 +1,23 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout';
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import getFlags from '../srevces/managingFlags';
 import moment from 'moment/moment';
 import 'moment/locale/ru'; // Установка языка(русский)
 import RenderLegend from './renderLegend';
 import RenderHalls from './RenderHalls';
 import collectGridData from './serviceSG/collectGridData';
-import { router, useForm } from '@inertiajs/react';
-import { Inertia } from '@inertiajs/inertia';
+import { useForm } from '@inertiajs/react';
 import AvailableFilms from './AvailableFilms';
 import axios from 'axios';
 
-export default function SessionGrid({ datas, halls, grid }) {
+export default function SessionGrid({ datas, halls}) {
   
+  
+  const maxLength = datas.reduce((prev, curr)=> {
+    if(+prev.duration < curr.duration) {return curr;} else {return prev;}
+  }).duration;
+  console.log(+maxLength);
+
   const headerName = 'Сетка сеансов';
   const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
   const [filmName, setFilmName] = useState('');
@@ -56,7 +61,7 @@ export default function SessionGrid({ datas, halls, grid }) {
     console.log('chenge');
     const chosenDat = Date.parse(e.target.value);
     axios.get(route('grid.show', e.target.value)).then((resp)=> {
-      console.log(resp.data.datas);
+      console.log(resp.data.datas[0]);
       console.log(tension);
     });
     setDate(moment(chosenDat).format('LL'));

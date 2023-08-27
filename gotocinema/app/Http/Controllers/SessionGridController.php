@@ -56,7 +56,7 @@ class SessionGridController extends Controller
      */
     public function show($grid)
     {
-        $out = SessionGrid::select('data', 'id_hall', 'nameHall', 'ses_start', 'id_film', 'allpwed')->
+        $out = SessionGrid::select('id_hall', 'nameHall', 'ses_start', 'id_film', 'allpwed')->
              where('data', '=', $grid)->get();
         return response()->json(['datas'=>$out]);
     }

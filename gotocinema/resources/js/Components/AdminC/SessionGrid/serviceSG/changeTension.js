@@ -19,7 +19,7 @@ export default function changeTension(goalid, source, flag) {
       arr.pop(idTaken);
       break;
     default: break;
-  }
+  }console.log(arr);
   return arr;
 }
 

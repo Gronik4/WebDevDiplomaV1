@@ -9,14 +9,15 @@ import collectGridData from './serviceSG/collectGridData';
 import { useForm } from '@inertiajs/react';
 import AvailableFilms from './AvailableFilms';
 import axios from 'axios';
+import receivedDataHandler from './serviceSG/receivedDataHandler';
 
 export default function SessionGrid({ datas, halls}) {
   
   
   const maxLength = datas.reduce((prev, curr)=> {
-    if(+prev.duration < curr.duration) {return curr;} else {return prev;}
+    if(+prev.duration > curr.duration) {return curr;} else {return prev;}
   }).duration;
-  console.log(+maxLength);
+  console.log('min duration film= '+maxLength);
 
   const headerName = 'Сетка сеансов';
   const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
@@ -24,24 +25,35 @@ export default function SessionGrid({ datas, halls}) {
   const [filmId, setFilmId] = useState('');
   const [date, setDate] = useState();
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
-  const {post, get, processing, errors} = useForm();
+  const {post, patch, processing, errors} = useForm();
 
-  if(errors.grid) {alert('Действие не возможно. Сетка сеансов пуста.');}
+  if(errors.grid) {alert('Действие не возможно. Сетка сеансов пуста.' + errors.grid);}
 
-  function setTensionStart() { //**Здесь положить данные из таблицы session_grid******************
+  function setTensionStart(obj) { //**Здесь положить данные из таблицы session_grid******************
     const arrHalls = {};
     halls.forEach((el)=> {
-      arrHalls[el.id] = [];
+      if(obj){
+        arrHalls[el.id] = obj[el.id];
+      } else {
+        arrHalls[el.id] = [];
+      }
+      
     });
     return arrHalls;
   }
   
   const [tension, setTension] = useState(setTensionStart);
 
-  function saveGrid() {
+  function saveGrid(e) {
+    e.preventDefault();
     const dsg = collectGridData();
-    post(route('grid.store', {grid: dsg}));
-    console.log(tension[0]);
+    const count = Object.values(tension).reduce((summ, current)=>summ + current.length, 0);
+    const selectDate = document.getElementById('SGDate').value;
+    if(count === 0) {
+      post(route('grid.store', {grid: dsg}));
+      return;
+    } 
+      patch(route('grid.update', {grid: ['grids', selectDate], grids: dsg}));
   }
 
   const showPopupDelFilm = (film)=> {
@@ -58,11 +70,12 @@ export default function SessionGrid({ datas, halls}) {
   }
 
   function selectDate(e) {
-    console.log('chenge');
     const chosenDat = Date.parse(e.target.value);
     axios.get(route('grid.show', e.target.value)).then((resp)=> {
-      console.log(resp.data.datas[0]);
-      console.log(tension);
+      console.log('soldSeats= '+resp.data.sold);
+      console.log('allowSold= '+resp.data.test.allpwed);
+      const dts = receivedDataHandler(resp.data.datas);
+      setTension(dts);
     });
     setDate(moment(chosenDat).format('LL'));
   }
@@ -79,7 +92,10 @@ export default function SessionGrid({ datas, halls}) {
           })}
         </div>
         <fieldset className='conf-step__buttons text-center'>
-          <input type='submit' onClick={saveGrid} disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/>
+          <form name='savUp' onSubmit={saveGrid}>
+            <input name='grid' type='hidden'/>
+            <input type='submit' disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/> 
+          </form>
         </fieldset>
       </>: null}
     </SectionAdminLayout>

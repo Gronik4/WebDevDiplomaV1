@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import changeTension from './serviceSG/changeTension';
 import testTension from './serviceSG/testTension';
 import LoadingMovies from './LoadingMovies';
@@ -6,6 +6,7 @@ import LoadingMovies from './LoadingMovies';
 export default function RenderHalls({ name, id, schedule, datas }) {
 
   const [tension, setTension] = useState(schedule[id]);
+  useEffect(()=> setTension(schedule[id]),[schedule]);
 
   function hendlerDEnd() {;
     const satellite = changeTension(0, tension, 'del');
@@ -48,9 +49,7 @@ export default function RenderHalls({ name, id, schedule, datas }) {
       if(pass) {
         const satellite = changeTension(0, tension, 'addend');
         setTension(satellite);
-      } else {
-        return;
-      }
+      } else { return; }
     }
     if(e.target.dataset.tag === 'film') {
       const upper = e.target.closest('.conf-step__seances-movie');
@@ -58,7 +57,7 @@ export default function RenderHalls({ name, id, schedule, datas }) {
       if(pass) {
         const satellite =  changeTension(upper.id, tension, 'add');
         setTension(satellite);
-      } else {return;} 
+      } else { return; } 
     } 
   }
 

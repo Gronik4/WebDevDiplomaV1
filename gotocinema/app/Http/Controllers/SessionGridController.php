@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSGridRequest;
+use App\Http\Requests\UpdateSGridRequest;
 use App\Models\Film;
 use App\Models\HallConfig;
 use App\Models\SessionGrid;
@@ -23,8 +24,7 @@ class SessionGridController extends Controller
     { 
         $spent = SessionGrid::select('*')->where('data', '<', $this->today)->get();
         if(count($spent)) {$this->destroy($spent);}
-        $hls = HallConfig::all();
-        return Inertia::render('PanelAdmin', ['halls'=>$hls, 'films'=>Film::all()]);
+        return Inertia::render('PanelAdmin', ['halls'=>HallConfig::all(), 'films'=>Film::all()]);
     }
 
     /**
@@ -38,7 +38,7 @@ class SessionGridController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreSGridRequest $request)
+    public function store(StoreSGridRequest $request, )
     {
         $valid = $request->validated()['grid'];
 
@@ -46,6 +46,8 @@ class SessionGridController extends Controller
             $el['nameHall'] = HallConfig::find($el['id_hall'])['name'];
             $el['sold_seats'] = HallConfig::find($el['id_hall'])['config'];
             $el['allpwed'] = false;
+            $dat = $el['data'];
+            
             SessionGrid::create($el);
         }
         return redirect(route('grid.index'));
@@ -56,9 +58,22 @@ class SessionGridController extends Controller
      */
     public function show($grid)
     {
-        $out = SessionGrid::select('id_hall', 'nameHall', 'ses_start', 'id_film', 'allpwed')->
-             where('data', '=', $grid)->get();
-        return response()->json(['datas'=>$out]);
+        $halls = HallConfig::select('id')->get();
+        $out = [];
+        foreach($halls as $el){
+            $films = SessionGrid::select('id_film')->where('data', '=', $grid)->where('id_hall', '=', $el->id)->get();
+            $arrFilm = [];
+            foreach($films as $item) {
+                $arrFilm[]=$item->id_film;
+            }
+            
+            $out[]=array_fill($el->id, 1, $arrFilm);
+        }
+        $permissions=SessionGrid::select('allpwed')->where('data', '=', $grid)->first();
+        $soldSeats=SessionGrid::select('sold_seats')->
+            where('data', '=', $grid)->
+            where('sold_seats', 'like', '% conf-step__chair_buyed%')->count();
+        return response()->json(['datas'=>$out, 'test'=>$permissions, 'sold'=>$soldSeats]);
     }
 
     /**
@@ -72,9 +87,21 @@ class SessionGridController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(SessionGrid $sessionGrid)
+    public function update($dat, UpdateSGridRequest $request)
     {
-        //
+        list($flag, $date)=explode(',', $dat);
+        $valid = $request->validated()['grids'];
+        if($flag == 'grids') {
+            $spent=SessionGrid::select('*')->where('data', '=', $date)->get();
+            foreach($spent as $el) {$el->delete();}
+            foreach($valid as $el) {
+                $el['nameHall'] = HallConfig::find($el['id_hall'])['name'];
+                $el['sold_seats'] = HallConfig::find($el['id_hall'])['config'];
+                $el['allpwed'] = false;   
+                SessionGrid::create($el);
+            }
+        }
+        $this->show($date);
     }
 
     /**

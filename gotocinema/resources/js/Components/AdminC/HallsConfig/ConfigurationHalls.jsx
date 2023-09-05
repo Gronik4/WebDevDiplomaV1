@@ -48,8 +48,6 @@ export default function ConfigurationHalls({ datas }) {
     const blank = document.querySelector('.dangerous');
     const hallConfig = blank? blank.innerHTML: document.querySelector('.conf-step__hall-wrapper').innerHTML;
     const jsonData = JSON.stringify(hallConfig);
-    const form = document.forms.update;
-    form.config.value = jsonData;
     patch(route('halls.update', {hall: hallId, config: jsonData}));
   }
 

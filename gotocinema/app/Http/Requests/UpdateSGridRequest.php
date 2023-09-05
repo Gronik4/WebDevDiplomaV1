@@ -11,7 +11,7 @@ class UpdateSGridRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -20,9 +20,14 @@ class UpdateSGridRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
-    {
+    {//dd(var_dump($this->query));
         return [
-            //
+            'grids'=> ['sometimes', 'required', 'array', 'min:1'],
+            'grids.*.data'=>['sometimes', 'required', 'string', 'max:50'],
+            'grids.*.id_hall'=>['sometimes', 'required', 'integer'],
+            'grids.*.ses_start'=>['sometimes', 'required', 'string', 'max:50'],
+            'grids.*.id_film'=>['sometimes', 'required', 'integer'],
+            'allpwed'=>['sometimes', 'required', 'boolean'],
         ];
     }
 }

@@ -15,8 +15,6 @@ export default function schemeFilmService(tension, datas) {
   
   tension.forEach((el )=> {
     const filmsDat = JSON.parse(datas);
-    const maxLength = filmsDat.find(item=> item.duration === Math.max(item.duration));
-    console.log('maxLength='+maxLength);
     const film = filmsDat.find(item=> item.id === el);
     const hoursStart = Math.trunc(totalTime/60);
     const minutesStart = totalTime % 60>9? totalTime % 60: `0${totalTime % 60}`;

@@ -5,12 +5,15 @@ import ApplicationLogo from '@/Components/ApplicationLogo';
 import { Head, Link, usePage } from '@inertiajs/react';
 import SessionGrid from '@/Components/AdminC/SessionGrid/SessionGrid';
 import accordeon from '@/Components/AdminC/srevces/accordeon';
-import AllowSales from '@/Components/AdminC/AllowSales';
+import AllowSales from '@/Components/AdminC/AllowSales/AllowSales';
+import React, { useState } from 'react';
+export const ASContext = React.createContext(null);
 
 export default function PanelAdmin({halls, films}) {
   const { flash } = usePage().props;
   if(flash.mess) { alert(flash.mess); } // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
   accordeon();
+  const [conder, setConder] = useState('ix');
   
   return (
     <>
@@ -28,8 +31,10 @@ export default function PanelAdmin({halls, films}) {
           <ManagingHolls datas={halls}/>
           <ConfigurationHalls datas={halls}/>
           <ConfigurationPrice datas={halls}/>
-          <SessionGrid datas={films} halls={halls}/>
-          <AllowSales/>
+          <ASContext.Provider value={{conder, setConder}}>
+            <SessionGrid datas={films} halls={halls}/>
+            <AllowSales/>
+          </ASContext.Provider>
         </main>
       </div>
     </>

@@ -1,5 +1,5 @@
 export default function changeTension(goalid, source, flag) {
-  const goal = Number(goalid);//
+  const goal = Number(goalid);
   const idTaken = document.querySelector('.taken').id;
   const arr = source.slice();
   let index = 0;
@@ -19,7 +19,7 @@ export default function changeTension(goalid, source, flag) {
       arr.pop(idTaken);
       break;
     default: break;
-  }console.log(arr);
+  }
   return arr;
 }
 

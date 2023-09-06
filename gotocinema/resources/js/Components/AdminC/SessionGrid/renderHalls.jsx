@@ -3,12 +3,12 @@ import changeTension from './serviceSG/changeTension';
 import testTension from './serviceSG/testTension';
 import LoadingMovies from './LoadingMovies';
 
-export default function RenderHalls({ name, id, schedule, datas }) {
+export default function RenderHalls({ name, id, schedule, datas }) {console.log('сработал RenderHalls');
 
   const [tension, setTension] = useState(schedule[id]);
   useEffect(()=> setTension(schedule[id]),[schedule]);
 
-  function hendlerDEnd() {;
+  function hendlerDEnd() {
     const satellite = changeTension(0, tension, 'del');
     setTension(satellite);
   }

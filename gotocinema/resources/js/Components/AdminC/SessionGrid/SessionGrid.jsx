@@ -1,5 +1,5 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout';
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import getFlags from '../srevces/managingFlags';
 import moment from 'moment/moment';
 import 'moment/locale/ru'; // Установка языка(русский)
@@ -10,6 +10,7 @@ import { useForm } from '@inertiajs/react';
 import AvailableFilms from './AvailableFilms';
 import axios from 'axios';
 import receivedDataHandler from './serviceSG/receivedDataHandler';
+import { ASContext } from '@/Pages/PanelAdmin';
 
 export default function SessionGrid({ datas, halls}) {
   
@@ -17,7 +18,7 @@ export default function SessionGrid({ datas, halls}) {
   const maxLength = datas.reduce((prev, curr)=> {
     if(+prev.duration > curr.duration) {return curr;} else {return prev;}
   }).duration;
-  console.log('min duration film= '+maxLength);
+  //console.log('min duration film= '+maxLength);
 
   const headerName = 'Сетка сеансов';
   const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
@@ -26,19 +27,13 @@ export default function SessionGrid({ datas, halls}) {
   const [date, setDate] = useState();
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
   const {post, patch, processing, errors} = useForm();
+  const {conder, setConder} = useContext(ASContext);
 
   if(errors.grid) {alert('Действие не возможно. Сетка сеансов пуста.' + errors.grid);}
 
-  function setTensionStart(obj) { //**Здесь положить данные из таблицы session_grid******************
+  function setTensionStart() { //**Стартовое значение tension***
     const arrHalls = {};
-    halls.forEach((el)=> {
-      if(obj){
-        arrHalls[el.id] = obj[el.id];
-      } else {
-        arrHalls[el.id] = [];
-      }
-      
-    });
+    halls.forEach((el)=> {arrHalls[el.id] = [];});
     return arrHalls;
   }
   
@@ -72,9 +67,13 @@ export default function SessionGrid({ datas, halls}) {
   function selectDate(e) {
     const chosenDat = Date.parse(e.target.value);
     axios.get(route('grid.show', e.target.value)).then((resp)=> {
-      console.log('soldSeats= '+resp.data.sold);
-      console.log('allowSold= '+resp.data.test.allpwed);
-      const dts = receivedDataHandler(resp.data.datas);
+      const allow = resp.data.test? resp.data.test.allpwed: '2';
+      /*console.log('soldSeats= '+ resp.data.sold);
+      console.log('allowSold= '+allow+' / ');
+      console.log('conder= '+conder);*/
+      //const a = ${resp.data.test.allpwed}
+      setConder(`${resp.data.sold}${allow}`);
+      const dts = receivedDataHandler(resp.data.datas, maxLength, datas);
       setTension(dts);
     });
     setDate(moment(chosenDat).format('LL'));

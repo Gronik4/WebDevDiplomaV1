@@ -55,7 +55,5 @@ class User extends Authenticatable
     public function halls_config(): HasMany {
         return $this->hasMany(HallsConfig::class);
     }
-    public function session_grids():HasMany {
-        return $this->hasMany(SessionGrid::class);
-    }
+    
 }

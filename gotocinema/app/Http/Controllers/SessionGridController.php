@@ -90,8 +90,8 @@ class SessionGridController extends Controller
     public function update($dat, UpdateSGridRequest $request)
     {
         list($flag, $date)=explode(',', $dat);
-        $valid = $request->validated()['grids'];
         if($flag == 'grids') {
+             $valid = $request->validated()['grids'];
             $spent=SessionGrid::select('*')->where('data', '=', $date)->get();
             foreach($spent as $el) {$el->delete();}
             foreach($valid as $el) {
@@ -100,8 +100,15 @@ class SessionGridController extends Controller
                 $el['allpwed'] = false;   
                 SessionGrid::create($el);
             }
+            $this->show($date);
         }
-        $this->show($date);
+        if($flag == 'allow') {
+            $valid = $request->validated();
+            $allowings = SessionGrid::select('allpwed')->where('data', '=', $date)->get();
+            //dd($allowings);
+            foreach($allowings as $el) {$el->update(['allpwed'=>$valid['allpwed']]);dd($el);}
+            $this->index();
+        }
     }
 
     /**

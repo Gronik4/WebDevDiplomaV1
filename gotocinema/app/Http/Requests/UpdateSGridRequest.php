@@ -20,7 +20,7 @@ class UpdateSGridRequest extends FormRequest
      * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
      */
     public function rules(): array
-    {//dd(var_dump($this->query));
+    {//dd($this->query);
         return [
             'grids'=> ['sometimes', 'required', 'array', 'min:1'],
             'grids.*.data'=>['sometimes', 'required', 'string', 'max:50'],

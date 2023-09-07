@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import RenderFilm from './RenderFilm';
 import calcDates from '../srevces/calculationDates';
 
 export default function AvailableFilms({ datas, flag, onFilmDelete, onSelectDate, onGet}) {
   const { min, max } = calcDates();
+  
 
   function showPopupAddFilm(e) {
     e.preventDefault();

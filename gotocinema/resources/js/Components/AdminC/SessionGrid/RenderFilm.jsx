@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import createFantom from './serviceSG/createFantom';
+import { ASContext } from '@/Pages/PanelAdmin';
 
 export default function RenderFilm({img, name, duration, id, onSelectFilm}) {
+  const {conder, setConder} = useContext(ASContext);
 
   function selectFilm(e) {
     e.preventDefault();
@@ -25,9 +27,9 @@ export default function RenderFilm({img, name, duration, id, onSelectFilm}) {
     <div
       className='conf-step__movie'
       id={id}
-      draggable={true}
-      onDragStart={(e)=> hendlerStart(e)}
-      onDragEnd={(e)=> hendlerEnd(e)}
+      draggable={conder[0] !== '1'? true: false}
+      onDragStart={conder[0] !== '1'? (e)=> hendlerStart(e): ()=>false}
+      onDragEnd={conder[0] !== '1'? (e)=> hendlerEnd(e): ()=>false}
       >
       <img className='conf-step__movie-poster' alt='poster' src={`img/${img}`}/>
       <h3 className='conf-step__movie-title'>{name}</h3>

@@ -245,7 +245,7 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
 
 .conf-step__legend {
   color: #848484;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
   margin-bottom: 12px; }
   .conf-step__legend .multiplier {
     font-family: monospace;
@@ -309,7 +309,7 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
     display: inline-block;
     vertical-align: middle;
     width: 10px;
-    height: 20px;
+    height: 15px;
     border-width: 1px ;
     border-style: solid;
     box-sizing: border-box;
@@ -445,7 +445,7 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   position: relative;
   outline: 1px solid #848484;
   padding: 10px 0;
-  height: 40px;
+  height: 35px;
   box-sizing: content-box;
   width: 780px; } /* Продолжительность работы зала с 10:00 до 23:00 - 13часов * 60 минут = 780минут = 780px*/
 
@@ -461,16 +461,16 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
     height: 100%; }
   .conf-step__seances-movie .conf-step__seances-movie-start {
     position: absolute;
-    bottom: -33px;
+    bottom: -22px;
     color: #848484;
-    font-size: 1.2rem; }
+    font-size: 1rem; }
   .conf-step__seances-movie::before {
     content: '';
     position: absolute;
     display: block;
     width: 1px;
-    height: 5px;
-    bottom: -17px;
+    height: 7px;
+    bottom: -15px;
     left: 0;
     background-color: #848484; }
 
@@ -559,18 +559,19 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
   }
   .clearing-hall {
     width: max-content;
-    margin: 20px auto 0;
-    padding: 7px 15px;
+    margin: 15px auto 0;
+    padding: 5px 15px;
     background-color: #fff;
     color: #848484;
+    font-size: 1rem;
   }
   .clearing-hall:hover {color: #000;}
   .conf-step__seances-movie-after {
     position: absolute;
     display: block;
     width: 1px;
-    height: 5px;
-    bottom: -17px;
+    height: 7px;
+    bottom: -15px;
     background-color: #848484; }
 .cleaner-time {
   position: absolute;
@@ -584,7 +585,7 @@ input[type='radio'], input[type='submit'], button, .conf-step__header, select {
 display: inline-block;
 vertical-align: middle;
 width: 10px;
-height: 40px;
+height: 20px;
 border-width: 1px;
 border-style: solid;
 box-sizing: border-box;

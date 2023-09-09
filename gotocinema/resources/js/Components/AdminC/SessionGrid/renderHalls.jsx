@@ -68,8 +68,8 @@ export default function RenderHalls({ name, id, schedule, datas }) {
   }
 
   return (
-   <div className='conf-step__seances-hall' key={id} id={id}>
-      <h3 className='conf-step__seances-title'>{name}</h3>
+   <div className='conf-step__seances-hall' key={id} id={id} style={{margin: '3px 35px', fontSize: '1.4rem'}}>
+      <h4 className='conf-step__seances-title'>{name}</h4>
       <div
         className='conf-step__seances-timeline'
         id={id}

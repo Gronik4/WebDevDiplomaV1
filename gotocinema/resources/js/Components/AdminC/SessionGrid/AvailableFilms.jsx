@@ -28,7 +28,7 @@ export default function AvailableFilms({ datas, flag, onFilmDelete, onSelectDate
     img={el.posterAd}
     onSelectFilm={(film)=>showPopupDelFilm(film)}
     />
-  }): <div className='conf-step__wrapper refer'><p className='conf-step__paragraph'>В прокате пока нет фильмов</p></div>
+  }): <div className='conf-step__wrapper '><p className='conf-step__paragraph'>В прокате пока нет фильмов</p></div>
   return (
     <>
       <p className='conf-step__paragraph'>
@@ -37,8 +37,8 @@ export default function AvailableFilms({ datas, flag, onFilmDelete, onSelectDate
       <div className='conf-step__movies'>
         {renderFilms}
       </div>
-      <div className='conf-step__wrapper refer' style={{padding: '5px 42px 5px 104px'}}>
-        <label className='conf-step__paragraph'>Чтобы составить сетку сеансов выберите дату: 
+      <div className='conf-step__wrapper ' style={{padding: '5px 42px 5px 104px'}}>
+        <label className='conf-step__paragraph' style={{fontSize: '1.3rem'}}>Чтобы составить сетку сеансов выберите дату: 
           <input id='SGDate' type='date' min={min} max={max} onChange={onSelectDate} style={{marginLeft: '0.5rem'}}/>
         </label>
       </div>

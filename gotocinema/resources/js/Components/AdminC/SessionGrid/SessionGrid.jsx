@@ -1,24 +1,19 @@
 import SectionAdminLayout from '@/Layouts/SectionAdminLayout';
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import getFlags from '../srevces/managingFlags';
 import moment from 'moment/moment';
 import 'moment/locale/ru'; // Установка языка(русский)
 import RenderLegend from './renderLegend';
 import RenderHalls from './RenderHalls';
 import collectGridData from './serviceSG/collectGridData';
-import { useForm } from '@inertiajs/react';
+import { useForm, usePage } from '@inertiajs/react';
 import AvailableFilms from './AvailableFilms';
 import axios from 'axios';
 import receivedDataHandler from './serviceSG/receivedDataHandler';
 import { ASContext } from '@/Pages/PanelAdmin';
+import sgHandlerCondor from './serviceSG/sgHandlerCondor';
 
 export default function SessionGrid({ datas, halls}) {
-  
-  
-  const maxLength = datas.reduce((prev, curr)=> {
-    if(+prev.duration > curr.duration) {return curr;} else {return prev;}
-  }).duration;
-  //console.log('min duration film= '+maxLength);
 
   const headerName = 'Сетка сеансов';
   const flags = getFlags(headerName); // Флаг для определения добавляем ли popup-ы и какие
@@ -68,16 +63,13 @@ export default function SessionGrid({ datas, halls}) {
     const chosenDat = Date.parse(e.target.value);
     axios.get(route('grid.show', e.target.value)).then((resp)=> {
       const allow = resp.data.test? resp.data.test.allpwed: '2';
-      /*console.log('soldSeats= '+ resp.data.sold);
-      console.log('allowSold= '+allow+' / ');
-      console.log('conder= '+conder);*/
-      //const a = ${resp.data.test.allpwed}
       setConder(`${resp.data.sold}${allow}`);
-      const dts = receivedDataHandler(resp.data.datas, maxLength, datas);
+      const dts = receivedDataHandler(resp.data.datas);
       setTension(dts);
     });
     setDate(moment(chosenDat).format('LL'));
   }
+  const sign = sgHandlerCondor(conder);
 
   return (
     <SectionAdminLayout headerName={headerName} flags={flags} nameEl={filmName} idEl={filmId}>
@@ -93,7 +85,11 @@ export default function SessionGrid({ datas, halls}) {
         <fieldset className='conf-step__buttons text-center'>
           <form name='savUp' onSubmit={saveGrid}>
             <input name='grid' type='hidden'/>
-            <input type='submit' disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/> 
+            {sign == 'show'?
+              <input type='submit' disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/> :
+              null
+            }
+            
           </form>
         </fieldset>
       </>: null}

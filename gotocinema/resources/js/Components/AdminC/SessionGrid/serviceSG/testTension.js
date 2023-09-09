@@ -1,6 +1,6 @@
 import schemeFilmService from "./schemeFilmService";
 
-export default function testTension(tension, datas, takenId) {console.log('сработал testTension');
+export default function testTension(tension, datas, takenId) {//console.log('сработал testTension');
   if(tension.length !== 0) {
     const idDuration = JSON.parse(datas).find(item=> item.id === Number(takenId)).duration;
     const listFilms = schemeFilmService(tension, datas);

@@ -1,7 +1,7 @@
 import React from 'react';
 import schemeFilmService from './serviceSG/schemeFilmService';
 
-export default function LoadingMovies({tension, datas, onDelFilm}) {
+export default function LoadingMovies({tension, datas, onDelFilm, sign}) {
 
   const wt = 29; // Ширина записи времени чч:мм
   const listFilms = schemeFilmService(tension, datas);
@@ -23,9 +23,9 @@ export default function LoadingMovies({tension, datas, onDelFilm}) {
         const { id, name, dur, posStart, timeStart, timeEnd } = el;
         return(
           <div key={index}
-            draggable={true}
-            onDragStart={(e)=> hendlerStartSF(e)}
-            onDragEnd={(e)=> hendlerEndSF(e)}
+            draggable={sign == 'show'? true: false}
+            onDragStart={sign == 'show'? (e)=> hendlerStartSF(e): ()=>false}
+            onDragEnd={sign == 'show'? (e)=> hendlerEndSF(e): ()=>false}
             className='conf-step__seances-movie'
             data-tag='film'
             id={id} 
@@ -34,7 +34,8 @@ export default function LoadingMovies({tension, datas, onDelFilm}) {
               'backgroundColor': 'rgb(133, 255, 137)',
               'left': posStart,
               'fontSize': '1rem',
-              'padding': '2px',
+              'padding': '1px',
+              'textAlign': 'center',
               'cursor': 'move'
               }}
             >

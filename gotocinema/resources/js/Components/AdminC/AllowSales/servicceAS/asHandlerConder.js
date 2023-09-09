@@ -1,4 +1,4 @@
-export default function handlerConder(code) {
+export default function asHandlerConder(code) {
   const out =  {};
   switch(code) {
     case '10':

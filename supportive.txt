@@ -10,47 +10,9 @@ html - стили свопадают полностью, замена не ну�
 http://webdevdip/build/assets/app-eed483c4.css
 
 
-Films:
-#items: array:5 [▶
-    0 => App\Models\Film {#1349 ▶
-      #connection: "mysql"
-      #table: "films"
-      #primaryKey: "id"
-      #keyType: "int"
-      +incrementing: true
-      #with: []
-      #withCount: []
-      +preventsLazyLoading: false
-      #perPage: 15
-      +exists: true
-      +wasRecentlyCreated: false
-      #escapeWhenCastingToString: false
-      #attributes: array:11 [▶
-        "id" => 1
-        "name" => "Звёздные войны XXIII: Атака клонированных клонов"
-        "desc" => "Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном."
-        "genre" => "Исторический боевик"
-        "creators" => "США"
-        "realise" => "2012"
-        "duration" => "130"
-        "posterMain" => "poster1.jpg"
-        "posterAd" => "poster.png"
-        "created_at" => "2023-07-06 15:51:27"
-        "updated_at" => "2023-07-06 15:51:27"
-      ]
-      #original: array:11 [▶
-        "id" => 1
-        "name" => "Звёздные войны XXIII: Атака клонированных клонов"
-        "desc" => "Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном."
-        "genre" => "Исторический боевик"
-        "creators" => "США"
-        "realise" => "2012"
-        "duration" => "130"
-        "posterMain" => "poster1.jpg"
-        "posterAd" => "poster.png"
-        "created_at" => "2023-07-06 15:51:27"
-        "updated_at" => "2023-07-06 15:51:27"
-      ]
-
-out:
+with SessionGrid:
+  const maxLength = datas.reduce((prev, curr)=> {
+    if(+prev.duration > curr.duration) {return curr;} else {return prev;}
+  }).duration;
+  //console.log('min duration film= '+maxLength);
 

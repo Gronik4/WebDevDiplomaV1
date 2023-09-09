@@ -1,4 +1,4 @@
-export default function receivedDataHandler(incoming, maxLengthFilm,films) {
+export default function receivedDataHandler(incoming) {
   let inc = Object.entries(incoming);
   let outgoing = {};
   inc.forEach(item => {

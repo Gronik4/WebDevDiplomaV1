@@ -1,10 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import changeTension from './serviceSG/changeTension';
 import testTension from './serviceSG/testTension';
 import LoadingMovies from './LoadingMovies';
+import { ASContext } from '@/Pages/PanelAdmin';
+import sgHandlerCondor from './serviceSG/sgHandlerCondor';
 
-export default function RenderHalls({ name, id, schedule, datas }) {console.log('сработал RenderHalls');
+export default function RenderHalls({ name, id, schedule, datas }) {
 
+  const {conder,setConder} = useContext(ASContext);
+  const sign = sgHandlerCondor(conder);
   const [tension, setTension] = useState(schedule[id]);
   useEffect(()=> setTension(schedule[id]),[schedule]);
 
@@ -44,6 +48,8 @@ export default function RenderHalls({ name, id, schedule, datas }) {console.log(
   function hendlerDrop(e) {
     const takenId = document.querySelector('.taken').id;
     const pass = testTension(tension, datas, takenId);
+    if(conder == '02'){setConder('00'); }
+    
     if(e.target.className === 'conf-step__seances-timeline') {
       e.currentTarget.style.background = '';
       if(pass) {
@@ -67,16 +73,16 @@ export default function RenderHalls({ name, id, schedule, datas }) {console.log(
       <div
         className='conf-step__seances-timeline'
         id={id}
-        onDragOver={(evn)=> hendlerDragOver(evn)}
-        onDrop={(e)=> hendlerDrop(e)}
-        onDragLeave={(e)=> hendlerDragLeave(e)}
+        onDragOver={sign == 'show'? (evn)=> hendlerDragOver(evn): ()=>false}
+        onDrop={sign == 'show'? (e)=> hendlerDrop(e): ()=>false}
+        onDragLeave={sign == 'show'? (e)=> hendlerDragLeave(e): ()=>false}
       >
-        <LoadingMovies tension={tension} datas={datas} onDelFilm={()=> hendlerDEnd()}/>
+        <LoadingMovies tension={tension} datas={datas} onDelFilm={()=> hendlerDEnd()} sign={sign}/>
       </div>
       <button
         type='reset'
         className='conf-step__button clearing-hall' 
-        onClick={()=> cleanerHall()}
+        onClick={sign == 'show'? ()=> cleanerHall(): ()=>false}
         >Очистить сетку зала {name}</button>
     </div>
   )

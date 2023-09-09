@@ -50,7 +50,8 @@ class SessionGridController extends Controller
             
             SessionGrid::create($el);
         }
-        return redirect(route('grid.index'));
+        $message = 'Сетка сеансов сохранена.';
+        return redirect(route('grid.index'))->with('mess', $message);
     }
 
     /**
@@ -104,10 +105,8 @@ class SessionGridController extends Controller
         }
         if($flag == 'allow') {
             $valid = $request->validated();
-            $allowings = SessionGrid::select('allpwed')->where('data', '=', $date)->get();
-            //dd($allowings);
-            foreach($allowings as $el) {$el->update(['allpwed'=>$valid['allpwed']]);dd($el);}
-            $this->index();
+            SessionGrid::where('data', '=', $date)->update($valid);
+            return redirect(route('grid.index'));   
         }
     }
 

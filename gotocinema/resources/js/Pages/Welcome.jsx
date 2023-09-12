@@ -1,16 +1,23 @@
-import React from 'react';
-import { Link, Head, useForm } from '@inertiajs/react';
+import React, { useState } from 'react';
+import { Link, Head } from '@inertiajs/react';
 import RenderNav from '@/Components/Client/renderNav';
+import moment from 'moment';
+import axios from 'axios';
+import receivedDataHandlerClient from '@/Components/Client/services/receivedDataHandlerClient';
+import RenderMovie from '@/Components/Client/renderMovie/renderMovie';
 
-export default function Welcome({ auth, films, grid }) {
-  //const {get} = useForm();
-  //const gridToday = get(route('films.index'));
-  //console.log(gridToday);
-  console.log(grid);
+export default function Welcome({ auth, films }) {
+
+  const [grid, setGrid] = useState([]);
+  const now = moment(Date.now()).format('YYYY-MM-DD');
+  window.onload = ()=>chosenDat(now);
+
   function chosenDat(dat) {
     console.log('Выбрана= '+dat);
-    //const grid = get(route('grid.index')); //Выводитс в отдельном ифрейме
-    //console.log(grid);
+    axios.get(route('grid_client.show', dat)).then((resp)=>{
+      const grid = receivedDataHandlerClient(resp.data.datas);
+      setGrid(grid);
+    });
   }
   return (
     <>
@@ -35,6 +42,7 @@ export default function Welcome({ auth, films, grid }) {
         </nav>
 
         <main>
+          <RenderMovie grid={grid} films={films}/>
           <section className="movie">
             <div className="movie__info">
               <div className="movie__poster">
@@ -44,8 +52,9 @@ export default function Welcome({ auth, films, grid }) {
                 <h2 className="movie__title">Звёздные войны XXIII: Атака клонированных клонов</h2>
                 <p className="movie__synopsis">Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном.</p>
                 <p className="movie__data">
-                  <span className="movie__data-duration">130 минут</span>
-                  <span className="movie__data-origin">США</span>
+                  <span className="movie__data-duration">130 минут </span>
+                  <span className="movie__data-origin"> США</span>
+                  <span className='movie__data-origin'> 2012 </span>
                 </p>
               </div>
             </div>  

@@ -16,3 +16,13 @@ with SessionGrid:
   }).duration;
   //console.log('min duration film= '+maxLength);
 
+creators: "США"
+desc: "Две сотни лет назад малороссийские хутора разоряла шайка нехристей-ляхов во главе с могущественным колдуном."
+duration: "130"
+genre: "Исторический боевик"
+id: 1
+name: "Звёздные войны XXIII: Атака клонированных клонов"
+posterAd: "poster.png"
+posterMain: "poster1.jpg"​
+realise: "2012"
+

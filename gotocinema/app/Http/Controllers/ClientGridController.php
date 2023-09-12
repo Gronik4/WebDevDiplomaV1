@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Film;
+use App\Models\HallConfig;
+use App\Models\SessionGrid;
 use Illuminate\Http\Request;
 
 class ClientGridController extends Controller
@@ -33,9 +36,32 @@ class ClientGridController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(string $chosen)
     {
-        //
+        $films = Film::select('id')->get();
+        $out=[];
+        foreach($films as $el) {
+            $nameHalls = SessionGrid::select('nameHall')->
+                where('data', '=', $chosen)->
+                where('id_film', '=', $el->id)->
+                where('allpwed', '=', true)->
+                distinct()->get(); // distinct()-> Получаем только уникальные значения
+            $hallGrid =[];
+            foreach($nameHalls as $item) {
+                $sessions = SessionGrid::select('ses_start')->
+                where('data', '=', $chosen)->
+                where('nameHall', '=', $item->nameHall)->
+                where('id_film', '=', $el->id)->
+                where('allpwed', '=', true)->get();
+
+                $arr1 = [$item->nameHall=>$sessions];
+                $hallGrid[]=$arr1;
+            }
+            
+            $arr = [$el->id=>$hallGrid];
+            $out[]=$arr;
+        }
+        return response()->json(['datas'=>$out]);
     }
 
     /**

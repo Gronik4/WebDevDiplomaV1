@@ -48,12 +48,5 @@ class User extends Authenticatable
     public function isAdmin() {
      $this->status ===1;   
     }
-
-    public function films(): HasMany {
-        return $this->hasMany(Films::class);
-    }
-    public function halls_config(): HasMany {
-        return $this->hasMany(HallsConfig::class);
-    }
     
 }

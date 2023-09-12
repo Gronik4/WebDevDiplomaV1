@@ -35,7 +35,8 @@ export default function SessionGrid({ datas, halls}) {
   const [tension, setTension] = useState(setTensionStart);
 
   function saveGrid(e) {
-    e.preventDefault();
+    e.preventDefault(); 
+    if(conder == '02') { alert('Действие не возможно. Сетка сеансов пуста.'); return;}
     const dsg = collectGridData();
     const count = Object.values(tension).reduce((summ, current)=>summ + current.length, 0);
     const selectDate = document.getElementById('SGDate').value;

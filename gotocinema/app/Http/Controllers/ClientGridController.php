@@ -38,12 +38,13 @@ class ClientGridController extends Controller
      */
     public function show(string $chosen)
     {
-        $films = Film::select('id')->get();
+        //$films = Film::select('id')->get();
+        $films = SessionGrid::select('id_film')->where('data', '=', $chosen)->where('allpwed', '=', true)->distinct()->get();
         $out=[];
         foreach($films as $el) {
             $nameHalls = SessionGrid::select('nameHall')->
                 where('data', '=', $chosen)->
-                where('id_film', '=', $el->id)->
+                where('id_film', '=', $el->id_film)->
                 where('allpwed', '=', true)->
                 distinct()->get(); // distinct()-> Получаем только уникальные значения
             $hallGrid =[];
@@ -51,14 +52,14 @@ class ClientGridController extends Controller
                 $sessions = SessionGrid::select('ses_start')->
                 where('data', '=', $chosen)->
                 where('nameHall', '=', $item->nameHall)->
-                where('id_film', '=', $el->id)->
+                where('id_film', '=', $el->id_film)->
                 where('allpwed', '=', true)->get();
 
                 $arr1 = [$item->nameHall=>$sessions];
                 $hallGrid[]=$arr1;
             }
             
-            $arr = [$el->id=>$hallGrid];
+            $arr = [$el->id_film=>$hallGrid];
             $out[]=$arr;
         }
         return response()->json(['datas'=>$out]);

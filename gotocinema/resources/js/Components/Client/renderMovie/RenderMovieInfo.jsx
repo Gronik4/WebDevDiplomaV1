@@ -13,7 +13,7 @@ export default function RenderMovieInfo({movie, index}) {
         <img className="movie__poster-image" alt={alter} src={poster} style={{maxWidth: '12.5rem'}}/>
       </div>
       <div className="movie__description">
-        <h2 className="movie__title">{movie.name}</h2>
+        <h2 className="movie__title" id={movie.id}>{movie.name}</h2>
         <p className="movie__synopsis">{movie.desc}</p>
         <p className="movie__data">
           <span className="movie__data-duration">{movie.duration} минут </span>

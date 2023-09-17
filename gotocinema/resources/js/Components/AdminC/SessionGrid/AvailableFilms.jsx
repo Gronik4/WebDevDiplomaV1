@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import RenderFilm from './RenderFilm';
 import calcDates from '../srevces/calculationDates';
 
-export default function AvailableFilms({ datas, flag, onFilmDelete, onSelectDate, onGet}) {
+export default function AvailableFilms({ datas, flag, onFilmDelete, onSelectDate }) {
   const { min, max } = calcDates();
   
 

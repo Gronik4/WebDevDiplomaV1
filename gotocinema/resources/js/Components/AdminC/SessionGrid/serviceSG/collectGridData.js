@@ -4,7 +4,7 @@ export default function collectGridData() {
   const arrHalls = document.querySelectorAll('.conf-step__seances-hall');
   arrHalls.forEach((el)=> {
     const arrFilms = el.querySelectorAll('.conf-step__seances-movie');
-    arrFilms.forEach((item)=> { //console.log('IdHall= '+el.id + ' '+'IdFilm= '+item.id+' начало= '+item.childNodes[1].textContent);
+    arrFilms.forEach((item)=> {
       gridData.push({
         data: dateSelect,
         id_hall: Number(el.id),

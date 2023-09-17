@@ -32,7 +32,7 @@ Route::get('/', function () {
         'films'=>Film::all(),
         'grid'=>SessionGrid::select('*')->where('data', '=', date('Y-m-d'))->get()
     ]);
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -45,13 +45,17 @@ Route::get('/panelAdmin', function() {
     ]);
 })->middleware(['status', 'verified'])->name('panelAdmin');
 
+Route::get('/ShowHall', function () {return Inertia::render('ShowHall');})->name('showHall');
+
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::resource('films', FilmsController::class);
+Route::get('grid_client/showHall/{state}', [ClientGridController::class, 'showHall'])->name('showHall');
+Route::get('showHall/{state}', function(SessionGrid $grid) {return $grid;});
+Route::get('grid_client/showTiket/{tiket}', [ClientGridController::class, 'tiket'])->name('showTiket'); 
 Route::resource('halls', HallsConfigController::class);
 Route::resource('grid', SessionGridController::class);
 Route::resource('grid_client', ClientGridController::class);

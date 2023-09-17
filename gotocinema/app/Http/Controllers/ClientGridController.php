@@ -6,6 +6,7 @@ use App\Models\Film;
 use App\Models\HallConfig;
 use App\Models\SessionGrid;
 use Illuminate\Http\Request;
+use Inertia\Inertia;
 
 class ClientGridController extends Controller
 {
@@ -33,27 +34,43 @@ class ClientGridController extends Controller
         //
     }
 
+    public function showHall(string $state) {
+        list($dat, $start, $namehall, $idFilm)=explode(',', $state);
+        $namefilm = Film::find((int)$idFilm)->name;
+        $stringHall = HallConfig::find($namehall);
+        dd($stringHall);
+        $vip = $stringHall->price_vip;
+        $odinary = $stringHall->price_ordinary;
+        $soldSeats= SessionGrid::select('sold_seats')->
+            where('data', $dat)->
+            where('nameHall', $namehall)->
+            where('id_film', $idFilm)->
+            where('ses_start', $start)->get();
+        $out = [$dat, $start, $namehall, $namefilm, $vip, $odinary, $soldSeats];
+        //dd($soldSeats[0]->attributes);
+        return Inertia::render('ShowHall', ['seats'=>$out]);
+    }
+
     /**
      * Display the specified resource.
      */
     public function show(string $chosen)
     {
-        //$films = Film::select('id')->get();
-        $films = SessionGrid::select('id_film')->where('data', '=', $chosen)->where('allpwed', '=', true)->distinct()->get();
+        $films = SessionGrid::select('id_film')->where('data', $chosen)->where('allpwed', true)->distinct()->get();
         $out=[];
         foreach($films as $el) {
             $nameHalls = SessionGrid::select('nameHall')->
-                where('data', '=', $chosen)->
-                where('id_film', '=', $el->id_film)->
-                where('allpwed', '=', true)->
+                where('data', $chosen)->
+                where('id_film', $el->id_film)->
+                where('allpwed', true)->
                 distinct()->get(); // distinct()-> Получаем только уникальные значения
             $hallGrid =[];
             foreach($nameHalls as $item) {
                 $sessions = SessionGrid::select('ses_start')->
-                where('data', '=', $chosen)->
-                where('nameHall', '=', $item->nameHall)->
-                where('id_film', '=', $el->id_film)->
-                where('allpwed', '=', true)->get();
+                where('data', $chosen)->
+                where('nameHall', $item->nameHall)->
+                where('id_film', $el->id_film)->
+                where('allpwed', true)->get();
 
                 $arr1 = [$item->nameHall=>$sessions];
                 $hallGrid[]=$arr1;

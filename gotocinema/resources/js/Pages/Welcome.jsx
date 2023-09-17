@@ -9,15 +9,18 @@ import RenderMovie from '@/Components/Client/renderMovie/renderMovie';
 export default function Welcome({ auth, films }) {
 
   const [grid, setGrid] = useState([]);
+  const [chosenDate, setChosenDate]= useState('')
   const now = moment(Date.now()).format('YYYY-MM-DD');
   window.onload = ()=>chosenDat(now);
 
   function chosenDat(dat) {
+    setChosenDate(dat);
     axios.get(route('grid_client.show', dat)).then((resp)=>{
       const grid = receivedDataHandlerClient(resp.data.datas);
       setGrid(grid);
     });
   }
+  //console.log('chosenDate= '+chosenDate);
   return (
     <>
       <Head title="идемВкино" />
@@ -41,7 +44,7 @@ export default function Welcome({ auth, films }) {
         </nav>
 
         <main>
-          <RenderMovie grid={grid} films={films}/>    
+          <RenderMovie grid={grid} films={films} dat={chosenDate}/>    
         </main>
       </div>
     </>

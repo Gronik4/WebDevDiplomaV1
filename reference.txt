@@ -77,7 +77,9 @@ email: lyly@yandex.ru
   GET|HEAD        grid_client/{grid_client} ....... grid_client.show › ClientGridController@show
   PUT|PATCH       grid_client/{grid_client} ....... grid_client.update › ClientGridController@update
   DELETE          grid_client/{grid_client} ....... grid_client.destroy › ClientGridController@destroy
-  GET|HEAD        grid_client/{grid_client}/edit .. grid_client.edit › ClientGridController@edit  
+  GET|HEAD        grid_client/{grid_client}/edit .. grid_client.edit › ClientGridController@edit 
+  GET|HEAD        grid_client/showHall{state} ..... showHall › ClientGridController@showHall
+  GET|HEAD        grid_client/showTiket/{tiket} ... showTiket › ClientGridController@tiket
 
 *****************     Архитектура работы SessionGridController:    **********************************
 1. При первом входе отдаем ПОЛНЫЕ ДАННЫЕ с 'grid.index' на сегодня.

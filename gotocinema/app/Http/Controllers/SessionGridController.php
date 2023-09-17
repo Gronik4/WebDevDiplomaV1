@@ -28,14 +28,6 @@ class SessionGridController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      */
     public function store(StoreSGridRequest $request, )
@@ -62,7 +54,7 @@ class SessionGridController extends Controller
         $halls = HallConfig::select('id')->get();
         $out = [];
         foreach($halls as $el){
-            $films = SessionGrid::select('id_film')->where('data', '=', $grid)->where('id_hall', '=', $el->id)->get();
+            $films = SessionGrid::select('id_film')->where('data', $grid)->where('id_hall', $el->id)->get();
             $arrFilm = [];
             foreach($films as $item) {
                 $arrFilm[]=$item->id_film;
@@ -70,19 +62,11 @@ class SessionGridController extends Controller
             
             $out[]=array_fill($el->id, 1, $arrFilm);
         }
-        $permissions=SessionGrid::select('allpwed')->where('data', '=', $grid)->first();
+        $permissions=SessionGrid::select('allpwed')->where('data', $grid)->first();
         $soldSeats=SessionGrid::select('sold_seats')->
-            where('data', '=', $grid)->
+            where('data', $grid)->
             where('sold_seats', 'like', '% conf-step__chair_buyed%')->count();
         return response()->json(['datas'=>$out, 'test'=>$permissions, 'sold'=>$soldSeats]);
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($DATA, $seats)
-    {
-        
     }
 
     /**
@@ -93,7 +77,7 @@ class SessionGridController extends Controller
         list($flag, $date)=explode(',', $dat);
         if($flag == 'grids') {
              $valid = $request->validated()['grids'];
-            $spent=SessionGrid::select('*')->where('data', '=', $date)->get();
+            $spent=SessionGrid::select('*')->where('data', $date)->get();
             foreach($spent as $el) {$el->delete();}
             foreach($valid as $el) {
                 $el['nameHall'] = HallConfig::find($el['id_hall'])['name'];
@@ -105,7 +89,7 @@ class SessionGridController extends Controller
         }
         if($flag == 'allow') {
             $valid = $request->validated();
-            SessionGrid::where('data', '=', $date)->update($valid);
+            SessionGrid::where('data', $date)->update($valid);
             return redirect(route('grid.index'));   
         }
     }

@@ -15,6 +15,7 @@ export default function RenderMovie({grid, films, dat}) {
         </section>
       )
     }): <section className='movie'><h2 className='movie-seances__hall'>На {date} сеансов не запланировано.</h2></section>
+    
   return (
     <>
      {sections} 

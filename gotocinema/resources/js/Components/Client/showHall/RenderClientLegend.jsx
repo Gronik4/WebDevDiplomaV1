@@ -1,0 +1,17 @@
+import React from 'react';
+
+export default function RenderClientLegend({prices}) {
+  const [vip, odinary] = prices;
+  return (
+    <div className='buying-scheme__legend'>
+      <div className='col'>
+        <p className='buying-scheme__legend-price'><span className="buying-scheme__chair buying-scheme__chair_standart"></span> Свободно Standart(<span className="buying-scheme__legend-value">{odinary}</span>руб)</p>
+        <p className="buying-scheme__legend-price"><span className="buying-scheme__chair buying-scheme__chair_vip"></span> Свободно VIP (<span className="buying-scheme__legend-value">{vip}</span>руб)</p>            
+      </div>
+      <div className="col">
+        <p className="buying-scheme__legend-price"><span className="buying-scheme__chair buying-scheme__chair_taken"></span> Занято</p>
+        <p className="buying-scheme__legend-price"><span className="buying-scheme__chair buying-scheme__chair_selected"></span> Выбрано</p>                    
+      </div>
+    </div>
+  )
+}

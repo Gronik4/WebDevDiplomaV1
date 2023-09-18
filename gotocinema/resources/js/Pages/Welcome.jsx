@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link, Head } from '@inertiajs/react';
 import RenderNav from '@/Components/Client/renderNav';
 import moment from 'moment';
@@ -11,16 +11,17 @@ export default function Welcome({ auth, films }) {
   const [grid, setGrid] = useState([]);
   const [chosenDate, setChosenDate]= useState('')
   const now = moment(Date.now()).format('YYYY-MM-DD');
-  window.onload = ()=>chosenDat(now);
+  
+  useEffect(()=> {handlerChosenDat(now);}, [now]);
 
-  function chosenDat(dat) {
+  function handlerChosenDat(dat) {
     setChosenDate(dat);
     axios.get(route('grid_client.show', dat)).then((resp)=>{
-      const grid = receivedDataHandlerClient(resp.data.datas);
-      setGrid(grid);
+      const putGrid = receivedDataHandlerClient(resp.data.datas);
+      setGrid(putGrid);
     });
   }
-  //console.log('chosenDate= '+chosenDate);
+  
   return (
     <>
       <Head title="идемВкино" />
@@ -40,7 +41,7 @@ export default function Welcome({ auth, films }) {
         </header>
         
         <nav className="page-nav">
-          <RenderNav onSelectData={(dat)=> chosenDat(dat)}/>
+          <RenderNav onSelectData={(dat)=> handlerChosenDat(dat)}/>
         </nav>
 
         <main>

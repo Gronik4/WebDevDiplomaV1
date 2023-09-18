@@ -37,17 +37,15 @@ class ClientGridController extends Controller
     public function showHall(string $state) {
         list($dat, $start, $namehall, $idFilm)=explode(',', $state);
         $namefilm = Film::find((int)$idFilm)->name;
-        $stringHall = HallConfig::find($namehall);
-        dd($stringHall);
-        $vip = $stringHall->price_vip;
-        $odinary = $stringHall->price_ordinary;
-        $soldSeats= SessionGrid::select('sold_seats')->
-            where('data', $dat)->
+        $stringHall = HallConfig::where('name', $namehall);
+        $vip = $stringHall->value('price_vip');
+        $odinary = $stringHall->value('price_ordinary');
+        
+        $soldSeats= SessionGrid::where('data', $dat)->
             where('nameHall', $namehall)->
             where('id_film', $idFilm)->
-            where('ses_start', $start)->get();
+            where('ses_start', $start)->value('sold_seats');
         $out = [$dat, $start, $namehall, $namefilm, $vip, $odinary, $soldSeats];
-        //dd($soldSeats[0]->attributes);
         return Inertia::render('ShowHall', ['seats'=>$out]);
     }
 

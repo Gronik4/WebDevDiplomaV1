@@ -46,6 +46,7 @@ Route::get('/panelAdmin', function() {
 })->middleware(['status', 'verified'])->name('panelAdmin');
 
 Route::get('/ShowHall', function () {return Inertia::render('ShowHall');})->name('showHall');
+Route::get('/Payment', function () {return Inertia::render('Payment');})->name('payment');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -55,7 +56,7 @@ Route::middleware('auth')->group(function () {
 
 Route::get('grid_client/showHall/{state}', [ClientGridController::class, 'showHall'])->name('showHall');
 Route::get('showHall/{state}', function(SessionGrid $grid) {return $grid;});
-Route::get('grid_client/showTiket/{tiket}', [ClientGridController::class, 'tiket'])->name('showTiket'); 
+//Route::get('grid_client/showTiket/{tiket}', [ClientGridController::class, 'showTiket'])->name('showTiket'); 
 Route::resource('halls', HallsConfigController::class);
 Route::resource('grid', SessionGridController::class);
 Route::resource('grid_client', ClientGridController::class);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UpdateCSGRequest;
 use App\Models\Film;
 use App\Models\HallConfig;
 use App\Models\SessionGrid;
@@ -41,11 +42,11 @@ class ClientGridController extends Controller
         $vip = $stringHall->value('price_vip');
         $odinary = $stringHall->value('price_ordinary');
         
-        $soldSeats= SessionGrid::where('data', $dat)->
-            where('nameHall', $namehall)->
-            where('id_film', $idFilm)->
-            where('ses_start', $start)->value('sold_seats');
-        $out = [$dat, $start, $namehall, $namefilm, $vip, $odinary, $soldSeats];
+        $stingGrid=SessionGrid::where('data', $dat)-> where('nameHall', $namehall)->where('id_film', $idFilm)->
+            where('ses_start', $start);
+        $soldSeats=$stingGrid->value('sold_seats');
+        $gridId = $stingGrid->value('id');
+        $out = [$dat, $start, $namehall, $namefilm, $vip, $odinary, $soldSeats, $gridId];
         return Inertia::render('ShowHall', ['seats'=>$out]);
     }
 
@@ -91,9 +92,11 @@ class ClientGridController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(UpdateCSGRequest $request, string $id)
     {
-        //
+        $config = SessionGrid::find($id);
+        $config->update($request->validated());
+        return;
     }
 
     /**

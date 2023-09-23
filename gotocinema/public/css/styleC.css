@@ -363,7 +363,7 @@ html {
   position: relative;
   margin-top: 6px;
   padding-top: 2rem;
-  padding-bottom: 3rem;
+  padding-bottom: 1.5rem;
 }
 .ticket__info-wrapper::before {
   content: '';
@@ -400,7 +400,7 @@ html {
   color: #000000;
 }
 .ticket__info + .ticket__info {
-  margin-top: 1rem;
+  margin-top: 0,8rem;
 }
 
 .ticket__details {

@@ -3,6 +3,7 @@ import React, { useEffect } from 'react'
 export default function RenderSchemeHall({schemeJson}) {
 
   const schemeAd = schemeJson? JSON.parse(schemeJson): null;
+  console.log(schemeAd);
   const scheme = schemeAd.includes('conf-step')? schemeAd.replace(/conf-step__/g, 'buying-scheme__'): schemeAd;
 
   useEffect(()=> {

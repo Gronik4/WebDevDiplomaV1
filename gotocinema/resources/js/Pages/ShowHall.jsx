@@ -3,12 +3,14 @@ import { Head, Link, useForm } from '@inertiajs/react';
 import RenderInfo from '@/Components/Client/showHall/RenderInfo';
 import RenderClientLegend from '@/Components/Client/showHall/RenderClientLegend';
 import RenderSchemeHall from '@/Components/Client/showHall/RenderSchemeHall';
+import ClientPageLayout from '@/Layouts/ClientPageLayout';
 
 export default function ShowHall({seats}) { 
   const [dat, start, namehall, namefilm, vip, odinary, soldSeats, gridId] = seats;
-  const {patch, processing, errors, onsuccess} = useForm();
+  const {get, patch, processing, errors, onsuccess} = useForm();
   
-  function reservation(){ 
+  function reservation(e){ 
+    e.preventDefault();
     const selectidSeats = document.querySelectorAll('.buying-scheme__chair_selected');
     if(selectidSeats.length == 1) {alert('Действие не возможно. Места для бронирования не выбраны.'); return;}
     let cost = 0;
@@ -26,36 +28,26 @@ export default function ShowHall({seats}) {
     });
     payment.cost = cost;
     payment.places = places;
-    const scheme = document.querySelector('.dangerous').innerHTML;
-    const jsonData = JSON.stringify(scheme);
-console.log(payment);
-    patch(route('grid_client.update', {grid_client: gridId, sold_seats: jsonData}), {onSuccess: ()=>{
-      route('payment', {payment});
-      console.log('Go to payment.');
-    }})
+    const jsonPayment = JSON.stringify(payment);
+    console.log(jsonPayment);
+    patch(route('grid_client.update', {grid_client: gridId, sold_seats: jsonPayment}), {onSuccess: ()=>{
+      get(route('payment', {payment}));
+      console.log('Update - successfully.');
+    }});
   }
 
   return (
-    <>
-      <Head title="идемВкино"/> 
-      <div className='body_client'>
-        <header className='page-header'>
-            <Link href={route('welcome')}><h1 className='page-header__title'>Идём<span>в</span>кино</h1></Link>
-        </header>
-        <main> 
-          <section className='buying'>
-            <RenderInfo info={[dat, start, namehall, namefilm]}/>
-            <div className='buying-scheme'>
-              <RenderSchemeHall schemeJson={soldSeats} onGetDataSchemeHall={(data)=> handlerDateSH(data)}/>
-              <RenderClientLegend prices={[vip, odinary]}/>
-            </div>
-            <div style={{display: 'flex',flexDirection: 'row' , justifyContent: 'center'}}>
-              <button className="acceptin-button" onClick={reservation} disabled={processing}>Забронировать</button>
-              <Link href={route('welcome')} className='acceptin-button'><button>На главную</button></Link>
-            </div>
-          </section>
-        </main>
-      </div>
-    </>
+    <ClientPageLayout>
+      <section className='buying'>
+        <RenderInfo info={[dat, start, namehall, namefilm]}/>
+        <div className='buying-scheme'>
+          <RenderSchemeHall schemeJson={soldSeats} onGetDataSchemeHall={(data)=> handlerDateSH(data)}/>
+          <RenderClientLegend prices={[vip, odinary]}/>
+        </div>
+        <button className="acceptin-button" onClick={reservation} disabled={processing}>Забронировать</button>
+      </section>
+    </ClientPageLayout>
+          
+       
   )
 }

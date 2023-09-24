@@ -16,8 +16,7 @@ export default function PanelAdmin({halls, films}) {
   let status;
 
   if(flash.mess) {alert(flash.mess);} // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
-  useEffect(()=>accordeon());
-  
+  accordeon();
   return (
     <>
       <Head title='идемВкино | админпанель'/>

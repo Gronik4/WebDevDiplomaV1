@@ -64,7 +64,9 @@ export default function SessionGrid({ datas, halls}) {
     const chosenDat = Date.parse(e.target.value);
     axios.get(route('grid.show', e.target.value)).then((resp)=> {
       const allow = resp.data.test? resp.data.test.allpwed: '2';
-      setConder(`${resp.data.sold}${allow}`);
+      const sold = resp.data.sold? '1': '0';
+      setConder(`${sold}${allow}`);
+console.log(`${sold}${allow}`);
       const dts = receivedDataHandler(resp.data.datas);
       setTension(dts);
     });

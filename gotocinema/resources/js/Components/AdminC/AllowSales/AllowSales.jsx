@@ -6,6 +6,7 @@ import { useForm } from '@inertiajs/react';
 
 export default function AllowSales() {
   const {conder, setConder} = useContext(ASContext);
+  console.log(conder);
   const {mess, contentButt} = asHandlerConder(conder);
   const {patch, processing, errors, success } = useForm();
   let sign, code; //sign - только для обновления таблицы БД

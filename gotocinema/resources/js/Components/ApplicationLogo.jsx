@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from '@inertiajs/react';
 // Для заголовков страниц
-export default function ApplicationLogo({flag, children}) {
+export default function ApplicationLogo({children}) {
   return (
     <header className="page-headerA">
       <Link href='/'>

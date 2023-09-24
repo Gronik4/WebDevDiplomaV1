@@ -65,7 +65,7 @@ class SessionGridController extends Controller
         $permissions=SessionGrid::select('allpwed')->where('data', $grid)->first();
         $soldSeats=SessionGrid::select('sold_seats')->
             where('data', $grid)->
-            where('sold_seats', 'like', '% conf-step__chair_buyed%')->count();
+            where('sold_seats', 'like', '% buying-scheme__chair_take%')->count();
         return response()->json(['datas'=>$out, 'test'=>$permissions, 'sold'=>$soldSeats]);
     }
 

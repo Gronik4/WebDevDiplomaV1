@@ -22,6 +22,6 @@ export default function asHandlerConder(code) {
     default:
       out.contentButt='non';
       out.mess='non';
-  }
+  }console.log(out.contentButt);
   return out;
 }

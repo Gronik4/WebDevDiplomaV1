@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 export default function RenderSchemeHall({schemeJson}) {
 
   const schemeAd = schemeJson? JSON.parse(schemeJson): null;
-  console.log(schemeAd);
+  //console.log(schemeAd);
   const scheme = schemeAd.includes('conf-step')? schemeAd.replace(/conf-step__/g, 'buying-scheme__'): schemeAd;
 
   useEffect(()=> {
@@ -17,6 +17,7 @@ export default function RenderSchemeHall({schemeJson}) {
   function statusChair(e) {
     e.target.classList.toggle('buying-scheme__chair_selected');
   }
+
   return (
     <div className='buying-scheme__wrapper'style={{backgroundSize: '190%'}}>
       <div className='dangerous' dangerouslySetInnerHTML={{__html: scheme}}></div>

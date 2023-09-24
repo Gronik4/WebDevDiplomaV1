@@ -6,7 +6,7 @@ import { Head, Link, usePage } from '@inertiajs/react';
 import SessionGrid from '@/Components/AdminC/SessionGrid/SessionGrid';
 import accordeon from '@/Components/AdminC/srevces/accordeon';
 import AllowSales from '@/Components/AdminC/AllowSales/AllowSales';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 export const ASContext = React.createContext(null);
 
 export default function PanelAdmin({halls, films}) {
@@ -14,9 +14,9 @@ export default function PanelAdmin({halls, films}) {
   const { flash } = usePage().props;
   const [conder, setConder] = useState('ix');
   let status;
+
   if(flash.mess) {alert(flash.mess);} // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
-    
-  accordeon();
+  useEffect(()=>accordeon());
   
   return (
     <>

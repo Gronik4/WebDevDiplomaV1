@@ -5,7 +5,7 @@ import RenderClientLegend from '@/Components/Client/showHall/RenderClientLegend'
 import RenderSchemeHall from '@/Components/Client/showHall/RenderSchemeHall';
 import ClientPageLayout from '@/Layouts/ClientPageLayout';
 
-export default function ShowHall({seats}) { 
+export default function ShowHall({seats}) {
   const [dat, start, namehall, namefilm, vip, odinary, soldSeats, gridId] = seats;
   const {get, patch, processing, errors, onsuccess} = useForm();
   
@@ -28,10 +28,11 @@ export default function ShowHall({seats}) {
     });
     payment.cost = cost;
     payment.places = places;
+    const seats = document.querySelector('.dangerous').innerHTML;
+    const jsonUpdate = JSON.stringify(seats);
     const jsonPayment = JSON.stringify(payment);
-    console.log(jsonPayment);
-    patch(route('grid_client.update', {grid_client: gridId, sold_seats: jsonPayment}), {onSuccess: ()=>{
-      get(route('payment', {payment}));
+    patch(route('grid_client.update', {grid_client: gridId, sold_seats: jsonUpdate}), {onSuccess: ()=>{
+      get(route('payment', jsonPayment));
       console.log('Update - successfully.');
     }});
   }
@@ -41,10 +42,16 @@ export default function ShowHall({seats}) {
       <section className='buying'>
         <RenderInfo info={[dat, start, namehall, namefilm]}/>
         <div className='buying-scheme'>
-          <RenderSchemeHall schemeJson={soldSeats} onGetDataSchemeHall={(data)=> handlerDateSH(data)}/>
+          <RenderSchemeHall schemeJson={soldSeats}/>
           <RenderClientLegend prices={[vip, odinary]}/>
         </div>
-        <button className="acceptin-button" onClick={reservation} disabled={processing}>Забронировать</button>
+        <div style={{display: 'flex', flexDirection: 'row', justifyContent: 'center'}}>
+          <button className="acceptin-button" onClick={reservation} disabled={processing}>Забронировать</button>
+          <Link className='acceptin-button' href={route('welcome')}>
+            <button style={{textTransform: 'uppercase'}}>Вернуться на главную</button>
+          </Link>
+        </div>
+        
       </section>
     </ClientPageLayout>
           

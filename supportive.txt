@@ -26,3 +26,17 @@ posterAd: "poster.png"
 posterMain: "poster1.jpg"​
 realise: "2012"
 
+Из Location :
+Location http://webdevdip/payment?payment
+[dat]=2023-09-23&payment
+[start]=19%3A20&payment
+[namehall]=%D0%9A%D1%80%D0%B0%D1%81%D0%BD%D1%8B%D0%B92&payment
+[namefilm]=%D0%97%D0%B2%D1%91%D0%B7%D0%B4%D0%BD%D1%8B%D0%B5%20%D0%B2%D0%BE%D0%B9%D0%BD%D1%8B%20XXIII%3A%20%D0%90%D1%82%D0%B0%D0%BA%D0%B0%20%D0%BA%D0%BB%D0%BE%D0%BD%D0%B8%D1%80%D0%BE%D0%B2%D0%B0%D0%BD%D0%BD%D1%8B%D1%85%20%D0%BA%D0%BB%D0%BE%D0%BD%D0%BE%D0%B2&payment
+[cost]=150&payment
+[places][0]=32
+
+<RenderInfo info={[dat, start, namehall, namefilm]}/>
+<RenderSchemeHall schemeJson={soldSeats} onGetDataSchemeHall={(data)=> handlerDateSH(data)}/>
+<RenderClientLegend prices={[vip, odinary]}/>
+
+<button className="acceptin-button" onClick={reservation} disabled={processing}>Забронировать</button>

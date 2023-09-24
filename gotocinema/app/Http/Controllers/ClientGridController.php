@@ -43,7 +43,7 @@ class ClientGridController extends Controller
         $odinary = $stringHall->value('price_ordinary');
         
         $stingGrid=SessionGrid::where('data', $dat)-> where('nameHall', $namehall)->where('id_film', $idFilm)->
-            where('ses_start', $start);
+            where('ses_start', $start)->get();
         $soldSeats=$stingGrid->value('sold_seats');
         $gridId = $stingGrid->value('id');
         $out = [$dat, $start, $namehall, $namefilm, $vip, $odinary, $soldSeats, $gridId];

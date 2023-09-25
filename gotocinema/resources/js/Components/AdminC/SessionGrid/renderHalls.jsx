@@ -48,7 +48,6 @@ export default function RenderHalls({ name, id, schedule, datas }) {
   function hendlerDrop(e) {
     const takenId = document.querySelector('.taken').id;
     const pass = testTension(tension, datas, takenId);
-    if(conder == '02'){setConder('00'); }
     
     if(e.target.className === 'conf-step__seances-timeline') {
       e.currentTarget.style.background = '';

@@ -12,7 +12,7 @@ export default function asHandlerConder(code) {
       out.contentButt = 'Открыть продажу билетов';
       break;
     case '02':
-      out.mess = 'Сетка заполнена не полностью. Открыть продажу билетов не удастся:';
+      out.mess = 'Сетка не сохранена. Чтобы открыть продажу билетов, сохраните сетку.';
       out.contentButt = 'Кнопка заблокирована';
       break;
     case '01':
@@ -22,6 +22,6 @@ export default function asHandlerConder(code) {
     default:
       out.contentButt='non';
       out.mess='non';
-  }console.log(out.contentButt);
+  }
   return out;
 }

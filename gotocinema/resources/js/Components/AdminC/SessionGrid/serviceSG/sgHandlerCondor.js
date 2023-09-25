@@ -14,6 +14,6 @@ export default function sgHandlerCondor(code) {
       out = 'non';
       break;
     default: out = 'show';
-  }//console.log(code); console.log(out);
+  }
   return out;
 }

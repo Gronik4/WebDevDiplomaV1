@@ -21,7 +21,7 @@ export default function SessionGrid({ datas, halls}) {
   const [filmId, setFilmId] = useState('');
   const [date, setDate] = useState();
   const filmsJson = JSON.stringify(datas);// Для менее затратной передачи данных
-  const {post, patch, processing, errors} = useForm();
+  const {post, patch, processing, errors, success} = useForm();
   const {conder, setConder} = useContext(ASContext);
 
   if(errors.grid) {alert('Действие не возможно. Сетка сеансов пуста.' + errors.grid);}
@@ -35,13 +35,14 @@ export default function SessionGrid({ datas, halls}) {
   const [tension, setTension] = useState(setTensionStart);
 
   function saveGrid(e) {
-    e.preventDefault(); 
-    if(conder == '02') { alert('Действие не возможно. Сетка сеансов пуста.'); return;}
+    e.preventDefault();
+    const fullnes = document.querySelectorAll('.conf-step__seances-movie').length; //Есть что записывать?? 
+    if(fullnes === 0) { alert('Действие не возможно. Сетка сеансов пуста.'); return;}
     const dsg = collectGridData();
-    const count = Object.values(tension).reduce((summ, current)=>summ + current.length, 0);
+    const count = Object.values(tension).reduce((summ, current)=>summ + current.length, 0); //Записано ли что-то в БД
     const selectDate = document.getElementById('SGDate').value;
     if(count === 0) {
-      post(route('grid.store', {grid: dsg}));
+      post(route('grid.store', {grid: dsg}), {onSuccess: ()=> {if(conder == '02'){setConder('00');} }});
       return;
     } 
       patch(route('grid.update', {grid: ['grids', selectDate], grids: dsg}));
@@ -66,7 +67,6 @@ export default function SessionGrid({ datas, halls}) {
       const allow = resp.data.test? resp.data.test.allpwed: '2';
       const sold = resp.data.sold? '1': '0';
       setConder(`${sold}${allow}`);
-console.log(`${sold}${allow}`);
       const dts = receivedDataHandler(resp.data.datas);
       setTension(dts);
     });
@@ -86,14 +86,16 @@ console.log(`${sold}${allow}`);
           })}
         </div>
         <fieldset className='conf-step__buttons text-center'>
-          <form name='savUp' onSubmit={saveGrid}>
-            <input name='grid' type='hidden'/>
             {sign == 'show'?
-              <input type='submit' disabled={processing} value='Сохранить' className='conf-step__button conf-step__button-accent'/> :
+              <input
+                type='submit'
+                disabled={processing}
+                value='Сохранить'
+                className='conf-step__button conf-step__button-accent'
+                onClick={saveGrid}
+              /> :
               null
             }
-            
-          </form>
         </fieldset>
       </>: null}
     </SectionAdminLayout>

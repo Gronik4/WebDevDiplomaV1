@@ -46,39 +46,34 @@ email: lyly@yandex.ru
   'sold_seats'
   'allpwed'
 ********************        РОУТЫ         ***********************************
-                          films
-  GET|HEAD        films .............. films.index › FilmsController@index  
-  POST            films .............. films.store › FilmsController@store
-  GET|HEAD        films/create ....... films.create › FilmsController@create  
-  GET|HEAD        films/{film} ....... films.show › FilmsController@show  
-  PUT|PATCH       films/{film} ....... films.update › FilmsController@update  
-  DELETE          films/{film} ....... films.destroy › FilmsController@destroy  
-  GET|HEAD        films/{film}/edit .. films.edit › FilmsController@edit 
-                          grid
-  GET|HEAD        grid ............... grid.index › SessionGridController@index  
-  POST            grid ............... grid.store › SessionGridController@store  
-  GET|HEAD        grid/create ........ grid.create › SessionGridController@create
-  GET|HEAD        grid/{grid} ........ grid.show › SessionGridController@show
-  PUT|PATCH       grid/{grid} ........ grid.update › SessionGridController@update  
-  DELETE          grid/{grid} ........ grid.destroy › SessionGridController@destroy
-  GET|HEAD        grid/{grid}/edit ... grid.edit › SessionGridController@edit
-                          halls  
-  GET|HEAD        halls .............. halls.index › HallsConfigController@index  
-  POST            halls .............. halls.store › HallsConfigController@store  
-  GET|HEAD        halls/create ....... halls.create › HallsConfigController@create  
-  GET|HEAD        halls/{hall} ....... halls.show › HallsConfigController@show  
-  PUT|PATCH       halls/{hall} ....... halls.update › HallsConfigController@update
-  DELETE          halls/{hall} ....... halls.destroy › HallsConfigController@destroy  
-  GET|HEAD        halls/{hall}/edit .. halls.edit › HallsConfigController@edit
-                           grid_client
-  GET|HEAD        grid_client ..................... grid_client.index › ClientGridController@index
-  POST            grid_client ..................... grid_client.store › ClientGridController@store
-  GET|HEAD        grid_client/create .............. grid_client.create › ClientGridController@create
-  GET|HEAD        grid_client/{grid_client} ....... grid_client.show › ClientGridController@show
-  PUT|PATCH       grid_client/{grid_client} ....... grid_client.update › ClientGridController@update
-  DELETE          grid_client/{grid_client} ....... grid_client.destroy › ClientGridController@destroy
-  GET|HEAD        grid_client/{grid_client}/edit .. grid_client.edit › ClientGridController@edit 
-  GET|HEAD        grid_client/showHall{state} ..... showHall › ClientGridController@showHall
-  GET|HEAD        grid_client/showTiket/{tiket} ... showTiket › ClientGridController@tiket
+  GET|HEAD     / ......................... welcome
+  GET|HEAD     ShowHall ........................... showHall 
+                                    grid 
+  GET|HEAD     grid .............................. grid.index › SessionGridController@index
+  POST         grid .............................. grid.store › SessionGridController@store  
+  GET|HEAD     grid/create ....................... grid.create › SessionGridController@create
+  GET|HEAD     grid/{grid} ....................... grid.show › SessionGridController@show  
+  PUT|PATCH    grid/{grid} ....................... grid.update › SessionGridController@update  
+  DELETE       grid/{grid} ....................... grid.destroy › SessionGridController@destroy  
+  GET|HEAD     grid/{grid}/edit .................. grid.edit › SessionGridController@edit
+                                   grid_client
+  GET|HEAD     grid_client ....................... grid_client.index › ClientGridController@index  
+  POST         grid_client ....................... grid_client.store › ClientGridController@store  
+  GET|HEAD     grid_client/create ................ grid_client.create › ClientGridController@create  
+  GET|HEAD     grid_client/showHall/{state} ...... showHall › ClientGridController@showHall  
+  GET|HEAD     grid_client/{grid_client} ......... grid_client.show › ClientGridController@show
+  PUT|PATCH    grid_client/{grid_client} ......... grid_client.update › ClientGridController@update  
+  DELETE       grid_client/{grid_client} ......... grid_client.destroy › ClientGridController@destroy  
+  GET|HEAD     grid_client/{grid_client}/edit .... grid_client.edit › ClientGridController@edit 
+                                     halls 
+  GET|HEAD     halls .............................. halls.index › HallsConfigController@index  
+  POST         halls .............................. halls.create › HallsConfigController@create
+  GET|HEAD     halls/{hall} ....................... halls.show › HallsConfigController@show  
+  PUT|PATCH    halls/{hall} ....................... halls.update › HallsConfigController@update
+  DELETE       halls/{hall} ....................... halls.destroy › HallsConfigController@destroy
+  GET|HEAD     halls/{hall}/edit .................. halls.edit › HallsConfigController@edit 
 
-
+  GET|HEAD     panelAdmin ......................... panelAdmin
+  GET|HEAD     payment ............................ payment › Inertia\Controller › Controller  
+  GET|HEAD     ticket ............................. ticket › Inertia\Controller › Controller  
+ 

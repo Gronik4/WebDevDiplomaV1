@@ -15,6 +15,7 @@ export default function RenderMovieInfo({movie, index}) {
       <div className="movie__description">
         <h2 className="movie__title" id={movie.id}>{movie.name}</h2>
         <p className="movie__synopsis">{movie.desc}</p>
+        <p className='movie__data'><span className='movie__data-origin'>Жанр: {movie.genre}</span></p>
         <p className="movie__data">
           <span className="movie__data-duration">{movie.duration} минут </span>
           <span className="movie__data-origin">{movie.creators} </span>

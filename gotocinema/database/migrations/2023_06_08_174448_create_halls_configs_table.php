@@ -15,8 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->json('config')->nullable();
-            $table->decimal('price_vip', 4)->nullable();
-            $table->decimal('price_ordinary', 4)->nullable();
+            $table->decimal('price_vip', 4, 0)->nullable();
+            $table->decimal('price_ordinary', 4, 0)->nullable();
             $table->timestamps();
         });
     }

@@ -46,8 +46,6 @@ Route::get('/panelAdmin', function() {
 })->middleware(['status', 'verified'])->name('panelAdmin');
 
 Route::get('/ShowHall', function () {return Inertia::render('ShowHall');})->name('showHall');
-//Route::get('/Payment', function () {return Inertia::render('Payment', ['payment']);})->name('payment');
-//Route::get('/Ticket', function() {return Inertia::render('Ticket');})->name('ticket');
 Route::inertia('/payment', 'Payment')->name('payment');
 Route::inertia('/ticket', 'Ticket')->name('ticket');
 
@@ -58,10 +56,9 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('grid_client/showHall/{state}', [ClientGridController::class, 'showHall'])->name('showHall');
-//Route::get('showHall/{state}', function(SessionGrid $grid) {return $grid;});
-//Route::get('grid_client/showTiket/{tiket}', [ClientGridController::class, 'showTiket'])->name('showTiket'); 
 Route::resource('halls', HallsConfigController::class);
 Route::resource('grid', SessionGridController::class);
 Route::resource('grid_client', ClientGridController::class);
+Route::resource('films', FilmsController::class);
 
 require __DIR__.'/auth.php';

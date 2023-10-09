@@ -28,8 +28,7 @@ class StoreFilmRequest extends FormRequest
             'creators'=>['required', 'string', 'max:255'],
             'realise'=>['required', 'string', 'max:255'],
             'duration'=>['required', 'string', 'max:255'],
-            'posterMain'=>['required', 'string','max:255'],
-            'posterAd'=>['required', 'string','max:255'],
+            'image'=>['required', 'mimes:jpg,jpeg,png,gif,svg,xbm,xpm,wbmp,webp,bmp', 'max:2048']
         ];
     }
 }

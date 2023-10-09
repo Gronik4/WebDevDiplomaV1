@@ -2,7 +2,7 @@ import React from 'react'
 
 export default function RenderMovieInfo({movie, index}) {
   const alter = movie.name + ' постер';
-  const poster = 'i/'+movie.posterMain;
+  const poster = 'i/posters/'+movie.posterMain;
 /**
  * style={{maxWidth: '12.5rem'}} - нужно, чтобы перезаписать свойство, которое приходит из inline:369
  *   иначе картинки разных размеров!!!

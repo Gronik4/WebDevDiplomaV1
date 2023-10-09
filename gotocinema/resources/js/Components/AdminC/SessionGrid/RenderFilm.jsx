@@ -13,7 +13,7 @@ export default function RenderFilm({img, name, duration, id, onSelectFilm}) {
     onSelectFilm(filmChosen);
   }
 
-  function hendlerStart(e) {
+  function handlerStart(e) {
     e.target.closest('.conf-step__movie').classList.add('taken');
     const fantom = createFantom(name, duration, id);
     document.querySelector('.conf-step__movies').append(fantom);
@@ -21,7 +21,7 @@ export default function RenderFilm({img, name, duration, id, onSelectFilm}) {
     setTimeout(()=> fantom.remove(), 0);
   }
 
-  function hendlerEnd(e) {
+  function handlerEnd(e) {
     e.target.closest('.conf-step__movie').classList.remove('taken');
   }
   
@@ -30,10 +30,10 @@ export default function RenderFilm({img, name, duration, id, onSelectFilm}) {
       className='conf-step__movie'
       id={id}
       draggable={sign == 'show'? true: false}
-      onDragStart={sign == 'show'? (e)=> hendlerStart(e): ()=>false}
-      onDragEnd={sign == 'show'? (e)=> hendlerEnd(e): ()=>false}
+      onDragStart={sign == 'show'? (e)=> handlerStart(e): ()=>false}
+      onDragEnd={sign == 'show'? (e)=> handlerEnd(e): ()=>false}
       >
-      <img className='conf-step__movie-poster' alt='poster' src={`img/${img}`}/>
+      <img className='conf-step__movie-poster' alt='poster' src={`img/posters/${img}`}/>
       <h3 className='conf-step__movie-title'>{name}</h3>
       <p className='conf-step__movie-duration'>
         {duration}минут

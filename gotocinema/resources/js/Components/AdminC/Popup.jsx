@@ -40,19 +40,36 @@ export default function Popup({flag, idp, nameEl, idEl}) {
   if(datasInput.length>1){
     styleWrapper = {paddingLeft: '12px',  paddingRight: '12px', overflow: 'auto', height: '480px'};
     inputData =datasInput.map((item, index)=> {
+      /**
+       * Поскольку обработка type="file" отличается от обработки других input-ов, для него вывел отдельный input.
+       * Пример: https://qaa-engineer.ru/otpravka-formy-s-fajlom-react/ 
+       */
       return (
         <div key={index}>
           <label className='conf-step__label conf-step__label-fullsize' htmlFor={item.name}>
             {item.nameInput}
-            <input
+            {item.name === 'image'?  
+              <input
               className='conf-step__input'
+              type={item.type}
+              id={item.id}
               name={item.name}
-              value={data[item.name]}
-              autoComplete={data[item.name]}
               placeholder={item.placeholder}
-              onChange={(e)=> setData(item.name, e.target.value)}
+              onChange={(e)=> setData(item.name, e.target.files[0])} 
               required={true}
-            />
+              />:
+              <input
+                className='conf-step__input'
+                type={item.type}
+                name={item.name}
+                id={item.id}
+                value={data[item.name]}
+                autoComplete={data[item.name]}
+                placeholder={item.placeholder}
+                onChange={(e)=> setData(item.name, e.target.value)}
+                required={true}
+              />
+            }
         </label>
         <InputError message={errors[item.name]} className="mt-2" />
         </div>   

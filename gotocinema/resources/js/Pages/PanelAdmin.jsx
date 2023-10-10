@@ -15,7 +15,7 @@ export default function PanelAdmin({halls, films}) {
   const [conder, setConder] = useState('ix');
   let status;
 
-  if(flash.mess) {alert(flash.mess);} // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
+  if(flash.mess) {alert(flash.mess); flash.mess = '';} // flash приходит из HandleInertiaRequests.php <-HallsConfigController <-with()
   accordeon();
   return (
     <>

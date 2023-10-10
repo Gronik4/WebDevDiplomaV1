@@ -6,6 +6,7 @@ use App\Http\Requests\StoreHallRequest;
 use App\Http\Requests\UpdateHallRequest;
 use App\Models\Film;
 use App\Models\HallConfig;
+use App\Models\SessionGrid;
 use Illuminate\Routing\Route;
 use Inertia\Inertia;
 
@@ -45,6 +46,10 @@ class HallsConfigController extends Controller
      */
     public function destroy($id)
     {
+        if(SessionGrid::where('id_hall', $id)->exists()) {
+            $message = 'Вы не можете удалить этот зал, поскольку в нём запланированы фильмы. Сначала очистите его сетку.';
+            return redirect(route('halls.index'))->with('mess', $message);
+        }
         $hallDelete = HallConfig::find($id);
         $hallDelete->delete();
         return redirect(route('halls.index'));

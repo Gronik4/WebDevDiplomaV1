@@ -19,7 +19,7 @@ export default function ShowHall({seats}) {
 
     selectidSeats.forEach((el)=> {
       if(el.id) {
-        const price = el.classList.contains('buying-scheme__chair_vip')? vip: odinary;
+        const price = el.classList.contains('buying-scheme__chair_vip')? Number(vip): Number(odinary);
         cost +=price;
         places.push(el.id);
         el.classList.remove('buying-scheme__chair_selected', 'buying-scheme__chair_vip', 'buying-scheme__chair_standart');
@@ -33,7 +33,6 @@ export default function ShowHall({seats}) {
     const jsonPayment = JSON.stringify(payment);
     patch(route('grid_client.update', {grid_client: gridId, sold_seats: jsonUpdate}), {onSuccess: ()=>{
       get(route('payment', jsonPayment));
-      console.log('Update - successfully.');
     }});
   }
 
@@ -51,7 +50,6 @@ export default function ShowHall({seats}) {
             <button style={{textTransform: 'uppercase'}}>Вернуться на главную</button>
           </Link>
         </div>
-        
       </section>
     </ClientPageLayout>
           

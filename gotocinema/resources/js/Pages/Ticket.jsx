@@ -21,7 +21,7 @@ export default function Ticket() {
           <p className='ticket__info'>На фильм: <span className="ticket__details ticket__title">{handled.namefilm}</span></p>
           <p className='ticket__info'>Места: <span className="ticket__details ticket__chairs">{areal}</span></p>
           <p className='ticket__info'>В зале: <span className="ticket__details ticket__hall">{handled.namehall}</span></p>
-          <p className='ticket__info'>Начло сеанса: <span className="ticket__details ticket__start">{handled.start}</span></p>
+          <p className='ticket__info'>Начло сеанса: <span className="ticket__details ticket__start">{handled.dat} в {handled.start}</span></p>
           <div className='qrcode' style={{width: '190px', margin: '2px auto', padding: '5px', bgColor: '#FFFFFF'}}>
             <QRCode
               value={qrCodeString}

@@ -1,3 +1,6 @@
+import moment from "moment/moment";
+import 'moment/locale/ru'; // Установка языка(русский)
+
 export default function handlerClientParameters(data) {
   const row = {};
   const areal = [];
@@ -6,6 +9,7 @@ export default function handlerClientParameters(data) {
 
   obj.namehall = decodeURIComponent(obj.namehall);// Декодирует URL код в кирилицу
   obj.namefilm = decodeURIComponent(obj.namefilm);
+  const day = moment(obj.dat).format('LL');
   
   obj.places.forEach(el => {
     if(Object.keys(row).includes(el[0])) {
@@ -19,6 +23,7 @@ export default function handlerClientParameters(data) {
     const edit = `ряд ${item[0]} ${spelling} ${item[1].slice(0, -1)} `;
     areal.push(edit);  
   }
-  obj.places = areal
+  obj.places = areal;
+  obj.dat = day;
   return obj;
 }
